@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { AppLoading } from 'expo';
-import { Container, Text } from 'native-base';
+import { Container, StyleProvider } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
+import getTheme from './native-base-theme/components';
+import platform from './native-base-theme/variables/platform';
+import AppHeader from './main/Header';
+import AppContent from './main/Content';
+
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -27,9 +33,12 @@ export default class App extends React.Component {
     }
 
     return (
-      <Container>
-        <Text>Open up App.js to start working on your app!</Text>
-      </Container>
+      <StyleProvider style={getTheme(platform)}>
+        <Container>
+          <AppHeader />
+          <AppContent />
+        </Container>
+      </StyleProvider>
     );
   }
 }
