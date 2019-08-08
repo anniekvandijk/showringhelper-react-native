@@ -14,14 +14,18 @@ const style = StyleSheet.create({
   }
 });
 
-function AppContent() {
+function AppContent({ shows }) {
   return (
-    <Content style={style.content}>
-      <ImageBackground source={require('./../images/background.jpg')} style={style.background}>
-        <Text>Dit is de content enzo jkjk </Text>
-        <Text>Dit is de content enzo jkjk </Text>
-      </ImageBackground>
-    </Content>
+    <ImageBackground source={require('./../images/background.jpg')} style={style.background}>
+      <Content padder style={style.content}>
+        if (shows)
+        {
+          shows.map(show => (
+            <Text>{show.name}</Text>
+          ))
+        }
+      </Content>
+    </ImageBackground>
   );
 }
 
