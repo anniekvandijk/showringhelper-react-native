@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import { Content, Text } from 'native-base';
 import { StyleSheet, ImageBackground } from 'react-native';
 
@@ -15,22 +16,32 @@ const style = StyleSheet.create({
 });
 
 function AppContent({ shows }) {
+  const [showList, setShowList] = useState([]);
+
+  useEffect(() => {
+    setShowList(shows);
+  }, [shows]);
+
   return (
     <ImageBackground source={require('./../images/background.jpg')} style={style.background}>
       <Content padder style={style.content}>
-        if (shows)
-        {
-          shows.map(show => (
-            <Text>{show.name}</Text>
+        {showList.length > 0
+          ? showList.map(show => (
+            <Text key={show.name + show.location}>{show.location}</Text>
           ))
-        }
-          else
-        {
-          <Text>No Shows</Text>
+          : <Text>No Shows</Text>
         }
       </Content>
     </ImageBackground>
   );
 }
+
+AppContent.propTypes = {
+  shows: PropTypes.array
+};
+
+AppContent.defaultProps = {
+  shows: []
+};
 
 export default AppContent;
