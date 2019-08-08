@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { Header, Left, Body, Title, Button, Icon } from 'native-base';
+import React from 'react';
+import {
+    Header, Left, Body, Title, Button, Icon } from 'native-base';
 
-function AppHeader () {
+function AppHeader() {
     return (
     <Header>
     <Left>

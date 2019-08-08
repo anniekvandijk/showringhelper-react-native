@@ -8,8 +8,6 @@ import platform from './native-base-theme/variables/platform';
 import AppHeader from './main/Header';
 import AppContent from './main/Content';
 
-
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
