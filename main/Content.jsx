@@ -8,15 +8,19 @@ const style = StyleSheet.create({
     height: '100%',
     flex: 1,
     resizeMode: 'cover'
+  },
+  content: {
+    height: '100%'
   }
 });
 
 function AppContent() {
   return (
-    <Content>
-      {/* <ImageBackground source={require('./../images/background.jpg')} style={style.background}> */}
-        <Text>Dit is de content enzo</Text>
-      {/* </ImageBackground> */}
+    <Content style={style.content}>
+      <ImageBackground source={require('./../images/background.jpg')} style={style.background}>
+        <Text>Dit is de content enzo jkjk </Text>
+        <Text>Dit is de content enzo jkjk </Text>
+      </ImageBackground>
     </Content>
   );
 }

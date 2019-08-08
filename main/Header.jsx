@@ -1,20 +1,21 @@
 import React from 'react';
 import {
-    Header, Left, Body, Title, Button, Icon } from 'native-base';
+  Header, Left, Body, Title, Button, Icon
+} from 'native-base';
 
 function AppHeader() {
-    return (
+  return (
     <Header>
-    <Left>
+      <Left>
         <Button transparent>
-        <Icon name='menu' />
+          <Icon name="menu" />
         </Button>
-    </Left>
-    <Body>
+      </Left>
+      <Body>
         <Title>Showring helper</Title>
-    </Body>
+      </Body>
     </Header>
-    )
+  );
 }
 
 export default AppHeader;
