@@ -19,7 +19,7 @@ function FirebaseShowsListner() {
   };
 
   useEffect(() => {
-    const unsubscribe = database.collection(dbCollection)
+    const unsubscribe = database.collection(dbCollection).where('activeShow', '==', true)
       .onSnapshot(querySnapshot => onChangeShows(querySnapshot));
     return () => unsubscribe();
   }, [dbCollection]);
