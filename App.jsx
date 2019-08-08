@@ -11,7 +11,7 @@ import FirebaseShowsListner from './firebase/firebaseShowsListner';
 
 function App() {
   const [isReady, setIsReady] = useState(false);
- // const shows = FirebaseShowsListner();
+  const shows = FirebaseShowsListner();
 
   async function loadFonts() {
     await Font.loadAsync({

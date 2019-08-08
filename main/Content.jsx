@@ -24,6 +24,10 @@ function AppContent({ shows }) {
             <Text>{show.name}</Text>
           ))
         }
+          else
+        {
+          <Text>No Shows</Text>
+        }
       </Content>
     </ImageBackground>
   );

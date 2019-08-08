@@ -3,7 +3,7 @@ import { database } from './firebase';
 
 function FirebaseShowsListner() {
   const [state, setState] = useState(null);
-  const dbCollection = process.env.REACT_APP_FIREBASE_DB;
+  const dbCollection = process.env.FIREBASE_DB;
 
   const onChangeShows = (querySnapshot) => {
     if (querySnapshot) {
