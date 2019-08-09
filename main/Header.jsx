@@ -12,7 +12,7 @@ function AppHeader() {
         </Button>
       </Left>
       <Body>
-        <Title>Showring helper</Title>
+        <Title>Showring helper enzo</Title>
       </Body>
     </Header>
   );
