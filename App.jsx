@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { AppLoading } from 'expo';
-import { Container, StyleProvider } from 'native-base';
+import { Container } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import getTheme from './native-base-theme/components';
-import platform from './native-base-theme/variables/platform';
 import AppHeader from './main/Header';
 import AppContent from './main/Content';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
@@ -30,20 +28,20 @@ function App() {
   }
 
   if (!isReady) {
-    return <AppLoading
-      startAsync={loadFonts}
-      onError={handleLoadingError}
-      onFinish={handleFinishLoading}
-    />
+    return (
+      <AppLoading
+        startAsync={loadFonts}
+        onError={handleLoadingError}
+        onFinish={handleFinishLoading}
+      />
+    );
   }
 
   return (
-    <StyleProvider style={getTheme(platform)}>
-      <Container>
-        <AppHeader />
-        <AppContent shows={shows} />
-      </Container>
-    </StyleProvider>
+    <Container>
+      <AppHeader />
+      <AppContent shows={shows} />
+    </Container>
   );
 }
 
