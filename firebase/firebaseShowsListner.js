@@ -3,7 +3,7 @@ import { FIREBASE_DB } from 'react-native-dotenv';
 import { database } from './firebase';
 
 function FirebaseShowsListner() {
-  const [state, setState] = useState([]);
+  const [state, setState] = useState(null);
   const dbCollection = FIREBASE_DB;
 
   const onChangeShows = (querySnapshot) => {
@@ -14,7 +14,7 @@ function FirebaseShowsListner() {
       });
       setState(shows);
     } else {
-      setState([]);
+      setState(null);
     }
   };
 
