@@ -34,7 +34,7 @@ function AppContent({ shows }) {
     return (
       <>
         <Spinner color="#e65100" />
-        <Text style={style.spinnerText}>Loading shows ...</Text>
+        <Text style={style.spinnerText}>Loading shows ... </Text>
       </>
     );
   }
