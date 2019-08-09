@@ -62,3 +62,6 @@ buck-out/
 .env*
 
 package-lock.json
+
+#google keystore
+showring-helper.jks

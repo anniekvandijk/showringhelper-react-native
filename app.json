@@ -2,19 +2,29 @@
   "name": "ShowringHelperReactNative",
   "displayName": "Showring helper",
   "expo": {
-    "name": "ShowringHelperReactNative",
-    "slug": "expo-template-bare",
+    "name": "Showring helper",
+    "owner": "anniekvandijk",
+    "description": "Showring helper app helps you and your customers to be ready for the showring",
+    "slug": "showring-helper",
     "privacy": "unlisted",
     "sdkVersion": "34.0.0",
     "version": "1.0.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
+    "icon": "images/icon.png",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "android"
     ],
+    "android": {
+      "package": "nl.animundo.android.showringhelper"
+    },
     "packagerOpts": {
-      "sourceExts": ["js", "json", "ts", "tsx", "jsx"]
+      "sourceExts": [
+        "js",
+        "json",
+        "ts",
+        "tsx",
+        "jsx"
+      ]
     }
   }
 }
