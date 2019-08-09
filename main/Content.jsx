@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Content, Text, Spinner } from 'native-base';
 import { StyleSheet, ImageBackground } from 'react-native';
@@ -23,6 +24,7 @@ const style = StyleSheet.create({
 });
 
 function AppContent({ shows }) {
+  const [t] = useTranslation();
   const [showList, setShowList] = useState(null);
 
   useEffect(() => {
@@ -34,7 +36,9 @@ function AppContent({ shows }) {
     return (
       <>
         <Spinner color="#e65100" />
-        <Text style={style.spinnerText}>Loading shows ... </Text>
+        <Text style={style.spinnerText}>
+          {t('spinner')}
+        </Text>
       </>
     );
   }

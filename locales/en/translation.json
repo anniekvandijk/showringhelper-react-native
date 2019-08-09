@@ -1,5 +1,6 @@
 {
+  "spinner": "Loading shows ...",
   "header": {
-    "title": "Show ring helper"
+    "title": "Showring helper"
   }
 }
