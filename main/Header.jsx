@@ -15,9 +15,9 @@ function AppHeader() {
   return (
     <Header style={style.header}>
       <Left>
-        <Button transparent>
+        {/* <Button transparent>
           <Icon name="menu" />
-        </Button>
+        </Button> */}
       </Left>
       <Body>
         <Title>Showring helper</Title>
