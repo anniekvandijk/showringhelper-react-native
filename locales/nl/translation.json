@@ -2,5 +2,14 @@
   "spinner": "Keuringen laden ...",
   "header": {
     "title": "Keuringsring helper"
+  },
+  "noShowCard": {
+    "header": "Geen keuringen",
+    "body": "Er zijn op dit moment geen actieve keuringen" 
+  },
+  "showCard": {
+    "nextToPrepare": "Voorbereiden",
+    "prepare": "Klaarstaan",
+    "inRing": "In ring"
   }
 }

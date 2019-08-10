@@ -20,6 +20,7 @@
     ],
     "android": {
       "package": "nl.animundo.android.showringhelper",
+      "versionCode": 2,
       "permissions": []
     },
     "packagerOpts": {
