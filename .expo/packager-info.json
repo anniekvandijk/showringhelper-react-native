@@ -1,6 +1,9 @@
 {
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://p2-6x2.anniekvandijk.showringhelperreactnative.exp.direct",
+  "packagerNgrokUrl": "https://packager.p2-6x2.anniekvandijk.showringhelperreactnative.exp.direct",
+  "ngrokPid": 21840,
+  "devToolsPort": 19002,
+  "packagerPort": 19001,
+  "packagerPid": 7924
 }

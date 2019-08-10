@@ -8,7 +8,7 @@ import {
 const style = StyleSheet.create({
   header: {
     backgroundColor: '#3e2723',
-    marginTop: StatusBar.currentHeight
+    paddingTop: StatusBar.currentHeight
   }
 });
 

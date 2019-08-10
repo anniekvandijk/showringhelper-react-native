@@ -11,6 +11,10 @@
     "version": "0.1.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
     "icon": "images/icon.png",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#3e2723"
+    },
     "splash": {
       "image": "./images/splashscreen.png",
       "resizeMode": "contain"
