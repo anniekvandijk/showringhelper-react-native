@@ -56,7 +56,7 @@ function ShowCard({ show }) {
       </CardItem>
       <CardItem bordered>
         <Body>
-          <H3>{t('prepare')}</H3>
+          <H3>{t('showCard.prepare')}</H3>
         </Body>
       </CardItem>
       <CardItem>
@@ -69,7 +69,7 @@ function ShowCard({ show }) {
       </CardItem>
       <CardItem bordered>
         <Body>
-          <H3>{t('inRing')}</H3>
+          <H3>{t('showCard.inRing')}</H3>
         </Body>
       </CardItem>
       <CardItem>
