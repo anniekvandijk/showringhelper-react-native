@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './i18n';
 import { AppLoading } from 'expo';
 import { Container } from 'native-base';
 import * as Font from 'expo-font';

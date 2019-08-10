@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, StatusBar } from 'react-native';
 import {
   Header, Left, Body, Title, Button, Icon
@@ -7,11 +8,12 @@ import {
 const style = StyleSheet.create({
   header: {
     backgroundColor: '#3e2723',
-    marginTop: StatusBar.currentHeight
+    paddingTop: StatusBar.currentHeight
   }
 });
 
 function AppHeader() {
+  const [t] = useTranslation();
   return (
     <Header style={style.header}>
       <Left>
@@ -20,7 +22,7 @@ function AppHeader() {
         </Button> */}
       </Left>
       <Body>
-        <Title>Showring helper</Title>
+        <Title>{t('header.title')}</Title>
       </Body>
     </Header>
   );
