@@ -2,11 +2,22 @@ import React, { useState } from 'react';
 import './i18n';
 import { AppLoading } from 'expo';
 import { Container } from 'native-base';
+import { ImageBackground, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import AppHeader from './main/Header';
-import AppContent from './main/Content';
+import Header from './main/Header';
+import ShowContent from './main/ShowContent';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
+import { showContext } from './context/showContext';
+
+const style = StyleSheet.create({
+  background: {
+    width: '100%',
+    height: '100%',
+    flex: 1,
+    resizeMode: 'cover'
+  }
+});
 
 function App() {
   const [isReady, setIsReady] = useState(false);
@@ -40,8 +51,12 @@ function App() {
 
   return (
     <Container>
-      <AppHeader />
-      <AppContent shows={shows} />
+      <showContext.Provider value={{ shows }}>
+        <ImageBackground source={require('./images/background.jpg')} style={style.background}>
+          <Header />
+          <ShowContent></ShowContent>
+        </ImageBackground>
+      </showContext.Provider>
     </Container>
   );
 }
