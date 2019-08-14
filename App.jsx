@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './i18n';
 import { AppLoading } from 'expo';
-import { Container } from 'native-base';
+import { Container, StyleProvider } from 'native-base';
 import { ImageBackground, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
+import getTheme from './native-base-theme/components';
+import platform from './native-base-theme/variables/platform';
 import Header from './main/Header';
 import ShowContent from './main/ShowContent';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
@@ -50,14 +52,16 @@ function App() {
   }
 
   return (
-    <Container>
-      <showContext.Provider value={{ shows }}>
-        <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-          <Header />
-          <ShowContent></ShowContent>
-        </ImageBackground>
-      </showContext.Provider>
-    </Container>
+    <StyleProvider style={getTheme(platform)}>
+      <Container>
+        <showContext.Provider value={{ shows }}>
+          <ImageBackground source={require('./images/background.jpg')} style={style.background}>
+            <Header />
+            <ShowContent></ShowContent>
+          </ImageBackground>
+        </showContext.Provider>
+      </Container>
+    </StyleProvider>
   );
 }
 

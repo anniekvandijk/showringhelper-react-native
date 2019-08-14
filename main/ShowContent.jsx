@@ -14,10 +14,6 @@ const style = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover'
   },
-  header: {
-    backgroundColor: '#3e2723',
-    paddingTop: StatusBar.currentHeight
-  },
   content: {
     height: '100%'
   },
@@ -41,7 +37,7 @@ function ShowContent() {
   if (!showList) {
     return (
       <>
-        <Spinner color="#e65100" />
+        <Spinner />
         <Text style={style.spinnerText}>
           {t('spinner')}
         </Text>

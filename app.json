@@ -17,7 +17,8 @@
     },
     "splash": {
       "image": "./images/splashscreen.png",
-      "resizeMode": "contain"
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "platforms": [
       "android"
@@ -25,7 +26,12 @@
     "android": {
       "package": "nl.animundo.android.showringhelper",
       "versionCode": 2,
-      "permissions": []
+      "permissions": [],
+      "icon": "images/icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "images/icon_transparent.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "packagerOpts": {
       "sourceExts": [
