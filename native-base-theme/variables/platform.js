@@ -151,7 +151,7 @@ export default {
   datePickerBg: 'transparent',
 
   // FAB
-  fabBackgroundColor: 'blue',
+  fabBackgroundColor: '#197b30',
   fabBorderRadius: 28,
   fabBottom: 0,
   fabButtonBorderRadius: 20,
@@ -186,16 +186,16 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
+  footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#603913',
   footerPaddingBottom: 0,
-
+  
   // FooterTab
   tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
   tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
   activeTab: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   sTabBarActiveTextColor: '#007aff',
   tabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#3F51B5',
+  tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#603913',
 
   // Header
   toolbarBtnColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
@@ -243,7 +243,7 @@ export default {
   lineHeightH2: 27,
   lineHeightH3: 22,
   lineHeight: platform === PLATFORM.IOS ? 20 : 24,
-  listItemSelected: platform === PLATFORM.IOS ? '#007aff' : '#3F51B5',
+  listItemSelected: platform === PLATFORM.IOS ? '#007aff' : '#603913',
 
   // List
   listBg: 'transparent',
@@ -260,19 +260,19 @@ export default {
 
   // Radio Button
   radioBtnSize: platform === PLATFORM.IOS ? 25 : 23,
-  radioSelectedColorAndroid: '#3F51B5',
+  radioSelectedColorAndroid: '#603913',
   radioBtnLineHeight: platform === PLATFORM.IOS ? 29 : 24,
   get radioColor() {
     return this.brandPrimary;
   },
 
   // Segment
-  segmentBackgroundColor: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
+  segmentBackgroundColor: platform === PLATFORM.IOS ? '#F8F8F8' : '#603913',
   segmentActiveBackgroundColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   segmentTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  segmentActiveTextColor: platform === PLATFORM.IOS ? '#fff' : '#3F51B5',
+  segmentActiveTextColor: platform === PLATFORM.IOS ? '#fff' : '#603913',
   segmentBorderColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  segmentBorderColorMain: platform === PLATFORM.IOS ? '#a7a6ab' : '#3F51B5',
+  segmentBorderColorMain: platform === PLATFORM.IOS ? '#a7a6ab' : '#603913',
 
   // Spinner
   defaultSpinnerColor: '#e56228',
@@ -280,7 +280,7 @@ export default {
 
   // Tab
   tabBarDisabledTextColor: '#BDBDBD',
-  tabDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
+  tabDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#603913',
   topTabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
   topTabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   topTabBarBorderColor: platform === PLATFORM.IOS ? '#a7a6ab' : '#fff',
