@@ -1,7 +1,9 @@
 {
   "spinner": "Keuringen laden ...",
   "header": {
-    "title": "Keuringsring helper"
+    "title": {
+      "rings": "Ringen"
+    }
   },
   "noShowCard": {
     "header": "Geen keuringen",

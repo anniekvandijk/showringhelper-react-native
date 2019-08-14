@@ -5,20 +5,29 @@ import { Text, Card, CardItem, Body, H1, H2, H3, Button, View } from 'native-bas
 import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
+  header: {
+    backgroundColor: '#197b30'
+  },
+  headerTitle: {
+    color: '#ffffff'
+  },
+  subHeader: {
+    fontWeight: 'bold'
+  },
   buttons: {
     flexWrap: 'wrap',
     flex: 1,
     flexDirection: 'row'
   },
   button: {
-    backgroundColor: '#e65100',
+    backgroundColor: '#e56228',
     marginTop: 10,
     marginRight: 5,
     paddingLeft: 10,
     paddingRight: 10
   },
   buttonText: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: 'bold'
   }
 });
@@ -37,12 +46,12 @@ function ShowCard({ show }) {
   const [t] = useTranslation();
   return (
     <Card>
-      <CardItem header bordered>
-        <H1>{show.name}</H1>
+      <CardItem header bordered style={style.header}>
+        <H2 style={style.headerTitle}>{show.name}</H2>
       </CardItem>
       <CardItem bordered>
         <Body>
-          <H3>{t('showCard.nextToPrepare')}</H3>
+          <H3 style={style.subHeader}>{t('showCard.nextToPrepare')}</H3>
         </Body>
       </CardItem>
       <CardItem>
@@ -56,7 +65,7 @@ function ShowCard({ show }) {
       </CardItem>
       <CardItem bordered>
         <Body>
-          <H3>{t('showCard.prepare')}</H3>
+          <H3 style={style.subHeader}>{t('showCard.prepare')}</H3>
         </Body>
       </CardItem>
       <CardItem>
@@ -69,7 +78,7 @@ function ShowCard({ show }) {
       </CardItem>
       <CardItem bordered>
         <Body>
-          <H3>{t('showCard.inRing')}</H3>
+          <H3 style={style.subHeader}>{t('showCard.inRing')}</H3>
         </Body>
       </CardItem>
       <CardItem>

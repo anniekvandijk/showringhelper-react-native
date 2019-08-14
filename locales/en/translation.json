@@ -1,7 +1,9 @@
 {
   "spinner": "Loading shows ...",
   "header": {
-    "title": "Showring helper"
+    "title": {
+      "rings": "Rings"
+    }
   },
   "noShowCard": {
     "header": "No available shows",
