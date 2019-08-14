@@ -1,27 +1,18 @@
 import React from 'react';
-import { StyleSheet, StatusBar } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import {
-  Header, Left, Body, Title, Button, Icon
+  Thumbnail, Header, Left, Right, Body, Title
 } from 'native-base';
 
-const style = StyleSheet.create({
-  header: {
-    backgroundColor: '#3e2723',
-    marginTop: StatusBar.currentHeight
-  }
-});
-
 function AppHeader() {
+  const [t] = useTranslation();
   return (
-    <Header style={style.header}>
-      <Left>
-        {/* <Button transparent>
-          <Icon name="menu" />
-        </Button> */}
-      </Left>
+    <Header>
+      <Left><Thumbnail square small source={require('../images/icon_round.png')} /></Left>
       <Body>
-        <Title>Showring helper</Title>
+        <Title>{t('header.title.rings')}</Title>
       </Body>
+      <Right />
     </Header>
   );
 }

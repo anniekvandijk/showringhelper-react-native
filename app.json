@@ -11,12 +11,27 @@
     "version": "0.1.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
     "icon": "images/icon.png",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#3e2723"
+    },
+    "splash": {
+      "image": "./images/splashscreen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "platforms": [
       "android"
     ],
     "android": {
       "package": "nl.animundo.android.showringhelper",
-      "permissions": []
+      "versionCode": 2,
+      "permissions": [],
+      "icon": "images/icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "images/icon_transparent.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "packagerOpts": {
       "sourceExts": [

@@ -1,0 +1,17 @@
+{
+  "spinner": "Loading shows ...",
+  "header": {
+    "title": {
+      "rings": "Rings"
+    }
+  },
+  "noShowCard": {
+    "header": "No available shows",
+    "body": "There are no active shows" 
+  },
+  "showCard": {
+    "nextToPrepare": "Next to prepare",
+    "prepare": "Prepare",
+    "inRing": "In ring"
+  }
+}

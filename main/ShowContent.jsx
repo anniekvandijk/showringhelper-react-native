@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { Content, Text, Spinner } from 'native-base';
-import { StyleSheet, ImageBackground } from 'react-native';
+import { Content, Text, Spinner, Header, Left, Body, Title, Button, Icon, Tab, Tabs, TabHeading } from 'native-base';
+import { StyleSheet, StatusBar } from 'react-native';
+import { useShowContext } from '../context/showContext';
 import ShowCard from '../components/ShowCard';
 import NoShowCard from '../components/NoShowCard';
 
@@ -22,7 +24,9 @@ const style = StyleSheet.create({
   }
 });
 
-function AppContent({ shows }) {
+function ShowContent() {
+  const [t] = useTranslation();
+  const shows = useShowContext();
   const [showList, setShowList] = useState(null);
 
   useEffect(() => {
@@ -33,14 +37,16 @@ function AppContent({ shows }) {
   if (!showList) {
     return (
       <>
-        <Spinner color="#e65100" />
-        <Text style={style.spinnerText}>Loading shows ... </Text>
+        <Spinner />
+        <Text style={style.spinnerText}>
+          {t('spinner')}
+        </Text>
       </>
     );
   }
 
   return (
-    <ImageBackground source={require('./../images/background.jpg')} style={style.background}>
+    <>
       <Content padder style={style.content}>
         {showList.length > 0
           ? showList.map(show => (
@@ -52,16 +58,8 @@ function AppContent({ shows }) {
           : <NoShowCard />
         }
       </Content>
-    </ImageBackground>
+    </>
   );
 }
 
-AppContent.propTypes = {
-  shows: PropTypes.array
-};
-
-AppContent.defaultProps = {
-  shows: null
-};
-
-export default AppContent;
+export default ShowContent;

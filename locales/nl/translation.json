@@ -1,0 +1,17 @@
+{
+  "spinner": "Keuringen laden ...",
+  "header": {
+    "title": {
+      "rings": "Ringen"
+    }
+  },
+  "noShowCard": {
+    "header": "Geen keuringen",
+    "body": "Er zijn op dit moment geen actieve keuringen" 
+  },
+  "showCard": {
+    "nextToPrepare": "Voorbereiden",
+    "prepare": "Klaarstaan",
+    "inRing": "In ring"
+  }
+}
