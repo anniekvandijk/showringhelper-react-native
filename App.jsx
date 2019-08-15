@@ -57,7 +57,6 @@ function App() {
       <Container>
         <showContext.Provider value={{ shows }}>
           <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-            <Header />
             <Main />
           </ImageBackground>
         </showContext.Provider>

@@ -2,7 +2,9 @@
   "spinner": "Keuringen laden ...",
   "header": {
     "title": {
-      "rings": "Ringen"
+      "rings": "Ringen",
+      "filter": "Filter",
+      "more": "Meer"
     }
   },
   "noShowCard": {

@@ -2,7 +2,9 @@
   "spinner": "Loading shows ...",
   "header": {
     "title": {
-      "rings": "Rings"
+      "rings": "Rings",
+      "filter": "Filter",
+      "more": "More"
     }
   },
   "noShowCard": {

@@ -3,6 +3,8 @@ import { createBottomTabNavigator,createStackNavigator,createAppContainer } from
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import ShowContent from './ShowContent';
 import FilterContent from './FilterContent';
+import MoreContent from './MoreContent';
+
 
 const MainNavigator = createStackNavigator(
   {
@@ -10,12 +12,6 @@ const MainNavigator = createStackNavigator(
       screen: ShowContent,
       navigationOptions: {
         header: null
-      }
-    },
-    Create: {
-      screen: ShowContent,
-      navigationOptions: {
-        title: "Generate Case",
       }
     }
   },
@@ -28,27 +24,38 @@ const MainNavigator = createStackNavigator(
 const Main = createBottomTabNavigator(
   {
     ShowContent: { screen: MainNavigator },
-    FilterContent: { screen: FilterContent }
+    FilterContent: { screen: FilterContent },
+    MoreContent: { screen: MoreContent }
   },
   {
     tabBarPosition: 'bottom',
-    tabBarComponent: (props) => {
+    tabBarComponent: ({ navigation }) => {
       return (
         <Footer>
           <FooterTab>
             <Button
               vertical
-              //active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate('ShowContent')}>
-              <Icon name="bowtie" />
+              active={navigation.state.index === 0}
+              onPress={() => navigation.navigate('ShowContent')}
+            >
+              <Icon name="home" />
               <Text>Rings</Text>
             </Button>
             <Button
               vertical
-              //active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate('FilterContent')}>
-              <Icon name="briefcase" />
+              active={navigation.state.index === 1}
+              onPress={() => navigation.navigate('FilterContent')}
+            >
+              <Icon type="MaterialIcons" name="filter-list" />
               <Text>Filter</Text>
+            </Button>
+            <Button
+              vertical
+              active={navigation.state.index === 2}
+              onPress={() => navigation.navigate('MoreContent')}
+            >
+              <Icon type="MaterialIcons" name="more-horiz" />
+              <Text>More</Text>
             </Button>
           </FooterTab>
         </Footer>
