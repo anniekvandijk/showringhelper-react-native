@@ -9,6 +9,7 @@ import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 import Header from './main/Header';
 import ShowContent from './main/ShowContent';
+import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
 import { showContext } from './context/showContext';
 
@@ -57,7 +58,7 @@ function App() {
         <showContext.Provider value={{ shows }}>
           <ImageBackground source={require('./images/background.jpg')} style={style.background}>
             <Header />
-            <ShowContent></ShowContent>
+            <Main />
           </ImageBackground>
         </showContext.Provider>
       </Container>
