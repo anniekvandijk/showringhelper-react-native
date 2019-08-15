@@ -16,7 +16,10 @@ const MainNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'ShowContent'
+    initialRouteName: 'ShowContent',
+    cardStyle: {
+      backgroundColor: "transperent"
+    }
   }
 );
 
