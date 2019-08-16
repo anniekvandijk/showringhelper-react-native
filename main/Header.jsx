@@ -1,13 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Thumbnail, Header, Left, Right, Body, Title
+  Header, Left, Right, Body, Title, Button, Icon, Text
 } from 'native-base';
 
-function AppHeader({ title }) {
+function AppHeader({ title, showBack, navigation }) {
   return (
     <Header>
-      <Left><Thumbnail square small source={require('../images/icon_round.png')} /></Left>
+      <Left>
+        {navigation
+          && (
+          <Button
+            vertical
+            title="Go back"
+            onPress={() => navigation.goBack()}
+          >
+            <Icon name="arrow-back" />
+          </Button>
+          )
+        }
+      </Left>
       <Body>
         <Title>{title}</Title>
       </Body>
@@ -17,7 +29,12 @@ function AppHeader({ title }) {
 }
 
 AppHeader.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  showBack: PropTypes.bool
+};
+
+AppHeader.defaultProps = {
+  showBack: false
 };
 
 

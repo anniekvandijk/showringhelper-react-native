@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBottomTabNavigator,createStackNavigator,createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator,createAppContainer } from 'react-navigation';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import ShowContent from './ShowContent';
 import FilterContent from './FilterContent';
@@ -22,7 +22,6 @@ const MainNavigator = createStackNavigator(
     }
   }
 );
-
 
 const Main = createBottomTabNavigator(
   {

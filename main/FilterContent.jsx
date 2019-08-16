@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, View, Text } from 'react-native';
+import PropTypes from 'prop-types';
+import { Content, Button, Text } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { useShowContext } from '../context/showContext';
 import Header from './Header';
+
+const style = StyleSheet.create({
+  content: {
+    height: '100%'
+  }
+});
 
 function FilterContent({ navigation }) {
   const [t] = useTranslation();
+  const shows = useShowContext();
+  const [filter, setFilter] = useState([]);
+
   return (
     <>
       <Header title={t('header.title.filter')} />
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Content padder style={style.content}>
         <Text>Filter Screen</Text>
         <Button
           title="Go to Filter... again"
@@ -22,7 +34,7 @@ function FilterContent({ navigation }) {
           title="Go back"
           onPress={() => navigation.goBack()}
         />
-      </View>
+      </Content>
     </>
   );
 }
