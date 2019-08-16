@@ -33,9 +33,12 @@ const ShowNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'ShowContent',
-    cardStyle: {
-      //backgroundColor: 'transperent'
-    }
+    transparentCard: true,
+    transitionConfig: () => ({
+      containerStyle: {
+        backgroundColor: 'transparent'
+      }
+    })
   }
 );
 
