@@ -11,7 +11,11 @@ import PrivacyPolicyDetail from './PrivacyPolicyDetail';
 function NavHeader({ navigation, title, showBack }) {
   const [t] = useTranslation();
   return (
-    <Header title={t(title)} showBack={showBack} />
+    <Header
+      title={t(title)}
+      showBack={showBack}
+      navigation={navigation} 
+    />
   );
 }
 
@@ -19,8 +23,11 @@ const ShowNavigator = createStackNavigator(
   {
     ShowContent: {
       screen: ShowContent,
-      navigationOptions: {
-        header: <NavHeader title="header.title.rings" />
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.rings" navigation={navigation} />
+        };
+        return options;
       }
     }
   },
@@ -39,6 +46,7 @@ const FilterNavigator = createStackNavigator(
       navigationOptions: {
         header: <NavHeader title="header.title.filter" />
       }
+
     }
   },
   { 
@@ -59,9 +67,11 @@ const MoreNavigator = createStackNavigator(
     },
     PrivacyPolicyDetail: {
       screen: PrivacyPolicyDetail,
-      navigationOptions: {
-        header: <NavHeader title="header.title.privacyPolicy" showBack />
-
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.privacyPolicy" showBack navigation={navigation} />
+        };
+        return options;
       }
     }
   },

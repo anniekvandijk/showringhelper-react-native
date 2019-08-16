@@ -17,16 +17,17 @@ function MoreContent({ navigation }) {
       <Content padder style={style.content}>
         <Card>
           <CardItem bordered>
-            <Button
-              iconRight
-              full
-              transparent
-              title="Go to Privicy policy"
-              onPress={() => navigation.navigate('PrivacyPolicyDetail')}            
-            >
+            <Left>
               <Text>{t('pages.moreContent.privacyPolicyText')}</Text>
-              <Icon name="arrow-forward" />
-            </Button>
+            </Left>
+            <Right>
+              <Button
+                title="Go to Privicy policy"
+                onPress={() => navigation.navigate('PrivacyPolicyDetail')}            
+              >
+                <Icon name="arrow-forward" />
+              </Button>
+            </Right>
           </CardItem>
         </Card>
       </Content>
