@@ -19,7 +19,6 @@ function FilterContent({ navigation }) {
 
   return (
     <>
-      <Header title={t('header.title.filter')} />
       <Content padder style={style.content}>
         <Text>Filter Screen</Text>
         <Button

@@ -38,7 +38,6 @@ function ShowContent() {
   if (!showList) {
     return (
       <>
-        <Header title={t('header.title.rings')} />
         <Spinner />
         <Text style={style.spinnerText}>
           {t('spinner')}
@@ -49,7 +48,6 @@ function ShowContent() {
 
   return (
     <>
-      <Header title={t('header.title.rings')} />
       <Content padder style={style.content}>
         {showList.length > 0
           ? showList.map(show => (

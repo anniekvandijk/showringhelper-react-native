@@ -15,7 +15,6 @@ function MoreContent({ navigation }) {
   const [t] = useTranslation();
   return (
     <>
-      <Header title={t('header.title.more')} />
       <Content padder style={style.content}>
         <Card>
           <CardItem bordered>

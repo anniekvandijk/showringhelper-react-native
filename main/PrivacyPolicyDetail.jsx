@@ -15,7 +15,6 @@ function PrivacyPolicyDetail() {
   const [t] = useTranslation();
   return (
     <>
-      <Header title={t('header.title.privacyPolicy')} showBack />
       <Content padder style={style.content}>
         <Card>
           <CardItem bordered>

@@ -1,17 +1,26 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { createBottomTabNavigator, createStackNavigator,createAppContainer } from 'react-navigation';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
+import Header from './Header';
 import ShowContent from './ShowContent';
 import FilterContent from './FilterContent';
 import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
 
-const MainNavigator = createStackNavigator(
+function NavHeader({ navigation, title, useBack }) {
+  const [t] = useTranslation();
+  return (
+    <Header title={t(title)} />
+  );
+}
+
+const ShowNavigator = createStackNavigator(
   {
     ShowContent: {
       screen: ShowContent,
       navigationOptions: {
-        header: null
+        header: <NavHeader title="header.title.rings" />
       }
     }
   },
@@ -23,18 +32,36 @@ const MainNavigator = createStackNavigator(
   }
 );
 
+const FilterNavigator = createStackNavigator(
+  {
+    FilterContent: {
+      screen: FilterContent,
+      navigationOptions: {
+        header: <NavHeader title="header.title.filter" />
+      }
+    }
+  },
+  { 
+    initialRouteName: 'FilterContent',
+    cardStyle: {
+      backgroundColor: 'transperent'
+    }
+  }
+);
+
 const MoreNavigator = createStackNavigator(
   {
     MoreContent: {
       screen: MoreContent,
       navigationOptions: {
-        header: null
+        header: <NavHeader title="header.title.more" />
       }
     },
     PrivacyPolicyDetail: {
       screen: PrivacyPolicyDetail,
       navigationOptions: {
-        header: null
+        header: <NavHeader title="header.title.privacyPolicy" />
+
       }
     }
   },
@@ -49,13 +76,14 @@ const MoreNavigator = createStackNavigator(
 
 const Main = createBottomTabNavigator(
   {
-    ShowContent: { screen: MainNavigator },
-    FilterContent: { screen: FilterContent },
+    ShowContent: { screen: ShowNavigator },
+    FilterContent: { screen: FilterNavigator },
     MoreContent: { screen: MoreNavigator }
   },
   {
     tabBarPosition: 'bottom',
     tabBarComponent: ({ navigation }) => {
+      const [t] = useTranslation();
       return (
         <Footer>
           <FooterTab>
@@ -65,7 +93,9 @@ const Main = createBottomTabNavigator(
               onPress={() => navigation.navigate('ShowContent')}
             >
               <Icon name="home" />
-              <Text>Rings</Text>
+              <Text>
+                {t('header.title.rings')}
+              </Text>
             </Button>
             <Button
               vertical
@@ -73,7 +103,9 @@ const Main = createBottomTabNavigator(
               onPress={() => navigation.navigate('FilterContent')}
             >
               <Icon type="MaterialIcons" name="filter-list" />
-              <Text>Filter</Text>
+              <Text>
+                {t('header.title.filter')}
+              </Text>
             </Button>
             <Button
               vertical
@@ -81,7 +113,9 @@ const Main = createBottomTabNavigator(
               onPress={() => navigation.navigate('MoreContent')}
             >
               <Icon type="MaterialIcons" name="more-horiz" />
-              <Text>More</Text>
+              <Text>
+                {t('header.title.more')}
+              </Text>
             </Button>
           </FooterTab>
         </Footer>
