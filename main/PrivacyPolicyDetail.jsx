@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Content, Button, Text, Card, CardItem, Left, Right, Body, H1 } from 'native-base';
-import Header from './Header';
 
 const style = StyleSheet.create({
   content: {

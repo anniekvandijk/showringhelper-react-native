@@ -14,7 +14,7 @@ function NavHeader({ navigation, title, showBack }) {
     <Header
       title={t(title)}
       showBack={showBack}
-      navigation={navigation} 
+      navigation={navigation}
     />
   );
 }
@@ -34,7 +34,7 @@ const ShowNavigator = createStackNavigator(
   {
     initialRouteName: 'ShowContent',
     cardStyle: {
-      backgroundColor: 'transperent'
+      //backgroundColor: 'transperent'
     }
   }
 );
@@ -52,7 +52,7 @@ const FilterNavigator = createStackNavigator(
   { 
     initialRouteName: 'FilterContent',
     cardStyle: {
-      backgroundColor: 'transperent'
+      //backgroundColor: 'transperent'
     }
   }
 );
@@ -78,7 +78,7 @@ const MoreNavigator = createStackNavigator(
   {
     initialRouteName: 'MoreContent',
     cardStyle: {
-      backgroundColor: 'transperent'
+      //backgroundColor: 'transperent'
     }
   }
 );

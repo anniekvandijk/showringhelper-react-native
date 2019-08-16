@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Content, Text, Spinner, Left, Body, Title, Button, Icon, Tab, Tabs, TabHeading } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
-import Header from './Header';
 import ShowCard from '../components/ShowCard';
 import NoShowCard from '../components/NoShowCard';
 
