@@ -8,7 +8,7 @@ function AppHeader({ title, showBack, navigation }) {
   return (
     <Header>
       <Left>
-        {navigation
+        {showBack
           && (
           <Button
             vertical

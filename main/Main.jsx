@@ -4,7 +4,7 @@ import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import ShowContent from './ShowContent';
 import FilterContent from './FilterContent';
 import MoreContent from './MoreContent';
-
+import PrivacyPolicyDetail from './PrivacyPolicyDetail';
 
 const MainNavigator = createStackNavigator(
   {
@@ -18,16 +18,40 @@ const MainNavigator = createStackNavigator(
   {
     initialRouteName: 'ShowContent',
     cardStyle: {
-      backgroundColor: "transperent"
+      backgroundColor: 'transperent'
     }
   }
 );
+
+const MoreNavigator = createStackNavigator(
+  {
+    MoreContent: {
+      screen: MoreContent,
+      navigationOptions: {
+        header: null
+      }
+    },
+    PrivacyPolicyDetail: {
+      screen: PrivacyPolicyDetail,
+      navigationOptions: {
+        header: null
+      }
+    }
+  },
+  {
+    initialRouteName: 'MoreContent',
+    cardStyle: {
+      backgroundColor: 'transperent'
+    }
+  }
+);
+
 
 const Main = createBottomTabNavigator(
   {
     ShowContent: { screen: MainNavigator },
     FilterContent: { screen: FilterContent },
-    MoreContent: { screen: MoreContent }
+    MoreContent: { screen: MoreNavigator }
   },
   {
     tabBarPosition: 'bottom',
