@@ -8,10 +8,10 @@ import FilterContent from './FilterContent';
 import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
 
-function NavHeader({ navigation, title, useBack }) {
+function NavHeader({ navigation, title, showBack }) {
   const [t] = useTranslation();
   return (
-    <Header title={t(title)} />
+    <Header title={t(title)} showBack={showBack} />
   );
 }
 
@@ -60,7 +60,7 @@ const MoreNavigator = createStackNavigator(
     PrivacyPolicyDetail: {
       screen: PrivacyPolicyDetail,
       navigationOptions: {
-        header: <NavHeader title="header.title.privacyPolicy" />
+        header: <NavHeader title="header.title.privacyPolicy" showBack />
 
       }
     }

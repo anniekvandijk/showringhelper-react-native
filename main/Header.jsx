@@ -12,6 +12,7 @@ function AppHeader({ title, showBack, navigation }) {
           && (
           <Button
             vertical
+            transparent
             title="Go back"
             onPress={() => navigation.goBack()}
           >
