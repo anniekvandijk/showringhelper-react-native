@@ -1,7 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { createBottomTabNavigator, createStackNavigator,createAppContainer } from 'react-navigation';
-import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
+import PropTypes from 'prop-types';
+import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import {
+  Button, Text, Icon, Footer, FooterTab
+} from 'native-base';
 import Header from './Header';
 import ShowContent from './ShowContent';
 import FilterContent from './FilterContent';
@@ -23,11 +26,8 @@ const ShowNavigator = createStackNavigator(
   {
     ShowContent: {
       screen: ShowContent,
-      navigationOptions: ({ navigation }) => {
-        const options = {
-          header: <NavHeader title="header.title.rings" navigation={navigation} />
-        };
-        return options;
+      navigationOptions: {
+        header: <NavHeader title="header.title.rings" />
       }
     }
   },
@@ -52,11 +52,14 @@ const FilterNavigator = createStackNavigator(
 
     }
   },
-  { 
+  {
     initialRouteName: 'FilterContent',
-    cardStyle: {
-      //backgroundColor: 'transperent'
-    }
+    transparentCard: true,
+    transitionConfig: () => ({
+      containerStyle: {
+        backgroundColor: 'transparent'
+      }
+    })
   }
 );
 
@@ -80,9 +83,12 @@ const MoreNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'MoreContent',
-    cardStyle: {
-      //backgroundColor: 'transperent'
-    }
+    transparentCard: true,
+    transitionConfig: () => ({
+      containerStyle: {
+        backgroundColor: 'transparent'
+      }
+    })
   }
 );
 
@@ -136,5 +142,15 @@ const Main = createBottomTabNavigator(
     }
   }
 );
+
+NavHeader.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  showBack: PropTypes.bool
+};
+
+NavHeader.defaultProps = {
+  showBack: false
+};
 
 export default createAppContainer(Main);

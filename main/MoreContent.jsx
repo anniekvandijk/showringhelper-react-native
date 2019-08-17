@@ -2,7 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { Content, Icon, Button, Text, Card, CardItem, Left, Right, Body, H1 } from 'native-base';
+import {
+  Content, Icon, Button, Text, Card, CardItem, Left, Right
+} from 'native-base';
 
 const style = StyleSheet.create({
   content: {
@@ -23,7 +25,7 @@ function MoreContent({ navigation }) {
             <Right>
               <Button
                 title="Go to Privicy policy"
-                onPress={() => navigation.navigate('PrivacyPolicyDetail')}            
+                onPress={() => navigation.navigate('PrivacyPolicyDetail')}
               >
                 <Icon name="arrow-forward" />
               </Button>
@@ -35,5 +37,8 @@ function MoreContent({ navigation }) {
   );
 }
 
-export default MoreContent;
+MoreContent.propTypes = {
+  navigation: PropTypes.object.isRequired
+};
 
+export default MoreContent;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
-import { Content, Text, Spinner, Left, Body, Title, Button, Icon, Tab, Tabs, TabHeading } from 'native-base';
+import { Content, Text, Spinner } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
 import ShowCard from '../components/ShowCard';

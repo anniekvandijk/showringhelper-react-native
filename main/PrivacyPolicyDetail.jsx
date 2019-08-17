@@ -1,8 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
-import { Content, Button, Text, Card, CardItem, Left, Right, Body, H1 } from 'native-base';
+import {
+  Content, Text, Card, CardItem, Body
+} from 'native-base';
 
 const style = StyleSheet.create({
   content: {

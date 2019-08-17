@@ -31,11 +31,13 @@ function AppHeader({ title, showBack, navigation }) {
 
 AppHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  showBack: PropTypes.bool
+  showBack: PropTypes.bool,
+  navigation: PropTypes.object
 };
 
 AppHeader.defaultProps = {
-  showBack: false
+  showBack: false,
+  navigation: null
 };
 
 
