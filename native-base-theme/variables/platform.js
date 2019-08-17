@@ -62,7 +62,7 @@ export default {
   buttonDefaultBorderRadius: 2,
   buttonDefaultBorderWidth: 1,
   get buttonPrimaryBg() {
-    return this.brandPrimary;
+    return this.brandSecondary;
   },
   get buttonPrimaryColor() {
     return this.inverseTextColor;
@@ -133,7 +133,9 @@ export default {
   checkboxTextShadowRadius: 0,
 
   // Color
-  brandPrimary: platform === PLATFORM.IOS ? '#007aff' : '#3e2723',
+  brandPrimary: platform === PLATFORM.IOS ? '#197b30' : '#3e2723',
+  brandSecondary: platform === PLATFORM.IOS ? '#197b30' : '#197b30',
+  brandTertiary: platform === PLATFORM.IOS ? '#197b30' : '#3e2723',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -190,15 +192,15 @@ export default {
   footerPaddingBottom: 0,
   
   // FooterTab
-  tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
+  tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#ffffff',
   tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
   activeTab: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   sTabBarActiveTextColor: '#007aff',
-  tabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#603913',
+  tabBarActiveTextColor: platform === PLATFORM.IOS ? '#e56228' : '#e56228',
+  tabActiveBgColor: platform === PLATFORM.IOS ? 'transparant' : 'transparant',
 
   // Header
-  toolbarBtnColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
+  toolbarBtnColor: platform === PLATFORM.IOS ? '#197b30' : '#fff',
   toolbarDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#603913',
   toolbarHeight: platform === PLATFORM.IOS ? 64 : 56,
   toolbarSearchIconSize: platform === PLATFORM.IOS ? 20 : 23,

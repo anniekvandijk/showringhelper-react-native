@@ -9,6 +9,7 @@ import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 import Header from './main/Header';
 import ShowContent from './main/ShowContent';
+import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
 import { showContext } from './context/showContext';
 
@@ -17,7 +18,7 @@ const style = StyleSheet.create({
     width: '100%',
     height: '100%',
     flex: 1,
-    resizeMode: 'cover'
+    //resizeMode: 'cover'
   }
 });
 
@@ -56,8 +57,7 @@ function App() {
       <Container>
         <showContext.Provider value={{ shows }}>
           <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-            <Header />
-            <ShowContent></ShowContent>
+            <Main />
           </ImageBackground>
         </showContext.Provider>
       </Container>
