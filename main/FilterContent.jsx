@@ -6,6 +6,7 @@ import {
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
+import { useShowFilterContext } from '../context/showFilterContext';
 
 const style = StyleSheet.create({
   content: {
@@ -16,16 +17,12 @@ const style = StyleSheet.create({
 function FilterContent() {
   const [t] = useTranslation();
   const shows = useShowContext();
+  const [showFilter, setShowFilter] = useShowFilterContext();
   const [showList, setShowList] = useState(null);
-  const [showFilter, setShowFilter] = useState([]);
 
   useEffect(() => {
     setShowList(shows);
   }, [shows]);
-
-  useEffect(() => {
-    console.log(showFilter);
-  }, [showFilter]);
 
   function isFiltered(id) {
     if (showFilter.indexOf(id) > -1) {
@@ -35,7 +32,6 @@ function FilterContent() {
   }
 
   function handleChange(id, bool) {
-    console.log(id, bool);
     if (bool) {
       setShowFilter([...showFilter, id]);
     } else {
@@ -60,7 +56,7 @@ function FilterContent() {
         <Card>
           <CardItem bordered>
             <Left>
-              <Text>Filter comming soon ...</Text>
+              <Text>{t('pages.filterContent.text')}</Text>
             </Left>
           </CardItem>
           {showList && showList.map(show => (
