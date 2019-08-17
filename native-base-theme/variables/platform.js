@@ -62,7 +62,7 @@ export default {
   buttonDefaultBorderRadius: 2,
   buttonDefaultBorderWidth: 1,
   get buttonPrimaryBg() {
-    return this.brandPrimary;
+    return this.brandSecondary;
   },
   get buttonPrimaryColor() {
     return this.inverseTextColor;
@@ -134,6 +134,8 @@ export default {
 
   // Color
   brandPrimary: platform === PLATFORM.IOS ? '#197b30' : '#3e2723',
+  brandSecondary: platform === PLATFORM.IOS ? '#197b30' : '#197b30',
+  brandTertiary: platform === PLATFORM.IOS ? '#197b30' : '#3e2723',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -194,7 +196,7 @@ export default {
   tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
   activeTab: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   sTabBarActiveTextColor: '#007aff',
-  tabBarActiveTextColor: platform === PLATFORM.IOS ? '#e56228' : '#fff',
+  tabBarActiveTextColor: platform === PLATFORM.IOS ? '#e56228' : '#e56228',
   tabActiveBgColor: platform === PLATFORM.IOS ? 'transparant' : 'transparant',
 
   // Header

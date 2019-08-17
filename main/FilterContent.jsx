@@ -24,7 +24,7 @@ function FilterContent({ navigation }) {
         <Card>
           <CardItem bordered>
             <Left>
-              <Text>Filter comming</Text>
+              <Text>Filter comming soon ...</Text>
             </Left>
           </CardItem>
         </Card>
