@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import {
-  Button, Text, Icon, Footer, FooterTab
+  Button, Text, Icon, Footer, FooterTab, Badge
 } from 'native-base';
+import { useShowFilterContext } from '../context/showFilterContext';
 import Header from './Header';
 import ShowContent from './ShowContent';
 import FilterContent from './FilterContent';
@@ -103,6 +104,7 @@ const Main = createBottomTabNavigator(
     tabBarPosition: 'bottom',
     tabBarComponent: ({ navigation }) => {
       const [t] = useTranslation();
+      const [showFilter] = useShowFilterContext();
       return (
         <Footer>
           <FooterTab>
@@ -121,7 +123,10 @@ const Main = createBottomTabNavigator(
               active={navigation.state.index === 1}
               onPress={() => navigation.navigate('FilterContent')}
             >
-              <Icon type="MaterialIcons" name="filter-list" />
+              {(showFilter && showFilter.length > 0)
+                ? <Icon type="MaterialIcons" name="filter-list" />
+                : <Icon type="MaterialIcons" name="filter-list" />
+              }
               <Text>
                 {t('header.title.filter')}
               </Text>

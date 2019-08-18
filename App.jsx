@@ -12,6 +12,8 @@ import ShowContent from './main/ShowContent';
 import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
 import { showContext } from './context/showContext';
+import { ShowFilterProvider } from './context/showFilterContext';
+
 
 const style = StyleSheet.create({
   background: {
@@ -56,9 +58,11 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-            <Main />
-          </ImageBackground>
+          <ShowFilterProvider>
+            <ImageBackground source={require('./images/background.jpg')} style={style.background}>
+              <Main />
+            </ImageBackground>
+          </ShowFilterProvider>
         </showContext.Provider>
       </Container>
     </StyleProvider>

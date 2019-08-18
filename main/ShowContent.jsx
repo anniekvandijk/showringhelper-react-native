@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Content, Text, Spinner } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
+import { useShowFilterContext } from '../context/showFilterContext';
+
 import ShowCard from '../components/ShowCard';
 import NoShowCard from '../components/NoShowCard';
 
@@ -26,11 +28,17 @@ const style = StyleSheet.create({
 function ShowContent() {
   const [t] = useTranslation();
   const shows = useShowContext();
+  const [showFilter] = useShowFilterContext();
   const [showList, setShowList] = useState(null);
 
   useEffect(() => {
-    setShowList(shows);
-  }, [shows]);
+    const filteredShows = shows && shows.filter(el => showFilter.indexOf(el.id) !== -1);
+    if (filteredShows && filteredShows.length > 0) {
+      setShowList(filteredShows);
+    } else {
+      setShowList(shows);
+    }
+  }, [shows, showFilter]);
 
 
   if (!showList) {
