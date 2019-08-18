@@ -1,26 +1,36 @@
-import React from 'react';
-import { Button, View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
+import {
+  Content, Button, Text, Card, CardItem, Left, Right, Icon
+} from 'native-base';
+import { StyleSheet } from 'react-native';
+import { useShowContext } from '../context/showContext';
 
+const style = StyleSheet.create({
+  content: {
+    height: '100%'
+  }
+});
 
-function FilterContent({ props }) {
+function FilterContent({ navigation }) {
+  const [t] = useTranslation();
+  const shows = useShowContext();
+  const [filter, setFilter] = useState([]);
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => props.navigation.push('FilterContent')}
-      />
-      <Button
-        title="Go to Home"
-        onPress={() => props.navigation.navigate('Home')}
-      />
-      <Button
-        title="Go back"
-        onPress={() => props.navigation.goBack()}
-      />
-    </View>
+    <>
+      <Content padder style={style.content}>
+        <Card>
+          <CardItem bordered>
+            <Left>
+              <Text>Filter comming soon ...</Text>
+            </Left>
+          </CardItem>
+        </Card>
+      </Content>
+    </>
   );
 }
 
 export default FilterContent;
-
