@@ -11,6 +11,11 @@ import { useShowFilterContext } from '../context/showFilterContext';
 const style = StyleSheet.create({
   content: {
     height: '100%'
+  },
+  spinnerText: {
+    flex: 1,
+    textAlign: 'center',
+    alignSelf: 'center'
   }
 });
 
@@ -62,17 +67,16 @@ function FilterContent() {
           {showList && showList.map(show => (
             <CardItem bordered key={show.id}>
               <Left>
+                <Text>{show.name}</Text>
+              </Left>
+              <Right>
                 <CheckBox
                   checked={isFiltered(show.id)}
                   onPress={() => handleChange(show.id, !isFiltered(show.id))}
                 />
-              </Left>
-              <Body>
-                <Text>{show.name}</Text>
-              </Body>
+              </Right>
             </CardItem>
-          )
-        )}
+          ))}
         </Card>
       </Content>
     </>
