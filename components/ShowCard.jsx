@@ -21,10 +21,10 @@ const style = StyleSheet.create({
   },
   button: {
     backgroundColor: '#e56228',
-    marginTop: 10,
+    marginTop: 5,
     marginRight: 5,
-    paddingLeft: 10,
-    paddingRight: 10
+    paddingLeft: 5,
+    paddingRight: 5
   },
   buttonText: {
     fontSize: 18,
