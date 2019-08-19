@@ -63,6 +63,7 @@ function SettingsDetail() {
                 style={{ width: undefined }}
                 selectedValue={language}
                 onValueChange={value => handleChangeLanguage(value)}
+                itemTextStyle={{ color: '#000000' }}
               >
                 <Picker.Item label="Nederlands" value="nl" />
                 <Picker.Item label="English" value="en" />
