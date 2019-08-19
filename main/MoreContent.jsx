@@ -31,6 +31,19 @@ function MoreContent({ navigation }) {
               </Button>
             </Right>
           </CardItem>
+          <CardItem bordered>
+            <Left>
+              <Text>{t('pages.moreContent.settingsText')}</Text>
+            </Left>
+            <Right>
+              <Button
+                title="Go to Settings"
+                onPress={() => navigation.navigate('SettingsDetail')}
+              >
+                <Icon name="arrow-forward" />
+              </Button>
+            </Right>
+          </CardItem>
         </Card>
       </Content>
     </>

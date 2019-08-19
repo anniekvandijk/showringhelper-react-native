@@ -11,6 +11,7 @@ import ShowContent from './ShowContent';
 import FilterContent from './FilterContent';
 import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
+import SettingsDetail from './SettingsDetail';
 
 function NavHeader({ navigation, title, showBack }) {
   const [t] = useTranslation();
@@ -77,6 +78,15 @@ const MoreNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => {
         const options = {
           header: <NavHeader title="header.title.privacyPolicy" showBack navigation={navigation} />
+        };
+        return options;
+      }
+    },
+    SettingsDetail: {
+      screen: SettingsDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.settings" showBack navigation={navigation} />
         };
         return options;
       }
