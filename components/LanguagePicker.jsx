@@ -19,7 +19,6 @@ function LanguagePicker() {
     if (!language) {
       setLanguage(i18n.language);
     }
-    console.log(language);
     i18n.changeLanguage(language);
   }, [language]);
 
