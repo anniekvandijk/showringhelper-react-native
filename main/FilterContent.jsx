@@ -38,9 +38,11 @@ function FilterContent() {
 
   function handleChange(id, bool) {
     if (bool) {
-      setShowFilter([...showFilter, id]);
+      const filter = [...showFilter, id];
+      setShowFilter(filter);
     } else {
-      setShowFilter(showFilter.filter(x => x !== id));
+      const filter = showFilter.filter(x => x !== id);
+      setShowFilter(filter);
     }
   }
 
