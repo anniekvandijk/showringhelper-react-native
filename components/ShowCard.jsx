@@ -51,7 +51,7 @@ function ShowCard({ show }) {
       </CardItem>
       <CardItem bordered>
         <Body>
-          <H3 style={style.subHeader}>{t('showCard.nextToPrepare')}</H3>
+          <H3 style={style.subHeader}>{t('components.showCard.nextToPrepare')}</H3>
         </Body>
       </CardItem>
       <CardItem>
@@ -65,7 +65,7 @@ function ShowCard({ show }) {
       </CardItem>
       <CardItem bordered>
         <Body>
-          <H3 style={style.subHeader}>{t('showCard.prepare')}</H3>
+          <H3 style={style.subHeader}>{t('components.showCard.prepare')}</H3>
         </Body>
       </CardItem>
       <CardItem>
@@ -78,7 +78,7 @@ function ShowCard({ show }) {
       </CardItem>
       <CardItem bordered>
         <Body>
-          <H3 style={style.subHeader}>{t('showCard.inRing')}</H3>
+          <H3 style={style.subHeader}>{t('components.showCard.inRing')}</H3>
         </Body>
       </CardItem>
       <CardItem>
