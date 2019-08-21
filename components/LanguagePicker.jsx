@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AsyncStorage } from 'react-native';
 import {
-  Body, Picker, Right, Left, Icon, Header, Button, Title
+  Body, Right, Left, Icon, Header, Button, Title, Picker
 } from 'native-base';
 
 function LanguagePicker() {
@@ -46,13 +46,14 @@ function LanguagePicker() {
       iosHeader={t('components.languagePicker.headerPlaceholder')}
       iosIcon={<Icon name="arrow-down" />}
       placeholder={t('components.languagePicker.headerPlaceholder')}
-      style={{ width: undefined }}
+      placeholderStyle={{ color: '#000' }}
+      style={{ backgroundColor: '#FFF', width: '100%' }}
+      itemTextStyle={{ color: '#000000' }}
       selectedValue={language}
       onValueChange={value => handleChangeLanguage(value)}
-      itemTextStyle={{ color: '#000000' }}
     >
-      <Picker.Item label="Nederlands" value="nl" />
-      <Picker.Item label="English" value="en" />
+      <Picker.Item label="Nederlands" key="0" value="nl" />
+      <Picker.Item label="English" key="1" value="en" />
     </Picker>
   );
 }
