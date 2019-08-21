@@ -9,24 +9,35 @@ const useShowFilterContext = () => {
   return [showFilter, setShowFilter];
 };
 
-const ShowFilterProvider = ({ children }) => {
-  const [showFilter, setShowFilter] = React.useState([]);
-
-  async function getFilter() {
-    await AsyncStorage.getItem('showFilter', (err, result) => {
+async function getShowFilter() {
+  await AsyncStorage
+    .getItem('showFilter')
+    .then((result) => {
       console.log('savedDataJSON', result);
       const filter = (result) ? JSON.parse(result) : [];
       console.log('filter', filter);
       return filter;
+    })
+    .catch((error) => {
+      console.log(error);
     });
-  }
+}
+
+const ShowFilterProvider = ({ children }) => {
+  const [showFilter, setShowFilter] = React.useState([]);
 
   useEffect(() => {
-    AsyncStorage.setItem('showFilter', JSON.stringify(showFilter), () => {
-      AsyncStorage.getItem('showFilter', (err, result) => {
-        console.log('get showFilter', result);
+    AsyncStorage
+      .setItem('showFilter', JSON.stringify(showFilter))
+      .then(() => {
+        AsyncStorage.getItem('showFilter')
+          .then((result) => {
+            console.log('set showFilter', result);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    });
   }, [showFilter]);
 
   return (
