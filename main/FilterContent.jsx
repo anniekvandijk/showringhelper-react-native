@@ -36,9 +36,9 @@ function FilterContent() {
     return false;
   }
 
-  function handleChange(id, bool) {
+  function handleChange(id, isChecked) {
     let filter;
-    if (bool) {
+    if (isChecked) {
       filter = [...showFilter, id];
     } else {
       filter = showFilter.filter(x => x !== id);
