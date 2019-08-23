@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './i18n';
 import { AppLoading } from 'expo';
 import { Container, StyleProvider } from 'native-base';
-import { ImageBackground, StyleSheet } from 'react-native';
+import { ImageBackground, StyleSheet, Platform, Text } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import getTheme from './native-base-theme/components';
@@ -17,10 +17,24 @@ const style = StyleSheet.create({
   background: {
     width: '100%',
     height: '100%',
-    flex: 1,
-    //resizeMode: 'cover'
+    flex: 1
   }
 });
+
+// OnePlus & Oppo fix
+// https://github.com/facebook/react-native/issues/15114
+const oneFontFix = () => {
+  if (Platform.OS !== 'android') {
+    return;
+  }
+  const oldRender = Text.render;
+  Text.render = function (...args) {
+    const origin = oldRender.call(this, ...args);
+    return React.cloneElement(origin, {
+      style: [{fontFamily: 'Roboto'}, origin.props.style]
+    });
+  };
+};
 
 function App() {
   const [isReady, setIsReady] = useState(false);
