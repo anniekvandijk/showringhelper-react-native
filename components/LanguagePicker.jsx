@@ -46,7 +46,7 @@ function LanguagePicker() {
       iosIcon={<Icon name="arrow-down" />}
       placeholder={t('components.languagePicker.headerPlaceholder')}
       placeholderStyle={{ color: '#000' }}
-      style={{ backgroundColor: '#FFF', width: '100%' }}
+      style={{ width: '100%' }}
       itemTextStyle={{ color: '#000000' }}
       selectedValue={language}
       onValueChange={value => handleChangeLanguage(value)}
