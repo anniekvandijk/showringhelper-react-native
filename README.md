@@ -12,8 +12,11 @@ deploy to Expo:
 expo publish
 
 make a build as bundle:  
-expo build:android -t app-bundle  
-expo build:ios -t app-bundle  
+expo build:android -t app-bundle
+expo build:ios -t app-bundle
+
+expo build:android -t apk
+
 builds are signed by Expo. Signing key in file showring-helper.jks which is gitIgnored. 
 
 Expo website: https://expo.io/@anniekvandijk/showring-helper  
