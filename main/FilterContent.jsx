@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
 import {
-  Spinner, ListItem, Content, Button, Text, Card, CheckBox, CardItem, Left, Body, Right, Icon
+  Spinner, Content, Text, Card, CheckBox, CardItem,
+  Left, Right
 } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
 
@@ -36,12 +36,15 @@ function FilterContent() {
     return false;
   }
 
-  function handleChange(id, bool) {
-    if (bool) {
-      setShowFilter([...showFilter, id]);
+  function handleChange(id, isChecked) {
+    let filter;
+    if (isChecked) {
+      filter = [...showFilter, id];
     } else {
-      setShowFilter(showFilter.filter(x => x !== id));
+      filter = showFilter.filter(x => x !== id);
     }
+    setShowFilter(filter);
+    AsyncStorage.setItem('showFilter', JSON.stringify(filter));
   }
 
   if (!showList) {
@@ -53,7 +56,7 @@ function FilterContent() {
         </Text>
       </>
     );
-  }  
+  }
 
   return (
     <>

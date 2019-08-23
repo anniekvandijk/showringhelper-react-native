@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import {
-  Button, Text, Icon, Footer, FooterTab, Badge
+  Button, Text, Icon, Footer, FooterTab, Badge, View
 } from 'native-base';
 import { useShowFilterContext } from '../context/showFilterContext';
 import Header from './Header';
@@ -11,6 +11,7 @@ import ShowContent from './ShowContent';
 import FilterContent from './FilterContent';
 import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
+import SettingsDetail from './SettingsDetail';
 
 function NavHeader({ navigation, title, showBack }) {
   const [t] = useTranslation();
@@ -80,6 +81,15 @@ const MoreNavigator = createStackNavigator(
         };
         return options;
       }
+    },
+    SettingsDetail: {
+      screen: SettingsDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.settings" showBack navigation={navigation} />
+        };
+        return options;
+      }
     }
   },
   {
@@ -123,10 +133,7 @@ const Main = createBottomTabNavigator(
               active={navigation.state.index === 1}
               onPress={() => navigation.navigate('FilterContent')}
             >
-              {(showFilter && showFilter.length > 0)
-                ? <Icon type="MaterialIcons" name="filter-list" />
-                : <Icon type="MaterialIcons" name="filter-list" />
-              }
+              <Icon type="MaterialIcons" name="filter-list" />
               <Text>
                 {t('header.title.filter')}
               </Text>

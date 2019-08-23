@@ -7,11 +7,11 @@ function NoShowCard() {
   return (
     <Card>
       <CardItem header bordered>
-        <H1>{t('noShowCard.header')}</H1>
+        <H1>{t('components.noShowCard.header')}</H1>
       </CardItem>
       <CardItem bordered>
         <Body>
-          <Text>{t('noShowCard.body')}</Text>
+          <Text>{t('components.noShowCard.body')}</Text>
         </Body>
       </CardItem>
     </Card>

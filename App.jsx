@@ -7,8 +7,6 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
-import Header from './main/Header';
-import ShowContent from './main/ShowContent';
 import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
 import { showContext } from './context/showContext';
