@@ -21,26 +21,24 @@ const style = StyleSheet.create({
   }
 });
 
-// OnePlus & Oppo fix
-// https://github.com/facebook/react-native/issues/15114
-const oneFontFix = () => {
-  if (Platform.OS !== 'android') {
-    return;
-  }
-  const oldRender = Text.render;
-  Text.render = function (...args) {
-    const origin = oldRender.call(this, ...args);
-    return React.cloneElement(origin, {
-      style: [{fontFamily: 'Roboto'}, origin.props.style]
-    });
-  };
-};
-
 function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
 
-  async function loadFonts() {
+  // OnePlus & Oppo fix
+  // https://github.com/facebook/react-native/issues/15114
+  if (Platform.OS === 'android') {
+    console.log('One Plus fix');
+    const oldRender = Text.render;
+    Text.render = function (...args) {
+      const origin = oldRender.call(this, ...args);
+      return React.cloneElement(origin, {
+        style: [{fontFamily: 'Roboto'}, origin.props.style]
+      });
+    };
+  }
+
+  async function loadRoboto() {
     await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
@@ -59,7 +57,7 @@ function App() {
   if (!isReady) {
     return (
       <AppLoading
-        startAsync={loadFonts}
+        startAsync={loadRoboto}
         onError={handleLoadingError}
         onFinish={handleFinishLoading}
       />
