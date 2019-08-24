@@ -28,7 +28,8 @@
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
       "settingsText": "Instellingen",
-      "aboutText": "About this app"
+      "aboutText": "About this app",
+      "versionText": "versie"
     },
     "filterContent": {
       "text": "Filter getoonde ringen. Als er niks is geselecteerd, dan wordt alles getoond."

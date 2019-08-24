@@ -27,7 +27,8 @@
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
       "settingsText": "Settings",
-      "aboutText": "About this app"
+      "aboutText": "About this app",
+      "versionText": "version"
     },
     "filterContent": {
       "text": "Filter shown rings. When nothing is selected, all rings are shown."
