@@ -5,6 +5,7 @@ import { createBottomTabNavigator, createStackNavigator, createAppContainer } fr
 import {
   Button, Text, Icon, Footer, FooterTab, Badge, View
 } from 'native-base';
+import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
 import Header from './Header';
 import RingContent from './RingContent';
@@ -114,7 +115,9 @@ const Main = createBottomTabNavigator(
     tabBarPosition: 'bottom',
     tabBarComponent: ({ navigation }) => {
       const [t] = useTranslation();
+      const shows = useShowContext();
       const [showFilter] = useShowFilterContext();
+      const filteredShows = shows && shows.filter(el => showFilter.indexOf(el.id) !== -1);
       return (
         <Footer>
           <FooterTab>
@@ -133,7 +136,10 @@ const Main = createBottomTabNavigator(
               active={navigation.state.index === 1}
               onPress={() => navigation.navigate('FilterContent')}
             >
-              <Icon type="MaterialIcons" name="filter-list" />
+              {filteredShows && filteredShows.length > 0
+                ? <Icon style={{ color: 'green' }} type="MaterialIcons" name="filter-list" />
+                : <Icon type="MaterialIcons" name="filter-list" />
+              }
               <Text>
                 {t('header.title.filter')}
               </Text>
