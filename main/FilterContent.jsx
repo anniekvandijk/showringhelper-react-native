@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Spinner, Content, Text, Card, CheckBox, CardItem,
-  Left, Right
+  Spinner, Content, Text, Card, CheckBox, CardItem, Button,
+  Left, Right, Body
 } from 'native-base';
 import { StyleSheet, AsyncStorage } from 'react-native';
 import { useShowContext } from '../context/showContext';
@@ -16,6 +16,9 @@ const style = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     alignSelf: 'center'
+  },
+  checkbox: {
+    marginRight: 40
   }
 });
 
@@ -34,6 +37,11 @@ function FilterContent() {
       return true;
     }
     return false;
+  }
+
+  function resetFilter() {
+    setShowFilter([]);
+    AsyncStorage.setItem('showFilter', JSON.stringify([]));
   }
 
   function handleChange(id, isChecked) {
@@ -66,18 +74,24 @@ function FilterContent() {
             <Left>
               <Text>{t('pages.filterContent.text')}</Text>
             </Left>
+            <Right>
+              <Button
+                  title="Reset"
+                  onPress={() => resetFilter()}
+                >
+                <Text> Reset </Text>
+              </Button>
+            </Right>
           </CardItem>
           {showList && showList.map(show => (
             <CardItem bordered key={show.id}>
-              <Left>
+              <CheckBox style={style.checkbox}
+                checked={isFiltered(show.id)}
+                onPress={() => handleChange(show.id, !isFiltered(show.id))}
+              />
+              <Body>
                 <Text>{show.name}</Text>
-              </Left>
-              <Right>
-                <CheckBox
-                  checked={isFiltered(show.id)}
-                  onPress={() => handleChange(show.id, !isFiltered(show.id))}
-                />
-              </Right>
+              </Body>
             </CardItem>
           ))}
         </Card>

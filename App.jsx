@@ -28,7 +28,6 @@ function App() {
   // OnePlus & Oppo fix
   // https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {
-    console.log('One Plus fix');
     const oldRender = Text.render;
     Text.render = function (...args) {
       const origin = oldRender.call(this, ...args);
