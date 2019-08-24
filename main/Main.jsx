@@ -7,7 +7,7 @@ import {
 } from 'native-base';
 import { useShowFilterContext } from '../context/showFilterContext';
 import Header from './Header';
-import ShowContent from './ShowContent';
+import RingContent from './RingContent';
 import FilterContent from './FilterContent';
 import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
@@ -24,17 +24,17 @@ function NavHeader({ navigation, title, showBack }) {
   );
 }
 
-const ShowNavigator = createStackNavigator(
+const RingNavigator = createStackNavigator(
   {
-    ShowContent: {
-      screen: ShowContent,
+    RingContent: {
+      screen: RingContent,
       navigationOptions: {
         header: <NavHeader title="header.title.rings" />
       }
     }
   },
   {
-    initialRouteName: 'ShowContent',
+    initialRouteName: 'RingContent',
     transparentCard: true,
     transitionConfig: () => ({
       containerStyle: {
@@ -106,7 +106,7 @@ const MoreNavigator = createStackNavigator(
 
 const Main = createBottomTabNavigator(
   {
-    ShowContent: { screen: ShowNavigator },
+    RingContent: { screen: RingNavigator },
     FilterContent: { screen: FilterNavigator },
     MoreContent: { screen: MoreNavigator }
   },
@@ -121,7 +121,7 @@ const Main = createBottomTabNavigator(
             <Button
               vertical
               active={navigation.state.index === 0}
-              onPress={() => navigation.navigate('ShowContent')}
+              onPress={() => navigation.navigate('RingContent')}
             >
               <Icon name="home" />
               <Text>
