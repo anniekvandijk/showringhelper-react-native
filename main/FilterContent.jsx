@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
 import {
-  Spinner, ListItem, Content, Button, Text, Card, CheckBox, CardItem, Left, Body, Right, Icon
+  Spinner, Content, Text, Card, CheckBox, CardItem, Button,
+  Left, Right, Body
 } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
 
@@ -16,6 +16,9 @@ const style = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     alignSelf: 'center'
+  },
+  checkbox: {
+    marginRight: 40
   }
 });
 
@@ -36,12 +39,20 @@ function FilterContent() {
     return false;
   }
 
-  function handleChange(id, bool) {
-    if (bool) {
-      setShowFilter([...showFilter, id]);
+  function resetFilter() {
+    setShowFilter([]);
+    AsyncStorage.setItem('showFilter', JSON.stringify([]));
+  }
+
+  function handleChange(id, isChecked) {
+    let filter;
+    if (isChecked) {
+      filter = [...showFilter, id];
     } else {
-      setShowFilter(showFilter.filter(x => x !== id));
+      filter = showFilter.filter(x => x !== id);
     }
+    setShowFilter(filter);
+    AsyncStorage.setItem('showFilter', JSON.stringify(filter));
   }
 
   if (!showList) {
@@ -53,7 +64,7 @@ function FilterContent() {
         </Text>
       </>
     );
-  }  
+  }
 
   return (
     <>
@@ -63,18 +74,24 @@ function FilterContent() {
             <Left>
               <Text>{t('pages.filterContent.text')}</Text>
             </Left>
+            <Right>
+              <Button
+                  title="Reset"
+                  onPress={() => resetFilter()}
+                >
+                <Text> Reset </Text>
+              </Button>
+            </Right>
           </CardItem>
           {showList && showList.map(show => (
             <CardItem bordered key={show.id}>
-              <Left>
+              <CheckBox style={style.checkbox}
+                checked={isFiltered(show.id)}
+                onPress={() => handleChange(show.id, !isFiltered(show.id))}
+              />
+              <Body>
                 <Text>{show.name}</Text>
-              </Left>
-              <Right>
-                <CheckBox
-                  checked={isFiltered(show.id)}
-                  onPress={() => handleChange(show.id, !isFiltered(show.id))}
-                />
-              </Right>
+              </Body>
             </CardItem>
           ))}
         </Card>

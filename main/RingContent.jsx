@@ -9,12 +9,6 @@ import ShowCard from '../components/ShowCard';
 import NoShowCard from '../components/NoShowCard';
 
 const style = StyleSheet.create({
-  background: {
-    width: '100%',
-    height: '100%',
-    flex: 1,
-    resizeMode: 'cover'
-  },
   content: {
     height: '100%'
   },
@@ -25,7 +19,7 @@ const style = StyleSheet.create({
   }
 });
 
-function ShowContent() {
+function RingContent() {
   const [t] = useTranslation();
   const shows = useShowContext();
   const [showFilter] = useShowFilterContext();
@@ -69,4 +63,4 @@ function ShowContent() {
   );
 }
 
-export default ShowContent;
+export default RingContent;

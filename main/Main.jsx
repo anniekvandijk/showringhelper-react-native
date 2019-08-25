@@ -1,16 +1,19 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, createAppContainer, StackActions } from 'react-navigation';
 import {
-  Button, Text, Icon, Footer, FooterTab, Badge
+  Button, Text, Icon, Footer, FooterTab, Badge, View
 } from 'native-base';
+import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
 import Header from './Header';
-import ShowContent from './ShowContent';
+import RingContent from './RingContent';
 import FilterContent from './FilterContent';
 import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
+import SettingsDetail from './SettingsDetail';
 
 function NavHeader({ navigation, title, showBack }) {
   const [t] = useTranslation();
@@ -23,17 +26,17 @@ function NavHeader({ navigation, title, showBack }) {
   );
 }
 
-const ShowNavigator = createStackNavigator(
+const RingNavigator = createStackNavigator(
   {
-    ShowContent: {
-      screen: ShowContent,
+    RingContent: {
+      screen: RingContent,
       navigationOptions: {
         header: <NavHeader title="header.title.rings" />
       }
     }
   },
   {
-    initialRouteName: 'ShowContent',
+    initialRouteName: 'RingContent',
     transparentCard: true,
     transitionConfig: () => ({
       containerStyle: {
@@ -80,6 +83,15 @@ const MoreNavigator = createStackNavigator(
         };
         return options;
       }
+    },
+    SettingsDetail: {
+      screen: SettingsDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.settings" showBack navigation={navigation} />
+        };
+        return options;
+      }
     }
   },
   {
@@ -93,10 +105,16 @@ const MoreNavigator = createStackNavigator(
   }
 );
 
+function navigate(navigation, screen, index) {
+  if (Platform.OS === 'android') {
+    navigation.dispatch(StackActions.popToTop());
+  }
+  navigation.navigate(screen);
+}
 
 const Main = createBottomTabNavigator(
   {
-    ShowContent: { screen: ShowNavigator },
+    RingContent: { screen: RingNavigator },
     FilterContent: { screen: FilterNavigator },
     MoreContent: { screen: MoreNavigator }
   },
@@ -104,14 +122,16 @@ const Main = createBottomTabNavigator(
     tabBarPosition: 'bottom',
     tabBarComponent: ({ navigation }) => {
       const [t] = useTranslation();
+      const shows = useShowContext();
       const [showFilter] = useShowFilterContext();
+      const filteredShows = shows && shows.filter(el => showFilter.indexOf(el.id) !== -1);
       return (
         <Footer>
           <FooterTab>
             <Button
               vertical
               active={navigation.state.index === 0}
-              onPress={() => navigation.navigate('ShowContent')}
+              onPress={() => navigate(navigation, 'RingContent', 0)}
             >
               <Icon name="home" />
               <Text>
@@ -121,10 +141,10 @@ const Main = createBottomTabNavigator(
             <Button
               vertical
               active={navigation.state.index === 1}
-              onPress={() => navigation.navigate('FilterContent')}
+              onPress={() => navigate(navigation, 'FilterContent', 1)}
             >
-              {(showFilter && showFilter.length > 0)
-                ? <Icon type="MaterialIcons" name="filter-list" />
+              {filteredShows && filteredShows.length > 0
+                ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="filter-list" />
                 : <Icon type="MaterialIcons" name="filter-list" />
               }
               <Text>
@@ -134,7 +154,7 @@ const Main = createBottomTabNavigator(
             <Button
               vertical
               active={navigation.state.index === 2}
-              onPress={() => navigation.navigate('MoreContent')}
+              onPress={() => navigate(navigation, 'MoreContent', 2)}
             >
               <Icon type="MaterialIcons" name="more-horiz" />
               <Text>
