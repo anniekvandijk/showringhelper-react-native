@@ -1,7 +1,8 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, createAppContainer, StackActions } from 'react-navigation';
 import {
   Button, Text, Icon, Footer, FooterTab, Badge, View
 } from 'native-base';
@@ -104,6 +105,12 @@ const MoreNavigator = createStackNavigator(
   }
 );
 
+function navigate(navigation, screen, index) {
+  if (Platform.OS === 'android') {
+    navigation.dispatch(StackActions.popToTop());
+  }
+  navigation.navigate(screen);
+}
 
 const Main = createBottomTabNavigator(
   {
@@ -124,7 +131,7 @@ const Main = createBottomTabNavigator(
             <Button
               vertical
               active={navigation.state.index === 0}
-              onPress={() => navigation.navigate('RingContent')}
+              onPress={() => navigate(navigation, 'RingContent', 0)}
             >
               <Icon name="home" />
               <Text>
@@ -134,10 +141,10 @@ const Main = createBottomTabNavigator(
             <Button
               vertical
               active={navigation.state.index === 1}
-              onPress={() => navigation.navigate('FilterContent')}
+              onPress={() => navigate(navigation, 'FilterContent', 1)}
             >
               {filteredShows && filteredShows.length > 0
-                ? <Icon style={{ color: 'green' }} type="MaterialIcons" name="filter-list" />
+                ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="filter-list" />
                 : <Icon type="MaterialIcons" name="filter-list" />
               }
               <Text>
@@ -147,7 +154,7 @@ const Main = createBottomTabNavigator(
             <Button
               vertical
               active={navigation.state.index === 2}
-              onPress={() => navigation.navigate('MoreContent')}
+              onPress={() => navigate(navigation, 'MoreContent', 2)}
             >
               <Icon type="MaterialIcons" name="more-horiz" />
               <Text>
