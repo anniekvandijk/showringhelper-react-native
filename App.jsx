@@ -25,8 +25,7 @@ function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
 
-  // OnePlus & Oppo fix
-  // https://github.com/facebook/react-native/issues/15114
+  // OnePlus & Oppo fix https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {
     const oldRender = Text.render;
     Text.render = function (...args) {

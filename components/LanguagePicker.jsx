@@ -22,7 +22,6 @@ function LanguagePicker() {
     i18n.changeLanguage(language);
   }, [language]);
 
-
   return (
     <Picker
       renderHeader={backAction => (

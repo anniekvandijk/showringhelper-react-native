@@ -35,7 +35,8 @@
     },
     "ios": {
       "bundleIdentifier": "nl.animundo.ios.showringhelper",
-      "buildNumber": "0.10.0"
+      "buildNumber": "0.10.0",
+      "supportsTablet": true
     },
     "packagerOpts": {
       "sourceExts": [
