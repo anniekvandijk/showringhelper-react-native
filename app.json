@@ -8,7 +8,7 @@
     "slug": "showring-helper",
     "privacy": "unlisted",
     "sdkVersion": "35.0.0",
-    "version": "0.10.0",
+    "version": "0.11.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
     "icon": "images/icon.png",
     "androidStatusBar": {
@@ -17,7 +17,7 @@
     },
     "splash": {
       "image": "./images/splashscreen.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "platforms": [
@@ -25,17 +25,22 @@
     ],
     "android": {
       "package": "nl.animundo.android.showringhelper",
-      "versionCode": 10,
+      "versionCode": 11,
       "permissions": [],
       "icon": "images/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "images/icon_transparent.png",
         "backgroundColor": "#ffffff"
+      },
+      "splash": {
+        "mdpi": "./images/splashscreen.png",
+        "resizeMode": "native",
+        "backgroundColor": "#ffffff"
       }
     },
     "ios": {
       "bundleIdentifier": "nl.animundo.ios.showringhelper",
-      "buildNumber": "0.10.0",
+      "buildNumber": "0.11.0",
       "supportsTablet": true
     },
     "packagerOpts": {
