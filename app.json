@@ -21,7 +21,8 @@
       "backgroundColor": "#ffffff"
     },
     "platforms": [
-      "android", "ios"
+      "android",
+      "ios"
     ],
     "android": {
       "package": "nl.animundo.android.showringhelper",

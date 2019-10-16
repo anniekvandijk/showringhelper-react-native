@@ -2,10 +2,10 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { createBottomTabNavigator, createStackNavigator, createAppContainer, StackActions } from 'react-navigation';
-import {
-  Button, Text, Icon, Footer, FooterTab, Badge, View
-} from 'native-base';
+import { createAppContainer, StackActions } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
 import Header from './Header';
