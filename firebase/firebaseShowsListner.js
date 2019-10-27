@@ -10,7 +10,13 @@ function FirebaseShowsListner() {
     if (querySnapshot) {
       const shows = [];
       querySnapshot.forEach((doc) => {
-        shows.push(doc.data());
+        const Show = {};
+        Show.id = doc.id;
+        Object.keys(doc.data()).map((key) => {
+          Show[key] = doc.data()[key];
+          return null;
+        });
+        shows.push(Show);
       });
       setState(shows);
     } else {

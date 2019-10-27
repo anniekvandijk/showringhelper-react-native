@@ -40,11 +40,6 @@ function NotificationContent() {
     setShowList(shows);
   }, [shows]);
 
-  useEffect(() => {
-    console.log(alerts);
-    console.log(input);
-  }, [alerts, input]);
-
   function clear() {
     setInput('');
     setNextToPrepare(false);
@@ -138,7 +133,6 @@ function NotificationContent() {
             selectedValue={show}
             onValueChange={value => handleChangeShow(value)}
           >
-            <Picker.Item disabled label="Please select an option..." value="0" />
             {showList && showList.map(showItem => (
               <Picker.Item
                 label={showItem.name}
@@ -182,13 +176,15 @@ function NotificationContent() {
                   onPress={() => checkboxInring()}
                 />
                 <Text>In ring</Text>
+              </Body>
+              <Right>
                 <Button
                   title="Alert"
                   onPress={() => addAlert()}
                 >
                   <Text> Add </Text>
                 </Button>
-              </Body>
+              </Right>
             </CardItem>
           )
         }
