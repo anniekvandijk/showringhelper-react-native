@@ -11,6 +11,7 @@ import { useShowFilterContext } from '../context/showFilterContext';
 import Header from './Header';
 import RingContent from './RingContent';
 import FilterContent from './FilterContent';
+import NotificationContent from './NotificationContent';
 import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
 import SettingsDetail from './SettingsDetail';
@@ -58,6 +59,26 @@ const FilterNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'FilterContent',
+    transparentCard: true,
+    transitionConfig: () => ({
+      containerStyle: {
+        backgroundColor: 'transparent'
+      }
+    })
+  }
+);
+
+const NotificationNavigator = createStackNavigator(
+  {
+    NotificationContent: {
+      screen: NotificationContent,
+      navigationOptions: {
+        header: <NavHeader title="header.title.notifications" />
+      }
+    }
+  },
+  {
+    initialRouteName: 'NotificationContent',
     transparentCard: true,
     transitionConfig: () => ({
       containerStyle: {
@@ -116,6 +137,7 @@ const Main = createBottomTabNavigator(
   {
     RingContent: { screen: RingNavigator },
     FilterContent: { screen: FilterNavigator },
+    NotificationContent: { screen: NotificationNavigator },
     MoreContent: { screen: MoreNavigator }
   },
   {
@@ -154,7 +176,17 @@ const Main = createBottomTabNavigator(
             <Button
               vertical
               active={navigation.state.index === 2}
-              onPress={() => navigate(navigation, 'MoreContent', 2)}
+              onPress={() => navigate(navigation, 'NotificationContent', 2)}
+            >
+              <Icon type="MaterialIcons" name="notifications" />
+              <Text>
+                {t('header.title.notifications')}
+              </Text>
+            </Button>            
+            <Button
+              vertical
+              active={navigation.state.index === 3}
+              onPress={() => navigate(navigation, 'MoreContent', 3)}
             >
               <Icon type="MaterialIcons" name="more-horiz" />
               <Text>
