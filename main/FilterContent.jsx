@@ -84,8 +84,9 @@ function FilterContent() {
             </Right>
           </CardItem>
           {showList && showList.map(show => (
-            <CardItem bordered key={show.id}>
-              <CheckBox style={style.checkbox}
+            <CardItem bordered key={Math.random().toString(36).substring(7)}>
+              <CheckBox
+                style={style.checkbox}
                 checked={isFiltered(show.id)}
                 onPress={() => handleChange(show.id, !isFiltered(show.id))}
               />
