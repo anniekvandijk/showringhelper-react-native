@@ -42,13 +42,10 @@ function NotificationContent() {
 
   function clear() {
     setInput('');
-    setNextToPrepare(false);
-    setPrepare(true);
-    setInRing(false);
   }
 
-  function handleChangeShow(value) {
-    setShow(value);
+  function handleChangeShow(showItem) {
+    setShow(showItem);
     clear();
   }
 
@@ -56,7 +53,8 @@ function NotificationContent() {
     setAlerts([...alerts, {
       id: createId(),
       ringNumber: input,
-      showId: show,
+      showId: show.id,
+      showName: show.name,
       nextToPrepare: nextToPrepareChecked,
       prepare: prepareChecked,
       inRing: inRingChecked
@@ -105,7 +103,7 @@ function NotificationContent() {
             <Text>{t('pages.notificationContent.text')}</Text>
           </Left>
         </CardItem>
-        <CardItem>
+        <CardItem bordered>
           <Picker
             renderHeader={backAction => (
               <Header>
@@ -128,7 +126,7 @@ function NotificationContent() {
             iosIcon={<Icon name="arrow-down" />}
             placeholder={t('pages.notificationContent.showPickerPlaceholder')}
             placeholderStyle={{ color: '#000' }}
-            style={{ width: '100%' }}
+            style={{ width: '85%' }}
             itemTextStyle={{ color: '#000000' }}
             selectedValue={show}
             onValueChange={value => handleChangeShow(value)}
@@ -137,10 +135,40 @@ function NotificationContent() {
               <Picker.Item
                 label={showItem.name}
                 key={Math.random().toString(36).substring(7)}
-                value={showItem.id}
+                value={showItem}
               />
             ))}
           </Picker>
+        </CardItem>
+        <CardItem>
+          <CheckBox
+            style={style.checkbox}
+            checked={nextToPrepareChecked}
+            onPress={() => checkboxNextToPrepare()}
+          />
+          <Body>
+            <Text>Next to prepare</Text>
+          </Body>
+        </CardItem>
+        <CardItem>
+          <CheckBox
+            style={style.checkbox}
+            checked={prepareChecked}
+            onPress={() => checkboxPrepare()}
+          />
+          <Body>
+            <Text>Prepare</Text>
+          </Body>
+        </CardItem>
+        <CardItem>
+          <CheckBox
+            style={style.checkbox}
+            checked={inRingChecked}
+            onPress={() => checkboxInring()}
+          />
+          <Body>
+            <Text>In ring</Text>
+          </Body>
         </CardItem>
         {show
           && (
@@ -154,29 +182,10 @@ function NotificationContent() {
                     onChangeText={value => handleInput(value)}
                     value={input}
                     maxLength={10}
+
                   />
                 </Item>
               </Left>
-              <Body>
-                <CheckBox
-                  style={style.checkbox}
-                  checked={nextToPrepareChecked}
-                  onPress={() => checkboxNextToPrepare()}
-                />
-                <Text>Next to prepare</Text>
-                <CheckBox
-                  style={style.checkbox}
-                  checked={prepareChecked}
-                  onPress={() => checkboxPrepare()}
-                />
-                <Text>Prepare</Text>
-                <CheckBox
-                  style={style.checkbox}
-                  checked={inRingChecked}
-                  onPress={() => checkboxInring()}
-                />
-                <Text>In ring</Text>
-              </Body>
               <Right>
                 <Button
                   title="Alert"
@@ -188,45 +197,53 @@ function NotificationContent() {
             </CardItem>
           )
         }
-        {alerts.length > 0 && alerts.map(alertItem => (
-          <CardItem bordered key={Math.random().toString(36).substring(7)}>
-            <Body>
-              <Text>
-                Ringnr: {alertItem.ringNumber}
-              </Text>
-              <Text>
-                Show: {alertItem.showId}
-              </Text>
-              <CheckBox
-                style={style.checkbox}
-                checked={alertItem.nextToPrepare}
-                disabled
-              />
-              <Text>Next to prepare</Text>
-              <CheckBox
-                style={style.checkbox}
-                checked={alertItem.prepare}
-                disabled
-              />
-              <Text>Prepare</Text>
-              <CheckBox
-                style={style.checkbox}
-                checked={alertItem.inRing}
-                disabled
-              />
-              <Text>In ring</Text>
-            </Body>
-            <Right>
-              <Button
-                title="Delete alert"
-                onPress={() => deleteAlert(alertItem.id)}
-              >
-                <Text> Delete </Text>
-              </Button>
-            </Right>
-          </CardItem>
-        ))}
       </Card>
+      {alerts.length > 0
+        && (
+        <Card>
+          <CardItem header bordered>
+            <Text>Alerts</Text>
+          </CardItem>
+          {alerts.map(alertItem => (
+            <CardItem bordered key={Math.random().toString(36).substring(7)}>
+              <Body>
+                <Text>
+                  Ringnr: {alertItem.ringNumber}
+                </Text>
+                <Text>
+                  Show: {alertItem.showName}
+                </Text>
+                <CheckBox
+                  style={style.checkbox}
+                  checked={alertItem.nextToPrepare}
+                  disabled
+                />
+                <Text>Next to prepare</Text>
+                <CheckBox
+                  style={style.checkbox}
+                  checked={alertItem.prepare}
+                  disabled
+                />
+                <Text>Prepare</Text>
+                <CheckBox
+                  style={style.checkbox}
+                  checked={alertItem.inRing}
+                  disabled
+                />
+                <Text>In ring</Text>
+              </Body>
+              <Right>
+                <Button
+                  title="Delete alert"
+                  onPress={() => deleteAlert(alertItem.id)}
+                >
+                  <Text> Delete </Text>
+                </Button>
+              </Right>
+            </CardItem>
+          ))}
+        </Card>
+        )}
     </Content>
   );
 }
