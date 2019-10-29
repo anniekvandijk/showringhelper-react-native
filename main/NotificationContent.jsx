@@ -7,7 +7,6 @@ import {
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
 import { useNotificationContext } from '../context/NotificationContext';
-import createId from '../utilities/createId';
 
 const style = StyleSheet.create({
   content: {
@@ -22,7 +21,6 @@ const style = StyleSheet.create({
     marginRight: 40
   },
   input: {
-    
   }
 });
 
@@ -50,23 +48,51 @@ function NotificationContent() {
     clear();
   }
 
-  function addAlert() {
+  const rings = {
+    NextToPrepare: 'Next to Prepare',
+    Prepare: 'Prepare',
+    InRing: 'In ring'
+  };
+
+  function ringName(r) {
+    console.log(r);
+    switch (r) {
+      case r.NextToPrepare:
+        return 'Next to Prepare';
+      case r.Prepare:
+        return 'Prepare';
+      case r.InRing:
+        return 'In ring';
+      default:
+        return '';
+    }
+  }
+
+  function AddNotification(ring) {
+    console.log(notifications);
     setNotifications([...notifications, {
-      id: createId(),
       ringNumber: input,
       showId: show.id,
-      showName: show.name,
-      nextToPrepare: nextToPrepareChecked,
-      prepare: prepareChecked,
-      inRing: inRingChecked
+      ring
     }]);
-  
+  }
+
+  function addNotifications() {
+    if (nextToPrepareChecked) {
+      AddNotification(rings.NextToPrepare);
+    }
+    if (prepareChecked) {
+      AddNotification(rings.Prepare);
+    }
+    if (inRingChecked) {
+      AddNotification(rings.InRing);
+    }
     // sent to server
     clear();
   }
 
-  function deleteAlert(id) {
-    setNotifications(notifications.filter(x => x.id !== id));
+  function deleteNotification(notifiction) {
+    setNotifications(notifications.filter(x => x !== notifiction));
   }
 
   function handleInput(value) {
@@ -190,7 +216,7 @@ function NotificationContent() {
               <Right>
                 <Button
                   title="Alert"
-                  onPress={() => addAlert()}
+                  onPress={() => addNotifications()}
                 >
                   <Text> Add </Text>
                 </Button>
@@ -205,38 +231,26 @@ function NotificationContent() {
           <CardItem header bordered>
             <Text>Alerts</Text>
           </CardItem>
-          {notifications.map(alertItem => (
+          {notifications.map(notification => (
             <CardItem bordered key={Math.random().toString(36).substring(7)}>
               <Body>
                 <Text>
-                  Ringnr: {alertItem.ringNumber}
+                  Ringnr:
+                  {notification.ringNumber}
                 </Text>
                 <Text>
-                  Show: {alertItem.showName}
+                  Show:
+                  {notification.showId}
                 </Text>
-                <CheckBox
-                  style={style.checkbox}
-                  checked={alertItem.nextToPrepare}
-                  disabled
-                />
-                <Text>Next to prepare</Text>
-                <CheckBox
-                  style={style.checkbox}
-                  checked={alertItem.prepare}
-                  disabled
-                />
-                <Text>Prepare</Text>
-                <CheckBox
-                  style={style.checkbox}
-                  checked={alertItem.inRing}
-                  disabled
-                />
-                <Text>In ring</Text>
+                <Text>
+                  Ring:
+                  {ringName(notification.ring)}
+                </Text>
               </Body>
               <Right>
                 <Button
                   title="Delete alert"
-                  onPress={() => deleteAlert(alertItem.id)}
+                  onPress={() => deleteNotification(notification)}
                 >
                   <Text> Delete </Text>
                 </Button>

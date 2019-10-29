@@ -74,9 +74,9 @@ function FilterContent() {
             </Left>
             <Right>
               <Button
-                  title="Reset"
-                  onPress={() => resetFilter()}
-                >
+                title="Reset"
+                onPress={() => resetFilter()}
+              >
                 <Text> Reset </Text>
               </Button>
             </Right>
