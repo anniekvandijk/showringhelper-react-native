@@ -4,8 +4,9 @@ import {
   Spinner, Content, Text, Card, CardItem, Button, Picker, Title, Icon,
   Left, Right, Body, Item, Input, Header, CheckBox
 } from 'native-base';
-import { StyleSheet, AsyncStorage } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
+import { useNotificationContext } from '../context/NotificationContext';
 import createId from '../utilities/createId';
 
 const style = StyleSheet.create({
@@ -28,13 +29,13 @@ const style = StyleSheet.create({
 function NotificationContent() {
   const [t] = useTranslation();
   const shows = useShowContext();
+  const [notifications, setNotifications] = useNotificationContext();
   const [showList, setShowList] = useState(null);
   const [show, setShow] = useState(null);
   const [input, setInput] = useState('');
   const [nextToPrepareChecked, setNextToPrepare] = useState(false);
   const [prepareChecked, setPrepare] = useState(true);
   const [inRingChecked, setInRing] = useState(false);
-  const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
     setShowList(shows);
@@ -50,7 +51,7 @@ function NotificationContent() {
   }
 
   function addAlert() {
-    setAlerts([...alerts, {
+    setNotifications([...notifications, {
       id: createId(),
       ringNumber: input,
       showId: show.id,
@@ -65,7 +66,7 @@ function NotificationContent() {
   }
 
   function deleteAlert(id) {
-    setAlerts(alerts.filter(x => x.id !== id));
+    setNotifications(notifications.filter(x => x.id !== id));
   }
 
   function handleInput(value) {
@@ -198,13 +199,13 @@ function NotificationContent() {
           )
         }
       </Card>
-      {alerts.length > 0
+      {notifications.length > 0
         && (
         <Card>
           <CardItem header bordered>
             <Text>Alerts</Text>
           </CardItem>
-          {alerts.map(alertItem => (
+          {notifications.map(alertItem => (
             <CardItem bordered key={Math.random().toString(36).substring(7)}>
               <Body>
                 <Text>

@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
+import { useNotificationContext } from '../context/NotificationContext';
 import Header from './Header';
 import RingContent from './RingContent';
 import FilterContent from './FilterContent';
@@ -144,6 +145,7 @@ const Main = createBottomTabNavigator(
     tabBarPosition: 'bottom',
     tabBarComponent: ({ navigation }) => {
       const [t] = useTranslation();
+      const [notifications] = useNotificationContext();
       const shows = useShowContext();
       const [showFilter] = useShowFilterContext();
       const filteredShows = shows && shows.filter(el => showFilter.indexOf(el.id) !== -1);
@@ -178,7 +180,10 @@ const Main = createBottomTabNavigator(
               active={navigation.state.index === 2}
               onPress={() => navigate(navigation, 'NotificationContent', 2)}
             >
-              <Icon type="MaterialIcons" name="notifications" />
+              {notifications && notifications.length > 0
+                ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="notifications" />
+                : <Icon type="MaterialIcons" name="notifications" />
+              }
               <Text>
                 {t('header.title.notifications')}
               </Text>

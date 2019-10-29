@@ -23,6 +23,10 @@ const ShowFilterProvider = ({ children }) => {
       });
   }, []);
 
+  useEffect(() => {
+    AsyncStorage.setItem('showFilter', JSON.stringify(showFilter));
+  }, [showFilter]);
+
   return (
     <ShowFilterContext.Provider value={[showFilter, setShowFilter]}>
       {children}

@@ -4,7 +4,7 @@ import {
   Spinner, Content, Text, Card, CheckBox, CardItem, Button,
   Left, Right, Body
 } from 'native-base';
-import { StyleSheet, AsyncStorage } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
 
@@ -41,7 +41,6 @@ function FilterContent() {
 
   function resetFilter() {
     setShowFilter([]);
-    AsyncStorage.setItem('showFilter', JSON.stringify([]));
   }
 
   function handleChange(id, isChecked) {
@@ -52,7 +51,6 @@ function FilterContent() {
       filter = showFilter.filter(x => x !== id);
     }
     setShowFilter(filter);
-    AsyncStorage.setItem('showFilter', JSON.stringify(filter));
   }
 
   if (!showList) {
