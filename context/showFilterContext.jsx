@@ -10,7 +10,7 @@ const useShowFilterContext = () => {
 };
 
 const ShowFilterProvider = ({ children }) => {
-  const [showFilter, setShowFilter] = React.useState([]);
+  const [showFilter, setShowFilter] = React.useState(null);
 
   useEffect(() => {
     console.log('load filter');
@@ -25,8 +25,10 @@ const ShowFilterProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log('save filter');
-    AsyncStorage.setItem('showFilter', JSON.stringify(showFilter));
+    if (showFilter) {
+      console.log('save filter');
+      AsyncStorage.setItem('showFilter', JSON.stringify(showFilter));
+    }
   }, [showFilter]);
 
   return (

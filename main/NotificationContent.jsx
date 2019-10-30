@@ -20,7 +20,16 @@ const style = StyleSheet.create({
   checkbox: {
     marginRight: 40
   },
-  input: {
+  button: {
+    backgroundColor: '#e56228',
+    marginTop: 5,
+    marginRight: 5,
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold'
   }
 });
 
@@ -49,45 +58,53 @@ function NotificationContent() {
   }
 
   const rings = {
-    NextToPrepare: 'Next to Prepare',
-    Prepare: 'Prepare',
-    InRing: 'In ring'
+    NextToPrepare: 0,
+    Prepare: 1,
+    InRing: 2
   };
 
   function ringName(r) {
-    console.log(r);
     switch (r) {
-      case r.NextToPrepare:
-        return 'Next to Prepare';
-      case r.Prepare:
-        return 'Prepare';
-      case r.InRing:
-        return 'In ring';
+      case 0:
+        return t('pages.notificationContent.nextToPrepare');
+      case 1:
+        return t('pages.notificationContent.prepare');
+      case 2:
+        return t('pages.notificationContent.inRing');
       default:
         return '';
     }
   }
 
-  function AddNotification(ring) {
-    console.log(notifications);
-    setNotifications([...notifications, {
-      ringNumber: input,
-      showId: show.id,
-      ring
-    }]);
+  function getShowName(notification) {
+    const filteredShows = showList.filter(x => x.id === notification.showId);
+    return filteredShows[0].name;
   }
 
   function addNotifications() {
+    const not = [];
     if (nextToPrepareChecked) {
-      AddNotification(rings.NextToPrepare);
+      not.push({
+        ringNumber: input,
+        showId: show.id,
+        ring: rings.NextToPrepare
+      });
     }
     if (prepareChecked) {
-      AddNotification(rings.Prepare);
+      not.push({
+        ringNumber: input,
+        showId: show.id,
+        ring: rings.Prepare
+      });
     }
     if (inRingChecked) {
-      AddNotification(rings.InRing);
+      not.push({
+        ringNumber: input,
+        showId: show.id,
+        ring: rings.InRing
+      });
     }
-    // sent to server
+    setNotifications([...notifications, ...not]);
     clear();
   }
 
@@ -167,61 +184,64 @@ function NotificationContent() {
             ))}
           </Picker>
         </CardItem>
-        <CardItem>
-          <CheckBox
-            style={style.checkbox}
-            checked={nextToPrepareChecked}
-            onPress={() => checkboxNextToPrepare()}
-          />
-          <Body>
-            <Text>Next to prepare</Text>
-          </Body>
-        </CardItem>
-        <CardItem>
-          <CheckBox
-            style={style.checkbox}
-            checked={prepareChecked}
-            onPress={() => checkboxPrepare()}
-          />
-          <Body>
-            <Text>Prepare</Text>
-          </Body>
-        </CardItem>
-        <CardItem>
-          <CheckBox
-            style={style.checkbox}
-            checked={inRingChecked}
-            onPress={() => checkboxInring()}
-          />
-          <Body>
-            <Text>In ring</Text>
-          </Body>
-        </CardItem>
         {show
           && (
-            <CardItem bordered>
-              <Left>
-                <Item regular>
-                  <Input
-                    autoFocus
-                    placeholder="Ringnumber"
-                    style={style.input}
-                    onChangeText={value => handleInput(value)}
-                    value={input}
-                    maxLength={10}
-
-                  />
-                </Item>
-              </Left>
-              <Right>
-                <Button
-                  title="Alert"
-                  onPress={() => addNotifications()}
-                >
-                  <Text> Add </Text>
-                </Button>
-              </Right>
-            </CardItem>
+            <>
+              <CardItem>
+                <CheckBox
+                  style={style.checkbox}
+                  checked={nextToPrepareChecked}
+                  onPress={() => checkboxNextToPrepare()}
+                />
+                <Body>
+                  <Text>{t('pages.notificationContent.nextToPrepare')}</Text>
+                </Body>
+              </CardItem>
+              <CardItem>
+                <CheckBox
+                  style={style.checkbox}
+                  checked={prepareChecked}
+                  onPress={() => checkboxPrepare()}
+                />
+                <Body>
+                  <Text>{t('pages.notificationContent.prepare')}</Text>
+                </Body>
+              </CardItem>
+              <CardItem>
+                <CheckBox
+                  style={style.checkbox}
+                  checked={inRingChecked}
+                  onPress={() => checkboxInring()}
+                />
+                <Body>
+                  <Text>{t('pages.notificationContent.inRing')}</Text>
+                </Body>
+              </CardItem>
+              <CardItem bordered>
+                <Left>
+                  <Item regular>
+                    <Input
+                      autoFocus
+                      placeholder={t('pages.notificationContent.ringNumberPlaceholder')}
+                      style={style.input}
+                      onChangeText={value => handleInput(value)}
+                      value={input}
+                      maxLength={10}
+                      required
+                    />
+                  </Item>
+                </Left>
+                <Right>
+                  <Button
+                    title="Alert"
+                    onPress={() => addNotifications()}
+                    disabled={input.length === 0}
+                  >
+                    <Text>{t('pages.notificationContent.addButton')}</Text>
+                  </Button>
+                </Right>
+              </CardItem>
+            </>
           )
         }
       </Card>
@@ -229,33 +249,31 @@ function NotificationContent() {
         && (
         <Card>
           <CardItem header bordered>
-            <Text>Alerts</Text>
+            <Text>{t('pages.notificationContent.notificationsHeader')}</Text>
           </CardItem>
           {notifications.map(notification => (
-            <CardItem bordered key={Math.random().toString(36).substring(7)}>
-              <Body>
+            <>
+              <CardItem>
+                <Body>
+                  <Button rounded disabled style={style.button}>
+                    <Text style={style.buttonText}>{notification.ringNumber}</Text>
+                  </Button>
+                </Body>
+                <Right>
+                  <Button
+                    title="Delete alert"
+                    onPress={() => deleteNotification(notification)}
+                  >
+                    <Text>{t('pages.notificationContent.deleteButton')}</Text>
+                  </Button>
+                </Right>
+              </CardItem>
+              <CardItem bordered>
                 <Text>
-                  Ringnr:
-                  {notification.ringNumber}
+                  {`${ringName(notification.ring)}, ${getShowName(notification)}`}
                 </Text>
-                <Text>
-                  Show:
-                  {notification.showId}
-                </Text>
-                <Text>
-                  Ring:
-                  {ringName(notification.ring)}
-                </Text>
-              </Body>
-              <Right>
-                <Button
-                  title="Delete alert"
-                  onPress={() => deleteNotification(notification)}
-                >
-                  <Text> Delete </Text>
-                </Button>
-              </Right>
-            </CardItem>
+              </CardItem>
+            </>
           ))}
         </Card>
         )}

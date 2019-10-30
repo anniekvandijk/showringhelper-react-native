@@ -9,7 +9,7 @@ const useNotificationContext = () => {
 };
 
 const NotificationProvider = ({ children }) => {
-  const [notifications, setNotifications] = React.useState(null);
+  const [notifications, setNotifications] = React.useState([]);
 
   useEffect(() => {
     console.log('load notifications');
