@@ -235,7 +235,7 @@ function NotificationContent() {
                   <Button
                     title="Alert"
                     onPress={() => addNotifications()}
-                    disabled={input.length === 0}
+                    disabled={input.length === 0 || !(nextToPrepareChecked || prepareChecked || inRingChecked)}
                   >
                     <Text>{t('pages.notificationContent.addButton')}</Text>
                   </Button>
