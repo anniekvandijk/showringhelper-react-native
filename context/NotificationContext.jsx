@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { getNotifications, postNotification } from '../firebase/firebaseCalls';
 
 const NotificationContext = React.createContext([[], () => {}]);
 
@@ -13,10 +14,18 @@ const NotificationProvider = ({ children }) => {
 
   useEffect(() => {
     console.log('load notifications');
+    let not = getNotifications();
+    if (not) {
+      setNotifications(not);
+    }
   }, []);
 
   useEffect(() => {
     console.log('save notifications');
+    notifications.map((notification) => {
+      console.log(notification);
+      //postNotification(notification);
+    });
   }, [notifications]);
 
   return (
