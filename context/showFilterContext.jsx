@@ -13,6 +13,7 @@ const ShowFilterProvider = ({ children }) => {
   const [showFilter, setShowFilter] = React.useState([]);
 
   useEffect(() => {
+    console.log('load filter');
     AsyncStorage
       .getItem('showFilter')
       .then((result) => {
@@ -24,6 +25,7 @@ const ShowFilterProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    console.log('save filter');
     AsyncStorage.setItem('showFilter', JSON.stringify(showFilter));
   }, [showFilter]);
 
