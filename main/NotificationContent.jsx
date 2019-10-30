@@ -186,7 +186,7 @@ function NotificationContent() {
         </CardItem>
         {show
           && (
-            <>
+            <React.Fragment key={Math.random().toString(36).substring(7)}>
               <CardItem>
                 <CheckBox
                   style={style.checkbox}
@@ -241,7 +241,7 @@ function NotificationContent() {
                   </Button>
                 </Right>
               </CardItem>
-            </>
+            </React.Fragment>
           )
         }
       </Card>
@@ -252,7 +252,7 @@ function NotificationContent() {
             <Text>{t('pages.notificationContent.notificationsHeader')}</Text>
           </CardItem>
           {notifications.map(notification => (
-            <>
+            <React.Fragment key={Math.random().toString(36).substring(7)}>
               <CardItem>
                 <Body>
                   <Button rounded disabled style={style.button}>
@@ -273,7 +273,7 @@ function NotificationContent() {
                   {`${ringName(notification.ring)}, ${getShowName(notification)}`}
                 </Text>
               </CardItem>
-            </>
+            </React.Fragment>
           ))}
         </Card>
         )}
