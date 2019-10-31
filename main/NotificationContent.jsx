@@ -79,6 +79,10 @@ function NotificationContent() {
 
   function getShowName(notification) {
     const filteredShows = showList.filter(x => x.id === notification.showId);
+    if (filteredShows.lenght === 0) {
+      deleteNotification(notification);
+      return '';
+    }
     return filteredShows[0].name;
   }
 
@@ -269,8 +273,7 @@ function NotificationContent() {
               </CardItem>
               <CardItem bordered>
                 <Text>
-                  {/* {`${ringName(notification.ring)}, ${getShowName(notification)}`} */}
-                  {`${ringName(notification.ring)}, ${(notification.showId)}`}
+                  {`${ringName(notification.ring)}, ${getShowName(notification)}`}
                 </Text>
               </CardItem>
             </React.Fragment>
