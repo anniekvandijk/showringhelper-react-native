@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
-import { useNotificationContext } from '../context/NotificationContext';
+import { useNotificationContext } from '../context/notificationContext';
 import Header from './Header';
 import RingContent from './RingContent';
 import FilterContent from './FilterContent';
@@ -145,7 +145,7 @@ const Main = createBottomTabNavigator(
     tabBarPosition: 'bottom',
     tabBarComponent: ({ navigation }) => {
       const [t] = useTranslation();
-      const [notifications] = useNotificationContext();
+      const notifications = useNotificationContext();
       const shows = useShowContext();
       const [showFilter] = useShowFilterContext();
       const filteredShows = shows && shows.filter(el => showFilter.indexOf(el.id) !== -1);

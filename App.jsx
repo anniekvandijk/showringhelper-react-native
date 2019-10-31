@@ -9,9 +9,10 @@ import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
+import FirebaseNotificationsListner from './firebase/firebaseNotificationsListner';
 import { showContext } from './context/showContext';
 import { ShowFilterProvider } from './context/showFilterContext';
-import { NotificationProvider } from './context/NotificationContext';
+import { notificationContext } from './context/notificationContext';
 
 
 const style = StyleSheet.create({
@@ -25,6 +26,8 @@ const style = StyleSheet.create({
 function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
+  const notifications = FirebaseNotificationsListner();
+
 
   // OnePlus & Oppo fix https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {
@@ -67,13 +70,13 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <ShowFilterProvider>
-            <NotificationProvider>
+          <notificationContext.Provider value={{ notifications }}>
+            <ShowFilterProvider>
               <ImageBackground source={require('./images/background.jpg')} style={style.background}>
                 <Main />
               </ImageBackground>
-            </NotificationProvider>
-          </ShowFilterProvider>
+            </ShowFilterProvider>
+          </notificationContext.Provider>
         </showContext.Provider>
       </Container>
     </StyleProvider>

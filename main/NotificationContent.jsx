@@ -6,7 +6,8 @@ import {
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
-import { useNotificationContext } from '../context/NotificationContext';
+import { useNotificationContext } from '../context/notificationContext';
+import { deleteNotification, postNotification } from '../firebase/firebaseCalls';
 
 const style = StyleSheet.create({
   content: {
@@ -36,7 +37,7 @@ const style = StyleSheet.create({
 function NotificationContent() {
   const [t] = useTranslation();
   const shows = useShowContext();
-  const [notifications, setNotifications] = useNotificationContext();
+  const notifications = useNotificationContext();
   const [showList, setShowList] = useState(null);
   const [show, setShow] = useState(null);
   const [input, setInput] = useState('');
@@ -65,11 +66,11 @@ function NotificationContent() {
 
   function ringName(r) {
     switch (r) {
-      case 0:
+      case '0':
         return t('pages.notificationContent.nextToPrepare');
-      case 1:
+      case '1':
         return t('pages.notificationContent.prepare');
-      case 2:
+      case '2':
         return t('pages.notificationContent.inRing');
       default:
         return '';
@@ -82,34 +83,32 @@ function NotificationContent() {
   }
 
   function addNotifications() {
-    const not = [];
     if (nextToPrepareChecked) {
-      not.push({
+      postNotification({
         ringNumber: input,
         showId: show.id,
         ring: rings.NextToPrepare
       });
     }
     if (prepareChecked) {
-      not.push({
+      postNotification({
         ringNumber: input,
         showId: show.id,
         ring: rings.Prepare
       });
     }
     if (inRingChecked) {
-      not.push({
+      postNotification({
         ringNumber: input,
         showId: show.id,
         ring: rings.InRing
       });
     }
-    setNotifications([...notifications, ...not]);
     clear();
   }
 
-  function deleteNotification(notifiction) {
-    setNotifications(notifications.filter(x => x !== notifiction));
+  function deleteThis(notification) {
+    deleteNotification(notification);
   }
 
   function handleInput(value) {
@@ -262,7 +261,7 @@ function NotificationContent() {
                 <Right>
                   <Button
                     title="Delete alert"
-                    onPress={() => deleteNotification(notification)}
+                    onPress={() => deleteThis(notification)}
                   >
                     <Text>{t('pages.notificationContent.deleteButton')}</Text>
                   </Button>
@@ -270,7 +269,8 @@ function NotificationContent() {
               </CardItem>
               <CardItem bordered>
                 <Text>
-                  {`${ringName(notification.ring)}, ${getShowName(notification)}`}
+                  {/* {`${ringName(notification.ring)}, ${getShowName(notification)}`} */}
+                  {`${ringName(notification.ring)}, ${(notification.showId)}`}
                 </Text>
               </CardItem>
             </React.Fragment>
