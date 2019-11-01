@@ -1,3 +1,4 @@
+import { hijackEffects } from 'stop-runaway-react-effects';
 import React, { useState } from 'react';
 import './i18n';
 import { AppLoading } from 'expo';
@@ -14,7 +15,6 @@ import { showContext } from './context/showContext';
 import { ShowFilterProvider } from './context/showFilterContext';
 import { notificationContext } from './context/notificationContext';
 
-
 const style = StyleSheet.create({
   background: {
     width: '100%',
@@ -27,7 +27,11 @@ function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
   const notifications = FirebaseNotificationsListner();
-
+  
+  // if (process.env.NODE_ENV !== 'production') {
+  //   console.log('help');
+  //   hijackEffects();
+  // }
 
   // OnePlus & Oppo fix https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {

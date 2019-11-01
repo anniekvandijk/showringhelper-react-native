@@ -177,6 +177,7 @@ const Main = createBottomTabNavigator(
             </Button>
             <Button
               vertical
+              disabled={shows && shows.length === 0}
               active={navigation.state.index === 2}
               onPress={() => navigate(navigation, 'NotificationContent', 2)}
             >

@@ -79,7 +79,7 @@ function NotificationContent() {
 
   function getShowName(notification) {
     const filteredShows = showList.filter(x => x.id === notification.showId);
-    if (filteredShows.lenght === 0) {
+    if (filteredShows.length === 0) {
       deleteNotification(notification);
       return '';
     }
