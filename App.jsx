@@ -1,4 +1,9 @@
 import { hijackEffects } from 'stop-runaway-react-effects';
+import {
+  SENTRY_ORG, SENTRY_PROJECT, SENTRY_AUTH_TOKEN, SENTRY_DSN
+} from 'react-native-dotenv';
+import * as Sentry from 'sentry-expo';
+import Constants from 'expo-constants';
 import React, { useState } from 'react';
 import './i18n';
 import { AppLoading } from 'expo';
@@ -32,6 +37,18 @@ function App() {
   //   console.log('help');
   //   hijackEffects();
   // }
+
+  // Sentry logging
+  Sentry.init({
+    organization: SENTRY_ORG,
+    project: SENTRY_PROJECT,
+    authToken: SENTRY_AUTH_TOKEN,
+    dsn: SENTRY_DSN,
+    enableInExpoDevelopment: true,
+    debug: true
+  });
+
+  Sentry.setRelease(Constants.manifest.revisionId);
 
   // OnePlus & Oppo fix https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {
