@@ -6,7 +6,7 @@ import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
 import React, { useState } from 'react';
 import './i18n';
-import { AppLoading } from 'expo';
+import { AppLoading, Notifications } from 'expo';
 import { Container, StyleProvider } from 'native-base';
 import { ImageBackground, StyleSheet, Platform, Text } from 'react-native';
 import * as Font from 'expo-font';
@@ -60,6 +60,12 @@ function App() {
         style: [{fontFamily: 'Roboto'}, origin.props.style]
       });
     };
+    Notifications.createChannelAndroidAsync('showringhelper', {
+      name: 'Showringhelper',
+      sound: true,
+      priority: 'max',
+      vibrate: [0, 250, 250, 250]
+    });
   }
 
   async function loadRoboto() {
