@@ -5,7 +5,7 @@ import {
   Left, Right, Body, Item, Input, Header, CheckBox
 } from 'native-base';
 import { Notifications } from 'expo';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import registerForPushNotificationsAsync from '../utilities/registerForPushNotifications';
 import { useShowContext } from '../context/showContext';
 import { useNotificationContext } from '../context/notificationContext';
@@ -44,7 +44,7 @@ function NotificationContent() {
   const [show, setShow] = useState(null);
   const [input, setInput] = useState('');
   const [nextToPrepareChecked, setNextToPrepare] = useState(false);
-  const [prepareChecked, setPrepare] = useState(true);
+  const [prepareChecked, setPrepare] = useState(false);
   const [inRingChecked, setInRing] = useState(false);
   const [receiveNotificationsGranted, setReceiveNotificationsGranted] = useState(null);
 
@@ -57,7 +57,12 @@ function NotificationContent() {
   }
 
   function handleChangeShow(showItem) {
-    setShow(showItem);
+    if (showItem !== '-1') {
+      console.log(showItem);
+      setShow(showItem);
+    } else {
+      setShow(null);
+    }
     clear();
   }
 
@@ -204,6 +209,14 @@ function NotificationContent() {
             selectedValue={show}
             onValueChange={value => handleChangeShow(value)}
           >
+            {Platform.OS === 'android'
+              && (
+                <Picker.Item
+                  label={t('pages.notificationContent.selectShow')}
+                  value="-1"
+                />
+              )
+            }
             {showList && showList.map(showItem => (
               <Picker.Item
                 label={showItem.name}
@@ -250,13 +263,11 @@ function NotificationContent() {
                 <Left>
                   <Item regular>
                     <Input
-                      autoFocus
                       placeholder={t('pages.notificationContent.ringNumberPlaceholder')}
                       style={style.input}
                       onChangeText={value => handleInput(value)}
                       value={input}
                       maxLength={10}
-                      required
                     />
                   </Item>
                 </Left>

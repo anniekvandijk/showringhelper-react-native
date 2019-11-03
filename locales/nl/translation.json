@@ -38,6 +38,7 @@
     "notificationContent": {
       "text": "Selecteer keuring, ring en ringnummer om meldingen voor in te stellen.",
       "showPickerPlaceholder": "Selecteer keuring",
+      "selectShow": "Selecteer keuring ...",
       "nextToPrepare": "Voorbereiden",
       "prepare": "Klaarstaan",
       "inRing": "In ring",

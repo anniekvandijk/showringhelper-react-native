@@ -37,6 +37,7 @@
     "notificationContent": {
       "text": "Select show, ring and ringnumber to set alerts for.",
       "showPickerPlaceholder": "Select show",
+      "selectShow": "Select show ...",
       "nextToPrepare": "Next to prepare",
       "prepare": "Prepare",
       "inRing": "In ring",
