@@ -58,7 +58,6 @@ function NotificationContent() {
 
   function handleChangeShow(showItem) {
     if (showItem !== '-1') {
-      console.log(showItem);
       setShow(showItem);
     } else {
       setShow(null);
@@ -103,10 +102,8 @@ function NotificationContent() {
     registerForPushNotificationsAsync()
       .then((granted) => {
         if (granted === false) {
-          console.log('no notifications allowed');
           setReceiveNotificationsGranted(false);
         } else {
-          console.log('notifications allowed');
           setReceiveNotificationsGranted(true);
           getToken()
             .then((token) => {
