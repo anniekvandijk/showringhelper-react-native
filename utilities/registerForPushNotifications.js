@@ -1,28 +1,25 @@
-import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
 async function registerForPushNotificationsAsync() {
-  
-  async function getPermissions() {
-    await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  const { status: existingStatus } = await Permissions.getAsync(
+    Permissions.NOTIFICATIONS
+  );
+  let finalStatus = existingStatus;
+
+  // only ask if permissions have not already been determined, because
+  // iOS won't necessarily prompt the user a second time.
+  if (existingStatus !== 'granted') {
+    // Android remote notification permissions are granted during the app
+    // install, so this will only ask on iOS
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    finalStatus = status;
   }
 
-  async function askPermissions() {
-    const status = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    const granted = status.permissions.notifications.granted;
-    if (granted) {
-      return true;
-    }
+  // Stop here if the user did not grant permissions
+  if (finalStatus !== 'granted') {
     return false;
   }
-
-  getPermissions()
-    .then(
-      askPermissions()
-        .then((granted) => { return granted; })
-        .catch((error) => { console.log(error); })
-    )
-    .catch((error) => { console.log(error); });
+  return true;
 }
 
 export default registerForPushNotificationsAsync;

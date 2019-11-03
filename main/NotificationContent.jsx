@@ -4,7 +4,9 @@ import {
   Spinner, Content, Text, Card, CardItem, Button, Picker, Title, Icon,
   Left, Right, Body, Item, Input, Header, CheckBox
 } from 'native-base';
+import { Notifications } from 'expo';
 import { StyleSheet } from 'react-native';
+import registerForPushNotificationsAsync from '../utilities/registerForPushNotifications';
 import { useShowContext } from '../context/showContext';
 import { useNotificationContext } from '../context/notificationContext';
 import { deleteNotification, postNotification } from '../firebase/firebaseCalls';
@@ -44,6 +46,7 @@ function NotificationContent() {
   const [nextToPrepareChecked, setNextToPrepare] = useState(false);
   const [prepareChecked, setPrepare] = useState(true);
   const [inRingChecked, setInRing] = useState(false);
+  const [receiveNotificationsGranted, setReceiveNotificationsGranted] = useState(null);
 
   useEffect(() => {
     setShowList(shows);
@@ -86,33 +89,56 @@ function NotificationContent() {
     return filteredShows[0].name;
   }
 
+  async function getToken() {
+    const token = await Notifications.getExpoPushTokenAsync();
+    return token;
+  }
+
   function addNotifications() {
-    if (nextToPrepareChecked) {
-      postNotification({
-        ringNumber: input,
-        showId: show.id,
-        ring: rings.NextToPrepare
-      });
-    }
-    if (prepareChecked) {
-      postNotification({
-        ringNumber: input,
-        showId: show.id,
-        ring: rings.Prepare
-      });
-    }
-    if (inRingChecked) {
-      postNotification({
-        ringNumber: input,
-        showId: show.id,
-        ring: rings.InRing
-      });
-    }
-    clear();
+    registerForPushNotificationsAsync()
+      .then((granted) => {
+        if (granted === false) {
+          console.log('no notifications allowed');
+          setReceiveNotificationsGranted(false);
+        } else {
+          console.log('notifications allowed');
+          setReceiveNotificationsGranted(true);
+          getToken()
+            .then((token) => {
+              if (nextToPrepareChecked) {
+                postNotification({
+                  ringNumber: input,
+                  showId: show.id,
+                  ring: rings.NextToPrepare
+                }, token);
+              }
+              if (prepareChecked) {
+                postNotification({
+                  ringNumber: input,
+                  showId: show.id,
+                  ring: rings.Prepare
+                }, token);
+              }
+              if (inRingChecked) {
+                postNotification({
+                  ringNumber: input,
+                  showId: show.id,
+                  ring: rings.InRing
+                }, token);
+              }
+              clear();
+            })
+            .catch(error => console.log(error));
+        }
+      }
+      );
   }
 
   function deleteThis(notification) {
-    deleteNotification(notification);
+    getToken()
+      .then((token) => {
+        deleteNotification(notification, token);
+      });
   }
 
   function handleInput(value) {
