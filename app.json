@@ -34,7 +34,7 @@
     "android": {
       "package": "nl.animundo.android.showringhelper",
       "versionCode": 12,
-      "permissions": [],
+      "permissions": ["NOTIFICATIONS"],
       "icon": "images/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "images/icon_transparent.png",
