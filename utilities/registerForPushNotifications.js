@@ -2,6 +2,7 @@ import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
 async function registerForPushNotificationsAsync() {
+  
   async function getPermissions() {
     await Permissions.getAsync(Permissions.NOTIFICATIONS);
   }
@@ -15,22 +16,10 @@ async function registerForPushNotificationsAsync() {
     return false;
   }
 
-  async function getToken() {
-    const token = await Notifications.getExpoPushTokenAsync();
-    return token;
-  }
-
   getPermissions()
     .then(
       askPermissions()
-        .then((granted) => {
-          if (granted) {
-            getToken()
-              .then((result) => { console.log(result); return { granted: true, token: result }; })
-              .catch((error) => { console.log(error); });
-          }
-          return { granted: false, token: null };
-        })
+        .then((granted) => { return granted; })
         .catch((error) => { console.log(error); })
     )
     .catch((error) => { console.log(error); });

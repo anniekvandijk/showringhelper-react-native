@@ -1,14 +1,27 @@
 import { FIREBASE_DB_NOTIFICATIONS } from 'react-native-dotenv';
+import { Notifications } from 'expo';
 import { database } from './firebase';
 import registerForPushNotificationsAsync from '../utilities/registerForPushNotifications';
 
 const dbNotifications = FIREBASE_DB_NOTIFICATIONS;
 
-const postNotification = (notification) => {
+async function getToken() {
+  const token = await Notifications.getExpoPushTokenAsync();
+  return token;
+}
+
+async function postNotification(notification) {
 
   registerForPushNotificationsAsync()
-    .then(result => console.log(result.token));
+    .then((result) => {
+      console.log(result);
+      if (result) {
+        console.log(result);
+      }
+    });
 
+  getToken()
+    .then(token => console.log(token));
 
   // const doc = `${notification.showId}-${notification.ringNumber}-${notification.ring}-${token}`;
 
