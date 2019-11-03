@@ -50,6 +50,12 @@
     },
     "settingsDetail": {
       "languageText": "Language"
-    } 
+    },
+    "globalErrorBoundary": {
+      "header": "Oops ... this is not ok",
+      "text": "Something is wrong with the app. Help us to fix this by sending your error information.",
+      "buttonSubmit": "Submit error",
+      "replyText": "Thank you for submitting the error. We will fix this as soon as possible!"
+    }
   }
 }

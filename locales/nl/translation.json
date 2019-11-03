@@ -51,6 +51,12 @@
     },
     "settingsDetail": {
       "languageText": "Taal"
+    },
+    "globalErrorBoundary": {
+      "header": "Oops ... dit is niet goed",
+      "text": "Er ging iets mis met de app. Help ons dit op te lossen door foutinformatie te sturen.",
+      "buttonSubmit": "Fout melden",
+      "replyText": "Bedankt voor de informatie. We proberen dit zo snel mogelijk op te lossen!"
     } 
   }
 }

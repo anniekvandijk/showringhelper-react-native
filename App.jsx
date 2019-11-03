@@ -1,6 +1,6 @@
 import { hijackEffects } from 'stop-runaway-react-effects';
 import {
-  SENTRY_ORG, SENTRY_PROJECT, SENTRY_AUTH_TOKEN, SENTRY_DSN
+  SENTRY_ORG, SENTRY_PROJECT, SENTRY_AUTH_TOKEN, SENTRY_DSN, ENV
 } from 'react-native-dotenv';
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
@@ -19,6 +19,7 @@ import FirebaseNotificationsListner from './firebase/firebaseNotificationsListne
 import { showContext } from './context/showContext';
 import { ShowFilterProvider } from './context/showFilterContext';
 import { notificationContext } from './context/notificationContext';
+import GlobalErrorBoundary from './utilities/GlobalErrorBoundary';
 
 const style = StyleSheet.create({
   background: {
@@ -33,7 +34,7 @@ function App() {
   const shows = FirebaseShowsListner();
   const notifications = FirebaseNotificationsListner();
   
-  // if (process.env.NODE_ENV !== 'production') {
+  // if (ENV !== 'production') {
   //   console.log('help');
   //   hijackEffects();
   // }
@@ -70,7 +71,7 @@ function App() {
   }
 
   function handleLoadingError(error) {
-    console.warn(error);
+    throw new Error(`Loading error: ${error}`);
   }
 
   function handleFinishLoading() {
@@ -94,7 +95,9 @@ function App() {
           <notificationContext.Provider value={{ notifications }}>
             <ShowFilterProvider>
               <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-                <Main />
+                <GlobalErrorBoundary>
+                  <Main />
+                </GlobalErrorBoundary>
               </ImageBackground>
             </ShowFilterProvider>
           </notificationContext.Provider>
