@@ -13,7 +13,7 @@
   "components": {
     "noShowCard": {
       "header": "Geen keuringen",
-      "body": "Er zijn op dit moment geen actieve keuringen" 
+      "body": "Er zijn op dit moment geen actieve keuringen. Verwacht je wel een active keuring? Neem dan contact op met je organisatie." 
     },
     "showCard": {
       "nextToPrepare": "Voorbereiden",

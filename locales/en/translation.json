@@ -13,7 +13,7 @@
   "components": {
     "noShowCard": {
       "header": "No available shows",
-      "body": "There are no active shows" 
+      "body": "There are no active shows. If you did expect an active show, please contact your show management." 
     },
     "showCard": {
       "nextToPrepare": "Next to prepare",
