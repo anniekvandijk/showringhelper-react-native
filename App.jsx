@@ -29,15 +29,15 @@ const style = StyleSheet.create({
   }
 });
 
+if (ENV !== 'production') {
+  console.log('help');
+  hijackEffects();
+}
+
 function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
   const notifications = FirebaseNotificationsListner();
-  
-  // if (ENV !== 'production') {
-  //   console.log('help');
-  //   hijackEffects();
-  // }
 
   // Sentry logging
   Sentry.init({
