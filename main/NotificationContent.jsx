@@ -180,84 +180,84 @@ function NotificationContent() {
         </CardItem>
         <CardItem bordered>
           {Platform.OS === 'android'
-          ? (
-          <Picker
-            renderHeader={backAction => (
-              <Header>
-                <Left>
-                  <Button transparent onPress={backAction}>
-                    <Icon name="arrow-back" />
-                  </Button>
-                </Left>
-                <Body style={{ flex: 3 }}>
-                  <Title>
-                    {t('pages.notificationContent.showPickerPlaceholder')}
-                  </Title>
-                </Body>
-                <Right />
-              </Header>
+            ? (
+              <Picker
+                renderHeader={backAction => (
+                  <Header>
+                    <Left>
+                      <Button transparent onPress={backAction}>
+                        <Icon name="arrow-back" />
+                      </Button>
+                    </Left>
+                    <Body style={{ flex: 3 }}>
+                      <Title>
+                        {t('pages.notificationContent.showPickerPlaceholder')}
+                      </Title>
+                    </Body>
+                    <Right />
+                  </Header>
+                )
+                }
+                mode="dropdown"
+                iosHeader={t('pages.notificationContent.showPickerPlaceholder')}
+                iosIcon={<Icon name="arrow-down" />}
+                placeholder={t('pages.notificationContent.showPickerPlaceholder')}
+                placeholderStyle={{ color: '#000' }}
+                style={{ width: '85%' }}
+                itemTextStyle={{ color: '#000000' }}
+                selectedValue={show}
+                onValueChange={value => handleChangeShow(value)}
+              >
+                <Picker.Item
+                  label={t('pages.notificationContent.selectShow')}
+                  value="-1"
+                />
+                {showList && showList.map(showItem => (
+                  <Picker.Item
+                    label={showItem.name}
+                    key={Math.random().toString(36).substring(7)}
+                    value={showItem}
+                  />
+                ))}
+              </Picker>
             )
-            }
-            mode="dropdown"
-            iosHeader={t('pages.notificationContent.showPickerPlaceholder')}
-            iosIcon={<Icon name="arrow-down" />}
-            placeholder={t('pages.notificationContent.showPickerPlaceholder')}
-            placeholderStyle={{ color: '#000' }}
-            style={{ width: '85%' }}
-            itemTextStyle={{ color: '#000000' }}
-            selectedValue={show}
-            onValueChange={value => handleChangeShow(value)}
-          >
-            <Picker.Item
-              label={t('pages.notificationContent.selectShow')}
-              value="-1"
-            />
-            {showList && showList.map(showItem => (
-              <Picker.Item
-                label={showItem.name}
-                key={Math.random().toString(36).substring(7)}
-                value={showItem}
-              />
-            ))}
-          </Picker>
+            : (
+              <Picker
+                renderHeader={backAction => (
+                  <Header>
+                    <Left>
+                      <Button transparent onPress={backAction}>
+                        <Icon name="arrow-back" />
+                      </Button>
+                    </Left>
+                    <Body style={{ flex: 3 }}>
+                      <Title>
+                        {t('pages.notificationContent.showPickerPlaceholder')}
+                      </Title>
+                    </Body>
+                    <Right />
+                  </Header>
+                )
+                }
+                mode="dropdown"
+                iosHeader={t('pages.notificationContent.showPickerPlaceholder')}
+                iosIcon={<Icon name="arrow-down" />}
+                placeholder={t('pages.notificationContent.showPickerPlaceholder')}
+                placeholderStyle={{ color: '#000' }}
+                style={{ width: '85%' }}
+                itemTextStyle={{ color: '#000000' }}
+                selectedValue={show}
+                onValueChange={value => handleChangeShow(value)}
+              >
+                {showList && showList.map(showItem => (
+                  <Picker.Item
+                    label={showItem.name}
+                    key={Math.random().toString(36).substring(7)}
+                    value={showItem}
+                  />
+                ))}
+              </Picker>
             )
-        : (
-          <Picker
-            renderHeader={backAction => (
-              <Header>
-                <Left>
-                  <Button transparent onPress={backAction}>
-                    <Icon name="arrow-back" />
-                  </Button>
-                </Left>
-                <Body style={{ flex: 3 }}>
-                  <Title>
-                    {t('pages.notificationContent.showPickerPlaceholder')}
-                  </Title>
-                </Body>
-                <Right />
-              </Header>
-            )
-            }
-            mode="dropdown"
-            iosHeader={t('pages.notificationContent.showPickerPlaceholder')}
-            iosIcon={<Icon name="arrow-down" />}
-            placeholder={t('pages.notificationContent.showPickerPlaceholder')}
-            placeholderStyle={{ color: '#000' }}
-            style={{ width: '85%' }}
-            itemTextStyle={{ color: '#000000' }}
-            selectedValue={show}
-            onValueChange={value => handleChangeShow(value)}
-          >
-            {showList && showList.map(showItem => (
-              <Picker.Item
-                label={showItem.name}
-                key={Math.random().toString(36).substring(7)}
-                value={showItem}
-              />
-            ))}
-          </Picker>
-          )
         }
         </CardItem>
         {show
