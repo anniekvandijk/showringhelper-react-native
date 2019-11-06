@@ -11,7 +11,6 @@ async function getToken() {
 function FirebaseNotificationsListner() {
   const [state, setState] = useState(null);
   const dbCollection = FIREBASE_DB_NOTIFICATIONS;
-  //const token = '12345';
 
   const onChangeNotifications = (querySnapshot) => {
     if (querySnapshot) {
@@ -33,7 +32,9 @@ function FirebaseNotificationsListner() {
   useEffect(() => {
     getToken()
       .then((token) => {
-        const unsubscribe = database.collection(dbCollection).where('token', '==', token)
+        const unsubscribe = database
+          .collection(dbCollection)
+          .where('token', '==', token)
           .onSnapshot(querySnapshot => onChangeNotifications(querySnapshot));
         return () => unsubscribe();
       });

@@ -30,7 +30,6 @@ const style = StyleSheet.create({
 });
 
 if (ENV !== 'production') {
-  console.log('help');
   hijackEffects();
 }
 
