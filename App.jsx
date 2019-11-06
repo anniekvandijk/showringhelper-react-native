@@ -50,6 +50,8 @@ function App() {
 
   Sentry.setRelease(Constants.manifest.revisionId);
 
+  Sentry.captureMessage('Something went wrong');
+
   // OnePlus & Oppo fix https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {
     const oldRender = Text.render;
