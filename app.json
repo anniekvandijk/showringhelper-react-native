@@ -59,7 +59,7 @@
       "supportsTablet": true
     },
     "notification": {
-      "icon": "./images/logo_96px.png",
+      "icon": "./images/logo_96px_8bit.png",
       "color": "#ffffff",
       "iosDisplayInForeground": true,
       "androidMode": "default"
