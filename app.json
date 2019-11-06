@@ -8,9 +8,16 @@
     "slug": "showring-helper",
     "privacy": "unlisted",
     "sdkVersion": "35.0.0",
-    "version": "0.12.0",
+    "version": "0.14.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
-    "icon": "images/icon.png",
+    "icon": "./images/icon.png",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps"
+        }
+      ]
+    },
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#3e2723"
@@ -26,23 +33,36 @@
     ],
     "android": {
       "package": "nl.animundo.android.showringhelper",
-      "versionCode": 12,
-      "permissions": [],
-      "icon": "images/icon.png",
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 14,
+      "permissions": [
+        "NOTIFICATIONS"
+      ],
+      "icon": "./images/icon.png",
       "adaptiveIcon": {
-        "foregroundImage": "images/icon_transparent.png",
+        "foregroundImage": "./images/icon_transparent.png",
         "backgroundColor": "#ffffff"
       },
       "splash": {
         "mdpi": "./images/splashscreen.png",
+        "hdpi": "./images/splashscreen.png",   // scale 1.5x
+        "xhdpi": "./images/splashscreen.png",  // scale 2x
+        "xxhdpi": "./images/splashscreen.png", // scale 3x
+        "xxxhdpi": "./images/splashscreen.png", // scale 4x
         "resizeMode": "native",
         "backgroundColor": "#ffffff"
       }
     },
     "ios": {
       "bundleIdentifier": "nl.animundo.ios.showringhelper",
-      "buildNumber": "0.12.0",
+      "buildNumber": "0.14.0",
       "supportsTablet": true
+    },
+    "notification": {
+      "icon": "./images/logo_96px.png",
+      "color": "#ffffff",
+      "iosDisplayInForeground": true,
+      "androidMode": "default"
     },
     "packagerOpts": {
       "sourceExts": [

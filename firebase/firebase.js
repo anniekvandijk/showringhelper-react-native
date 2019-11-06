@@ -1,7 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import {
-  API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID
+  API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID,
+  STORAGE_BUCKET, MESSAGING_SENDER_ID, APPID, MEASSUREMENTID
 } from 'react-native-dotenv';
 
 // Initialize Firebase
@@ -11,7 +12,9 @@ const config = {
   databaseURL: DATABASE_URL,
   projectId: PROJECT_ID,
   storageBucket: STORAGE_BUCKET,
-  messagingSenderId: MESSAGING_SENDER_ID
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APPID,
+  measurementId: MEASSUREMENTID
 };
 
 firebase.initializeApp(config);

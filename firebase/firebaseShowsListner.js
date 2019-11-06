@@ -1,16 +1,22 @@
 import { useState, useEffect } from 'react';
-import { FIREBASE_DB } from 'react-native-dotenv';
+import { FIREBASE_DB_SHOWS } from 'react-native-dotenv';
 import { database } from './firebase';
 
 function FirebaseShowsListner() {
   const [state, setState] = useState(null);
-  const dbCollection = FIREBASE_DB;
+  const dbCollection = FIREBASE_DB_SHOWS;
 
   const onChangeShows = (querySnapshot) => {
     if (querySnapshot) {
       const shows = [];
       querySnapshot.forEach((doc) => {
-        shows.push(doc.data());
+        const Show = {};
+        Show.id = doc.id;
+        Object.keys(doc.data()).map((key) => {
+          Show[key] = doc.data()[key];
+          return null;
+        });
+        shows.push(Show);
       });
       setState(shows);
     } else {

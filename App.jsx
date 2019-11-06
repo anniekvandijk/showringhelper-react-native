@@ -1,6 +1,12 @@
+import { hijackEffects } from 'stop-runaway-react-effects';
+import {
+  SENTRY_ORG, SENTRY_PROJECT, SENTRY_AUTH_TOKEN, SENTRY_DSN, ENV
+} from 'react-native-dotenv';
+import * as Sentry from 'sentry-expo';
+import Constants from 'expo-constants';
 import React, { useState } from 'react';
 import './i18n';
-import { AppLoading } from 'expo';
+import { AppLoading, Notifications } from 'expo';
 import { Container, StyleProvider } from 'native-base';
 import { ImageBackground, StyleSheet, Platform, Text } from 'react-native';
 import * as Font from 'expo-font';
@@ -9,9 +15,11 @@ import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
+import FirebaseNotificationsListner from './firebase/firebaseNotificationsListner';
 import { showContext } from './context/showContext';
 import { ShowFilterProvider } from './context/showFilterContext';
-
+import { notificationContext } from './context/notificationContext';
+import GlobalErrorBoundary from './utilities/GlobalErrorBoundary';
 
 const style = StyleSheet.create({
   background: {
@@ -21,9 +29,28 @@ const style = StyleSheet.create({
   }
 });
 
+if (ENV !== 'production') {
+  hijackEffects();
+}
+
 function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
+  const notifications = FirebaseNotificationsListner();
+
+  // Sentry logging
+  Sentry.init({
+    organization: SENTRY_ORG,
+    project: SENTRY_PROJECT,
+    authToken: SENTRY_AUTH_TOKEN,
+    dsn: SENTRY_DSN,
+    enableInExpoDevelopment: true,
+    debug: true
+  });
+
+  Sentry.setRelease(Constants.manifest.revisionId);
+
+  Sentry.captureMessage('Something went wrong');
 
   // OnePlus & Oppo fix https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {
@@ -34,6 +61,12 @@ function App() {
         style: [{fontFamily: 'Roboto'}, origin.props.style]
       });
     };
+    Notifications.createChannelAndroidAsync('showringhelper', {
+      name: 'Showringhelper',
+      sound: true,
+      priority: 'max',
+      vibrate: [0, 250, 250, 250]
+    });
   }
 
   async function loadRoboto() {
@@ -45,7 +78,7 @@ function App() {
   }
 
   function handleLoadingError(error) {
-    console.warn(error);
+    throw new Error(`Loading error: ${error}`);
   }
 
   function handleFinishLoading() {
@@ -66,11 +99,15 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <ShowFilterProvider>
-            <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-              <Main />
-            </ImageBackground>
-          </ShowFilterProvider>
+          <notificationContext.Provider value={{ notifications }}>
+            <ShowFilterProvider>
+              <ImageBackground source={require('./images/background.jpg')} style={style.background}>
+                <GlobalErrorBoundary>
+                  <Main />
+                </GlobalErrorBoundary>
+              </ImageBackground>
+            </ShowFilterProvider>
+          </notificationContext.Provider>
         </showContext.Provider>
       </Container>
     </StyleProvider>

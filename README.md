@@ -26,6 +26,15 @@ Builds for Stores can also be found there
 The app is connecting to firebase FireStore project Showring helper. 
 Firebase config is in the .env file (also gitIgnored)
 
+## Deploying Android app
+Download build
+Go to Google play console to upload app
+
+## Deploying IOS app
+Download build
+On a mac, use the application loader to upload app to App Store Connect
+Go to App Store Connect for deployment
+
 
 
 
