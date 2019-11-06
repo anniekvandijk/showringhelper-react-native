@@ -54,6 +54,12 @@
       "buildNumber": "0.12.0",
       "supportsTablet": true
     },
+    "notification": {
+      "icon": "images/icon.png",
+      "color": "#ffffff",
+      "iosDisplayInForeground": true,
+      "androidMode": "default"
+    },
     "packagerOpts": {
       "sourceExts": [
         "js",
