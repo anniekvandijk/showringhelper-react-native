@@ -37,7 +37,7 @@ const style = StyleSheet.create({
 });
 
 function NotificationContent() {
-  const [t] = useTranslation();
+  const [t, i18n] = useTranslation();
   const shows = useShowContext();
   const notifications = useNotificationContext();
   const [showList, setShowList] = useState(null);
@@ -111,21 +111,24 @@ function NotificationContent() {
                 postNotification({
                   ringNumber: input,
                   showId: show.id,
-                  ring: rings.NextToPrepare
+                  ring: rings.NextToPrepare,
+                  language: i18n.language
                 }, token);
               }
               if (prepareChecked) {
                 postNotification({
                   ringNumber: input,
                   showId: show.id,
-                  ring: rings.Prepare
+                  ring: rings.Prepare,
+                  language: i18n.language
                 }, token);
               }
               if (inRingChecked) {
                 postNotification({
                   ringNumber: input,
                   showId: show.id,
-                  ring: rings.InRing
+                  ring: rings.InRing,
+                  language: i18n.language
                 }, token);
               }
               clear();

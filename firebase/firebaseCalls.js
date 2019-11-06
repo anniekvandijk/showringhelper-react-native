@@ -5,8 +5,6 @@ const dbNotifications = FIREBASE_DB_NOTIFICATIONS;
 
 async function postNotification(notification, token) {
 
-  console.log(token);
-  console.log(notification);
   const doc = `${notification.showId}-${notification.ringNumber}-${notification.ring}-${token}`;
 
   try {
@@ -15,7 +13,8 @@ async function postNotification(notification, token) {
       token,
       showId: notification.showId,
       ringNumber: notification.ringNumber,
-      ring: notification.ring
+      ring: notification.ring,
+      language: notification.language
     });
     return doc;
   } catch (e) {
