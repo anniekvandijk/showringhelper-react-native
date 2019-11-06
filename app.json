@@ -45,6 +45,10 @@
       },
       "splash": {
         "mdpi": "./images/splashscreen.png",
+        "hdpi": "./images/splashscreen.png",   // scale 1.5x
+        "xhdpi": "./images/splashscreen.png",  // scale 2x
+        "xxhdpi": "./images/splashscreen.png", // scale 3x
+        "xxxhdpi": "./images/splashscreen.png", // scale 4x
         "resizeMode": "native",
         "backgroundColor": "#ffffff"
       }
