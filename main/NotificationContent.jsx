@@ -300,6 +300,7 @@ function NotificationContent() {
                 <Left>
                   <Item regular>
                     <Input
+                      autoFocus
                       placeholder={t('pages.notificationContent.ringNumberPlaceholder')}
                       style={style.input}
                       onChangeText={value => handleInput(value)}

@@ -22,7 +22,6 @@ function FirebaseNotificationsListner() {
         notification.showId = string[0];
         notification.ringNumber = string[1];
         notification.ring = string[2];
-        console.log(notification);
         notifications.push(notification);
       });
       setState(notifications);
