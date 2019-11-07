@@ -1,7 +1,7 @@
 import React from 'react';
 
 const notificationContext = React.createContext({
-  notifications: null
+  notifications: []
 });
 
 const useNotificationContext = () => {

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Spinner, Content, Text, Card, CardItem, Button, Picker, Title, Icon,
   Left, Right, Body, Item, Input, Header, CheckBox
 } from 'native-base';
 import { Notifications } from 'expo';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, Alert } from 'react-native';
 import registerForPushNotificationsAsync from '../utilities/registerForPushNotifications';
 import { useShowContext } from '../context/showContext';
-import { useNotificationContext } from '../context/notificationContext';
 import { deleteNotification, postNotification } from '../firebase/firebaseCalls';
+import NotificationList from '../components/NotificationList';
 
 const style = StyleSheet.create({
   content: {
@@ -39,18 +39,12 @@ const style = StyleSheet.create({
 function NotificationContent() {
   const [t, i18n] = useTranslation();
   const shows = useShowContext();
-  const notifications = useNotificationContext();
-  const [showList, setShowList] = useState(null);
   const [show, setShow] = useState(null);
   const [input, setInput] = useState('');
   const [nextToPrepareChecked, setNextToPrepare] = useState(false);
   const [prepareChecked, setPrepare] = useState(false);
   const [inRingChecked, setInRing] = useState(false);
   const [receiveNotificationsGranted, setReceiveNotificationsGranted] = useState(null);
-
-  useEffect(() => {
-    setShowList(shows);
-  }, [shows]);
 
   function clear() {
     setInput('');
@@ -71,28 +65,6 @@ function NotificationContent() {
     InRing: 2
   };
 
-  function ringName(r) {
-    switch (r) {
-      case '0':
-        return t('pages.notificationContent.nextToPrepare');
-      case '1':
-        return t('pages.notificationContent.prepare');
-      case '2':
-        return t('pages.notificationContent.inRing');
-      default:
-        return '';
-    }
-  }
-
-  function getShowName(notification) {
-    const filteredShows = showList.filter(x => x.id === notification.showId);
-    if (filteredShows.length === 0) {
-      deleteNotification(notification);
-      return '';
-    }
-    return filteredShows[0].name;
-  }
-
   async function getToken() {
     const token = await Notifications.getExpoPushTokenAsync();
     return token;
@@ -103,6 +75,15 @@ function NotificationContent() {
       .then((granted) => {
         if (granted === false) {
           setReceiveNotificationsGranted(false);
+          // Works on both iOS and Android
+          Alert.alert(
+            t('pages.notificationContent.alertHeader'),
+            t('pages.notificationContent.alertText'),
+            [
+              { text: 'OK', onPress: () => console.log('OK Pressed') }
+            ],
+            { cancelable: false },
+          );
         } else {
           setReceiveNotificationsGranted(true);
           getToken()
@@ -135,14 +116,6 @@ function NotificationContent() {
             })
             .catch(error => console.log(error));
         }
-      }
-      );
-  }
-
-  function deleteThis(notification) {
-    getToken()
-      .then((token) => {
-        deleteNotification(notification, token);
       });
   }
 
@@ -162,7 +135,7 @@ function NotificationContent() {
     setInRing(!inRingChecked);
   }
 
-  if (!showList) {
+  if (!shows) {
     return (
       <>
         <Spinner />
@@ -215,7 +188,7 @@ function NotificationContent() {
                   label={t('pages.notificationContent.selectShow')}
                   value="-1"
                 />
-                {showList && showList.map(showItem => (
+                {shows && shows.map(showItem => (
                   <Picker.Item
                     label={showItem.name}
                     key={Math.random().toString(36).substring(7)}
@@ -252,7 +225,7 @@ function NotificationContent() {
                 selectedValue={show}
                 onValueChange={value => handleChangeShow(value)}
               >
-                {showList && showList.map(showItem => (
+                {shows && shows.map(showItem => (
                   <Picker.Item
                     label={showItem.name}
                     key={Math.random().toString(36).substring(7)}
@@ -300,7 +273,6 @@ function NotificationContent() {
                 <Left>
                   <Item regular>
                     <Input
-                      autoFocus
                       placeholder={t('pages.notificationContent.ringNumberPlaceholder')}
                       style={style.input}
                       onChangeText={value => handleInput(value)}
@@ -323,38 +295,7 @@ function NotificationContent() {
           )
         }
       </Card>
-      {notifications.length > 0
-        && (
-        <Card>
-          <CardItem header bordered>
-            <Text>{t('pages.notificationContent.notificationsHeader')}</Text>
-          </CardItem>
-          {notifications.map(notification => (
-            <React.Fragment key={Math.random().toString(36).substring(7)}>
-              <CardItem>
-                <Body>
-                  <Button rounded disabled style={style.button}>
-                    <Text style={style.buttonText}>{notification.ringNumber}</Text>
-                  </Button>
-                </Body>
-                <Right>
-                  <Button
-                    title="Delete alert"
-                    onPress={() => deleteThis(notification)}
-                  >
-                    <Text>{t('pages.notificationContent.deleteButton')}</Text>
-                  </Button>
-                </Right>
-              </CardItem>
-              <CardItem bordered>
-                <Text>
-                  {`${ringName(notification.ring)}, ${getShowName(notification)}`}
-                </Text>
-              </CardItem>
-            </React.Fragment>
-          ))}
-        </Card>
-        )}
+      <NotificationList />
     </Content>
   );
 }
