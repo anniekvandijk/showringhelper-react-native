@@ -8,7 +8,7 @@
     "slug": "showring-helper",
     "privacy": "unlisted",
     "sdkVersion": "35.0.0",
-    "version": "0.18.0",
+    "version": "0.19.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
     "icon": "./images/icon.png",
     "hooks": {
@@ -34,7 +34,7 @@
     "android": {
       "package": "nl.animundo.android.showringhelper",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 18,
+      "versionCode": 19,
       "permissions": [
         "NOTIFICATIONS"
       ],
@@ -55,7 +55,7 @@
     },
     "ios": {
       "bundleIdentifier": "nl.animundo.ios.showringhelper",
-      "buildNumber": "0.18.0",
+      "buildNumber": "0.19.0",
       "supportsTablet": true
     },
     "notification": {
