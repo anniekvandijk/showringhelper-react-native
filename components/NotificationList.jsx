@@ -7,6 +7,7 @@ import {
 import { Notifications } from 'expo';
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
+import { useNotificationTokenContext } from '../context/NotificationTokenContext';
 import { useNotificationContext } from '../context/notificationContext';
 import { deleteNotification } from '../firebase/firebaseCalls';
 
@@ -33,6 +34,7 @@ const style = StyleSheet.create({
 });
 
 function NotificationList() {
+  const [notificationToken] = useNotificationTokenContext();
   const [t] = useTranslation();
   const shows = useShowContext();
   const notifications = useNotificationContext();
@@ -70,16 +72,10 @@ function NotificationList() {
     }
   }
 
-  async function getToken() {
-    const token = await Notifications.getExpoPushTokenAsync();
-    return token;
-  }
-
   function deleteThis(notification) {
-    getToken()
-      .then((token) => {
-        deleteNotification(notification, token);
-      });
+    if (notificationToken) {
+      deleteNotification(notification, notificationToken);
+    }
   }
 
   if (notifications && notifications.length > 0) {

@@ -18,6 +18,7 @@ import FirebaseShowsListner from './firebase/firebaseShowsListner';
 import FirebaseNotificationsListner from './firebase/firebaseNotificationsListner';
 import { showContext } from './context/showContext';
 import { ShowFilterProvider } from './context/showFilterContext';
+import { NotificationTokenContext } from './context/NotificationTokenContext';
 import { notificationContext } from './context/notificationContext';
 import GlobalErrorBoundary from './utilities/GlobalErrorBoundary';
 
@@ -97,15 +98,17 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <notificationContext.Provider value={{ notifications }}>
-            <ShowFilterProvider>
-              <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-                <GlobalErrorBoundary>
-                  <Main />
-                </GlobalErrorBoundary>
-              </ImageBackground>
-            </ShowFilterProvider>
-          </notificationContext.Provider>
+          <NotificationTokenContext.Provider>
+            <notificationContext.Provider value={{ notifications }}>
+              <ShowFilterProvider>
+                <ImageBackground source={require('./images/background.jpg')} style={style.background}>
+                  <GlobalErrorBoundary>
+                    <Main />
+                  </GlobalErrorBoundary>
+                </ImageBackground>
+              </ShowFilterProvider>
+            </notificationContext.Provider>
+          </NotificationTokenContext.Provider>
         </showContext.Provider>
       </Container>
     </StyleProvider>

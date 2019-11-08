@@ -1,6 +1,9 @@
 import * as Permissions from 'expo-permissions';
+import { Notifications } from 'expo';
+import { useNotificationTokenContext } from '../context/NotificationTokenContext';
 
 async function registerForPushNotificationsAsync() {
+  const [notificationToken, setNotificationToken] = useNotificationTokenContext();
   const { status: existingStatus } = await Permissions.getAsync(
     Permissions.NOTIFICATIONS
   );
@@ -19,6 +22,10 @@ async function registerForPushNotificationsAsync() {
   if (finalStatus !== 'granted') {
     return false;
   }
+
+  const token = await Notifications.getExpoPushTokenAsync();
+  setNotificationToken(token);
+
   return true;
 }
 

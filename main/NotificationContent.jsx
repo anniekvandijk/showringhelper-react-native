@@ -4,11 +4,11 @@ import {
   Spinner, Content, Text, Card, CardItem, Button, Picker, Title, Icon,
   Left, Right, Body, Item, Input, Header, CheckBox
 } from 'native-base';
-import { Notifications } from 'expo';
 import { StyleSheet, Platform, Alert } from 'react-native';
 import registerForPushNotificationsAsync from '../utilities/registerForPushNotifications';
+import { useNotificationTokenContext } from '../context/NotificationTokenContext';
 import { useShowContext } from '../context/showContext';
-import { deleteNotification, postNotification } from '../firebase/firebaseCalls';
+import { postNotification } from '../firebase/firebaseCalls';
 import NotificationList from '../components/NotificationList';
 
 const style = StyleSheet.create({
@@ -39,12 +39,12 @@ const style = StyleSheet.create({
 function NotificationContent() {
   const [t, i18n] = useTranslation();
   const shows = useShowContext();
+  const [notificationToken] = useNotificationTokenContext();
   const [show, setShow] = useState(null);
   const [input, setInput] = useState('');
   const [nextToPrepareChecked, setNextToPrepare] = useState(false);
   const [prepareChecked, setPrepare] = useState(false);
   const [inRingChecked, setInRing] = useState(false);
-  const [receiveNotificationsGranted, setReceiveNotificationsGranted] = useState(null);
 
   function clear() {
     setInput('');
@@ -65,56 +65,51 @@ function NotificationContent() {
     InRing: 2
   };
 
-  async function getToken() {
-    const token = await Notifications.getExpoPushTokenAsync();
-    return token;
+  function AlertMessage() {
+    // Works on both iOS and Android
+    Alert.alert(
+      t('pages.notificationContent.alertHeader'),
+      t('pages.notificationContent.alertText'),
+      [
+        { text: 'OK', onPress: () => console.log('OK Pressed') }
+      ],
+      { cancelable: false },
+    );
   }
 
   function addNotifications() {
     registerForPushNotificationsAsync()
       .then((granted) => {
         if (granted === false) {
-          setReceiveNotificationsGranted(false);
-          // Works on both iOS and Android
-          Alert.alert(
-            t('pages.notificationContent.alertHeader'),
-            t('pages.notificationContent.alertText'),
-            [
-              { text: 'OK', onPress: () => console.log('OK Pressed') }
-            ],
-            { cancelable: false },
-          );
+          AlertMessage();
         } else {
-          setReceiveNotificationsGranted(true);
-          getToken()
-            .then((token) => {
-              if (nextToPrepareChecked) {
-                postNotification({
-                  ringNumber: input,
-                  showId: show.id,
-                  ring: rings.NextToPrepare,
-                  language: i18n.language
-                }, token);
-              }
-              if (prepareChecked) {
-                postNotification({
-                  ringNumber: input,
-                  showId: show.id,
-                  ring: rings.Prepare,
-                  language: i18n.language
-                }, token);
-              }
-              if (inRingChecked) {
-                postNotification({
-                  ringNumber: input,
-                  showId: show.id,
-                  ring: rings.InRing,
-                  language: i18n.language
-                }, token);
-              }
-              clear();
-            })
-            .catch(error => console.log(error));
+          if (notificationToken) {
+            if (nextToPrepareChecked) {
+              postNotification({
+                ringNumber: input,
+                showId: show.id,
+                ring: rings.NextToPrepare,
+                language: i18n.language
+              }, notificationToken);
+            }
+            if (prepareChecked) {
+              postNotification({
+                ringNumber: input,
+                showId: show.id,
+                ring: rings.Prepare,
+                language: i18n.language
+              }, notificationToken);
+            }
+            if (inRingChecked) {
+              postNotification({
+                ringNumber: input,
+                showId: show.id,
+                ring: rings.InRing,
+                language: i18n.language
+              }, notificationToken);
+            }
+          }
+          clear();
         }
       });
   }
