@@ -18,7 +18,7 @@ import FirebaseShowsListner from './firebase/firebaseShowsListner';
 import FirebaseNotificationsListner from './firebase/firebaseNotificationsListner';
 import { showContext } from './context/showContext';
 import { ShowFilterProvider } from './context/showFilterContext';
-import { NotificationTokenContext } from './context/NotificationTokenContext';
+import { NotificationTokenProvider } from './context/NotificationTokenContext';
 import { notificationContext } from './context/notificationContext';
 import GlobalErrorBoundary from './utilities/GlobalErrorBoundary';
 
@@ -45,7 +45,7 @@ function App() {
     project: SENTRY_PROJECT,
     authToken: SENTRY_AUTH_TOKEN,
     dsn: SENTRY_DSN,
-    enableInExpoDevelopment: true,
+    enableInExpoDevelopment: false,
     debug: true
   });
 
@@ -98,7 +98,7 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <NotificationTokenContext.Provider>
+          <NotificationTokenProvider>
             <notificationContext.Provider value={{ notifications }}>
               <ShowFilterProvider>
                 <ImageBackground source={require('./images/background.jpg')} style={style.background}>
@@ -108,7 +108,7 @@ function App() {
                 </ImageBackground>
               </ShowFilterProvider>
             </notificationContext.Provider>
-          </NotificationTokenContext.Provider>
+          </NotificationTokenProvider>
         </showContext.Provider>
       </Container>
     </StyleProvider>

@@ -4,7 +4,6 @@ import {
   Spinner, Text, Card, CardItem, Button,
   Right, Body
 } from 'native-base';
-import { Notifications } from 'expo';
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
 import { useNotificationTokenContext } from '../context/NotificationTokenContext';
@@ -38,17 +37,6 @@ function NotificationList() {
   const [t] = useTranslation();
   const shows = useShowContext();
   const notifications = useNotificationContext();
-
-  if (!notifications) {
-    return (
-      <>
-        <Spinner />
-        <Text style={style.spinnerText}>
-          {t('spinner')}
-        </Text>
-      </>
-    );
-  }
 
   function getShowName(notification) {
     const filteredShows = shows && shows.filter(x => x.id === notification.showId);

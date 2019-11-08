@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Notifications } from 'expo';
 import {
   Spinner, Content, Text, Card, CardItem, Button, Picker, Title, Icon,
   Left, Right, Body, Item, Input, Header, CheckBox
@@ -39,7 +40,7 @@ const style = StyleSheet.create({
 function NotificationContent() {
   const [t, i18n] = useTranslation();
   const shows = useShowContext();
-  const [notificationToken] = useNotificationTokenContext();
+  const [notificationToken, setNotificationToken] = useNotificationTokenContext();
   const [show, setShow] = useState(null);
   const [input, setInput] = useState('');
   const [nextToPrepareChecked, setNextToPrepare] = useState(false);
@@ -77,41 +78,51 @@ function NotificationContent() {
     );
   }
 
+  async function getToken() {
+    const token = await Notifications.getExpoPushTokenAsync();
+    setNotificationToken(token);
+    return token;
+  }
+
   function addNotifications() {
     registerForPushNotificationsAsync()
       .then((granted) => {
         if (granted === false) {
           AlertMessage();
         } else {
-          if (notificationToken) {
-            if (nextToPrepareChecked) {
-              postNotification({
-                ringNumber: input,
-                showId: show.id,
-                ring: rings.NextToPrepare,
-                language: i18n.language
-              }, notificationToken);
-            }
-            if (prepareChecked) {
-              postNotification({
-                ringNumber: input,
-                showId: show.id,
-                ring: rings.Prepare,
-                language: i18n.language
-              }, notificationToken);
-            }
-            if (inRingChecked) {
-              postNotification({
-                ringNumber: input,
-                showId: show.id,
-                ring: rings.InRing,
-                language: i18n.language
-              }, notificationToken);
-            }
-          }
-          clear();
+          getToken()
+            .then((token) => {
+              if (token) {
+                if (nextToPrepareChecked) {
+                  postNotification({
+                    ringNumber: input,
+                    showId: show.id,
+                    ring: rings.NextToPrepare,
+                    language: i18n.language
+                  }, token);
+                }
+                if (prepareChecked) {
+                  postNotification({
+                    ringNumber: input,
+                    showId: show.id,
+                    ring: rings.Prepare,
+                    language: i18n.language
+                  }, token);
+                }
+                if (inRingChecked) {
+                  postNotification({
+                    ringNumber: input,
+                    showId: show.id,
+                    ring: rings.InRing,
+                    language: i18n.language
+                  }, token);
+                }
+              }
+            })
+            .catch(error => console.log(error));
         }
       });
+    clear();
   }
 
   function handleInput(value) {

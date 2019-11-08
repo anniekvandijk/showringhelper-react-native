@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react';
 import { FIREBASE_DB_NOTIFICATIONS } from 'react-native-dotenv';
-import { Notifications } from 'expo';
+import { useNotificationTokenContext } from '../context/NotificationTokenContext';
 import { database } from './firebase';
-
-async function getToken() {
-  const token = await Notifications.getExpoPushTokenAsync();
-  return token;
-}
 
 function FirebaseNotificationsListner() {
   const [state, setState] = useState(null);
+  const [notificationToken] = useNotificationTokenContext();
   const dbCollection = FIREBASE_DB_NOTIFICATIONS;
 
   const onChangeNotifications = (querySnapshot) => {
@@ -30,15 +26,16 @@ function FirebaseNotificationsListner() {
   };
 
   useEffect(() => {
-    getToken()
-      .then((token) => {
-        const unsubscribe = database
-          .collection(dbCollection)
-          .where('token', '==', token)
-          .onSnapshot(querySnapshot => onChangeNotifications(querySnapshot));
-        return () => unsubscribe();
-      });
-  }, [dbCollection]);
+    console.log('query token');
+    console.log(notificationToken);
+    if (notificationToken) {
+      const unsubscribe = database
+        .collection(dbCollection)
+        .where('token', '==', notificationToken)
+        .onSnapshot(querySnapshot => onChangeNotifications(querySnapshot));
+      return () => unsubscribe();
+    }
+  }, [notificationToken]);
 
   return state;
 }
