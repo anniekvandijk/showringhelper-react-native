@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
+import { AsyncStorage } from 'react-native';
 import { FIREBASE_DB_NOTIFICATIONS } from 'react-native-dotenv';
-import { useNotificationTokenContext } from '../context/NotificationTokenContext';
 import { database } from './firebase';
 
 function FirebaseNotificationsListner() {
   const [state, setState] = useState(null);
-  const [notificationToken] = useNotificationTokenContext();
   const dbCollection = FIREBASE_DB_NOTIFICATIONS;
 
   const onChangeNotifications = (querySnapshot) => {
@@ -26,16 +25,24 @@ function FirebaseNotificationsListner() {
   };
 
   useEffect(() => {
-    console.log('query token');
-    console.log(notificationToken);
-    if (notificationToken) {
-      const unsubscribe = database
-        .collection(dbCollection)
-        .where('token', '==', notificationToken)
-        .onSnapshot(querySnapshot => onChangeNotifications(querySnapshot));
-      return () => unsubscribe();
-    }
-  }, [notificationToken]);
+    AsyncStorage
+      .getItem('token')
+      .then((result) => {
+        console.log('query token');
+        console.log(result);
+        if (result) {
+          const token = JSON.parse(result);
+          const unsubscribe = database
+            .collection(dbCollection)
+            .where('token', '==', token)
+            .onSnapshot(querySnapshot => onChangeNotifications(querySnapshot));
+          return () => unsubscribe();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [dbCollection]);
 
   return state;
 }
