@@ -14,17 +14,21 @@ const NotificationProvider = ({ children }) => {
   const [notifications, setNotifications] = React.useState([]);
   const [notificationToken] = useNotificationTokenContext();
 
+  async function Get() {
+    console.log('getting');
+    getNotifications(notificationToken)
+      .then((result) => {
+        console.log(result);
+        if (result) {
+          setNotifications(result);
+        }
+      })
+      .catch((error) => { console.log(error); });
+  }
+
   useEffect(() => {
     if (notificationToken) {
-      getNotifications(notificationToken)
-        .then((result) => {
-          console.log(result);
-          if (result) {
-            setNotifications(result);
-            console.log(result);
-          }
-        })
-        .catch((error) => { console.log(error); });
+      Get();
     }
   }, [notificationToken]);
 

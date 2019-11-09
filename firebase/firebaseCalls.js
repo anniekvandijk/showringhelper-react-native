@@ -4,7 +4,7 @@ import { database } from './firebase';
 const dbNotifications = FIREBASE_DB_NOTIFICATIONS;
 
 async function getNotifications(token) {
-  database.collection(dbNotifications).where('token', '==', token).get()
+  return database.collection(dbNotifications).where('token', '==', token).get()
     .then((snapshot) => {
       if (snapshot.empty) {
         console.log('No matching documents.');
@@ -19,7 +19,6 @@ async function getNotifications(token) {
         notification.token = doc.data().token;
         notificationList.push(notification);
       });
-      console.log(notificationList);
       return notificationList;
     })
     .catch((err) => {
