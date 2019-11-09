@@ -169,7 +169,7 @@ const Main = createBottomTabNavigator(
       const [notifications] = useNotificationContext();
       const shows = useShowContext();
       const [showFilter] = useShowFilterContext();
-      const filteredShows = shows && shows.filter(el => showFilter.indexOf(el.id) !== -1);
+      const filteredShows = shows && showFilter && shows.filter(el => showFilter.indexOf(el.id) !== -1);
 
       return (
         <Footer>
