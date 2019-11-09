@@ -3,22 +3,23 @@ import { database } from './firebase';
 
 const dbNotifications = FIREBASE_DB_NOTIFICATIONS;
 
-function getNotifications(token) {
+async function getNotifications(token) {
   database.collection(dbNotifications).where('token', '==', token).get()
     .then((snapshot) => {
       if (snapshot.empty) {
         console.log('No matching documents.');
         return [];
-      }  
+      }
       const notificationList = [];
       snapshot.forEach((doc) => {
         const notification = {};
-        const string = doc.id.split('-');
-        notificationList.showId = string[0];
-        notificationList.ringNumber = string[1];
-        notificationList.ring = string[2];
+        notification.showId = doc.data().showId;
+        notification.ringNumber = doc.data().ringNumber;
+        notification.ring = doc.data().ring;
+        notification.token = doc.data().token;
         notificationList.push(notification);
       });
+      console.log(notificationList);
       return notificationList;
     })
     .catch((err) => {

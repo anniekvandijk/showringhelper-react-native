@@ -96,8 +96,8 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <NotificationProvider>
-            <NotificationTokenProvider>
+          <NotificationTokenProvider>
+            <NotificationProvider>
               <ShowFilterProvider>
                 <ImageBackground source={require('./images/background.jpg')} style={style.background}>
                   <GlobalErrorBoundary>
@@ -105,8 +105,8 @@ function App() {
                   </GlobalErrorBoundary>
                 </ImageBackground>
               </ShowFilterProvider>
-            </NotificationTokenProvider>
-          </NotificationProvider>
+            </NotificationProvider>
+          </NotificationTokenProvider>
         </showContext.Provider>
       </Container>
     </StyleProvider>
