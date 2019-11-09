@@ -8,6 +8,7 @@ import {
 import { StyleSheet, Platform, Alert } from 'react-native';
 import registerForPushNotificationsAsync from '../utilities/registerForPushNotifications';
 import { useNotificationTokenContext } from '../context/NotificationTokenContext';
+import { useNotificationContext } from '../context/NotificationContext';
 import { useShowContext } from '../context/showContext';
 import { postNotification } from '../firebase/firebaseCalls';
 import NotificationList from '../components/NotificationList';
@@ -41,6 +42,7 @@ function NotificationContent() {
   const [t, i18n] = useTranslation();
   const shows = useShowContext();
   const [notificationToken, setNotificationToken] = useNotificationTokenContext();
+  const [notifications, setNotifications] = useNotificationContext();
   const [show, setShow] = useState(null);
   const [input, setInput] = useState('');
   const [nextToPrepareChecked, setNextToPrepare] = useState(false);
@@ -94,28 +96,37 @@ function NotificationContent() {
             .then((token) => {
               if (token) {
                 if (nextToPrepareChecked) {
-                  postNotification({
+                  const not = {
                     ringNumber: input,
                     showId: show.id,
                     ring: rings.NextToPrepare,
                     language: i18n.language
-                  }, token);
+                  };
+                  postNotification(not, token);
+                  const notList = [...notifications, not];
+                  setNotifications(notList);
                 }
                 if (prepareChecked) {
-                  postNotification({
+                  const not = {
                     ringNumber: input,
                     showId: show.id,
                     ring: rings.Prepare,
                     language: i18n.language
-                  }, token);
+                  };
+                  postNotification(not, token);
+                  const notList = [...notifications, not];
+                  setNotifications(notList);
                 }
                 if (inRingChecked) {
-                  postNotification({
+                  const not = {
                     ringNumber: input,
                     showId: show.id,
                     ring: rings.InRing,
                     language: i18n.language
-                  }, token);
+                  };
+                  postNotification(not, token);
+                  const notList = [...notifications, not];
+                  setNotifications(notList);
                 }
               }
             })

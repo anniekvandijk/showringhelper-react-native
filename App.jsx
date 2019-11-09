@@ -15,11 +15,10 @@ import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
-import FirebaseNotificationsListner from './firebase/firebaseNotificationsListner';
 import { showContext } from './context/showContext';
 import { ShowFilterProvider } from './context/showFilterContext';
+import { NotificationProvider } from './context/NotificationContext';
 import { NotificationTokenProvider } from './context/NotificationTokenContext';
-import { notificationContext } from './context/notificationContext';
 import GlobalErrorBoundary from './utilities/GlobalErrorBoundary';
 
 const style = StyleSheet.create({
@@ -37,7 +36,6 @@ if (ENV !== 'production') {
 function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
-  const notifications = FirebaseNotificationsListner();
 
   // Sentry logging
   Sentry.init({
@@ -98,8 +96,8 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <NotificationTokenProvider>
-            <notificationContext.Provider value={{ notifications }}>
+          <NotificationProvider>
+            <NotificationTokenProvider>
               <ShowFilterProvider>
                 <ImageBackground source={require('./images/background.jpg')} style={style.background}>
                   <GlobalErrorBoundary>
@@ -107,8 +105,8 @@ function App() {
                   </GlobalErrorBoundary>
                 </ImageBackground>
               </ShowFilterProvider>
-            </notificationContext.Provider>
-          </NotificationTokenProvider>
+            </NotificationTokenProvider>
+          </NotificationProvider>
         </showContext.Provider>
       </Container>
     </StyleProvider>

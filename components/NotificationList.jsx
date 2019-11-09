@@ -7,7 +7,7 @@ import {
 import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
 import { useNotificationTokenContext } from '../context/NotificationTokenContext';
-import { useNotificationContext } from '../context/notificationContext';
+import { useNotificationContext } from '../context/NotificationContext';
 import { deleteNotification } from '../firebase/firebaseCalls';
 
 const style = StyleSheet.create({
@@ -36,12 +36,14 @@ function NotificationList() {
   const [notificationToken] = useNotificationTokenContext();
   const [t] = useTranslation();
   const shows = useShowContext();
-  const notifications = useNotificationContext();
+  const [notifications, setNotifications] = useNotificationContext();
 
   function getShowName(notification) {
     const filteredShows = shows && shows.filter(x => x.id === notification.showId);
+    console.log(filteredShows);
     if (filteredShows.length === 0) {
       deleteNotification(notification);
+      setNotifications(notifications.filter(x => x !== notification));
       return '';
     }
     return filteredShows[0].name;
@@ -62,7 +64,8 @@ function NotificationList() {
 
   function deleteThis(notification) {
     if (notificationToken) {
-      deleteNotification(notification, notificationToken);
+      deleteNotification(notification);
+      setNotifications(notifications.filter(x => x !== notification));
     }
   }
 

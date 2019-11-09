@@ -8,7 +8,9 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
-import { useNotificationContext } from '../context/notificationContext';
+import { useNotificationContext } from '../context/NotificationContext';
+import { useNotificationTokenContext } from '../context/NotificationTokenContext';
+import { getNotifications } from '../firebase/firebaseCalls';
 import Header from './Header';
 import RingContent from './RingContent';
 import FilterContent from './FilterContent';
@@ -166,10 +168,17 @@ const Main = createBottomTabNavigator(
     tabBarPosition: 'bottom',
     tabBarComponent: ({ navigation }) => {
       const [t] = useTranslation();
-      const notifications = useNotificationContext();
+      const [notificationToken] = useNotificationTokenContext();
+      const [notifications, setNotifications] = useNotificationContext();
       const shows = useShowContext();
       const [showFilter] = useShowFilterContext();
       const filteredShows = shows && shows.filter(el => showFilter.indexOf(el.id) !== -1);
+
+      if (notificationToken) {
+        const notifi = getNotifications(notificationToken);
+        setNotifications(notifi);
+      }
+
       return (
         <Footer>
           <FooterTab>
