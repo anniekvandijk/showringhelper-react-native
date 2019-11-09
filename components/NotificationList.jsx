@@ -39,23 +39,23 @@ function NotificationList() {
   const [notifications, setNotifications] = useNotificationContext();
 
   function getShowName(notification) {
-    const filteredShows = shows && shows.filter(x => x.id === notification.showId);
-    console.log(filteredShows);
+    const filteredShows = notifications && shows && shows.filter(x => x.id === notification.showId);
     if (filteredShows.length === 0) {
       deleteNotification(notification);
       setNotifications(notifications.filter(x => x !== notification));
       return '';
     }
+    console.log(filteredShows[0].name);
     return filteredShows[0].name;
   }
 
   function ringName(r) {
     switch (r) {
-      case '0':
+      case 0:
         return t('pages.notificationContent.nextToPrepare');
-      case '1':
+      case 1:
         return t('pages.notificationContent.prepare');
-      case '2':
+      case 2:
         return t('pages.notificationContent.inRing');
       default:
         return '';
