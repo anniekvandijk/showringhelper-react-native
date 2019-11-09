@@ -45,7 +45,6 @@ function NotificationList() {
       setNotifications(notifications.filter(x => x !== notification));
       return '';
     }
-    console.log(filteredShows[0].name);
     return filteredShows[0].name;
   }
 

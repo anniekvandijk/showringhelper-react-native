@@ -15,10 +15,8 @@ const NotificationProvider = ({ children }) => {
   const [notificationToken] = useNotificationTokenContext();
 
   async function Get() {
-    console.log('getting');
     getNotifications(notificationToken)
       .then((result) => {
-        console.log(result);
         if (result) {
           setNotifications(result);
         }
