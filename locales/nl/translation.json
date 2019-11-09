@@ -33,16 +33,16 @@
       "versionText": "versie"
     },
     "filterContent": {
-      "text": "Als er niks is geselecteerd, dan wordt alles getoond."
+      "text": "Filter keuringen. Zonder selectie wordt alles getoond."
     },
     "notificationContent": {
-      "text": "Selecteer keuring, ring en ringnummer om meldingen voor in te stellen.",
+      "text": "Selecteer keuring, fase en deelnemernummer om meldingen voor in te stellen.",
       "showPickerPlaceholder": "Selecteer keuring",
       "selectShow": "Selecteer keuring ...",
       "nextToPrepare": "Voorbereiden",
       "prepare": "Klaarstaan",
       "inRing": "In ring",
-      "ringNumberPlaceholder": "Ringnummer",
+      "ringNumberPlaceholder": "Nummer",
       "addButton": " Toevoegen ",
       "notificationsHeader": "Meldingen",
       "noNotifications": "Geen meldingen aangemaakt",
