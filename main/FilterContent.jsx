@@ -33,7 +33,7 @@ function FilterContent() {
   }, [shows]);
 
   function isFiltered(id) {
-    if (showFilter.indexOf(id) > -1) {
+    if (showFilter && showFilter.indexOf(id) > -1) {
       return true;
     }
     return false;
