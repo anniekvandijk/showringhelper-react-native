@@ -163,6 +163,19 @@ function NotificationContent() {
     );
   }
 
+  function InputField() {
+    return (
+      <Input
+        name="numberInput"
+        placeholder={t('pages.notificationContent.ringNumberPlaceholder')}
+        style={style.input}
+        onChangeText={value => handleInput(value)}
+        value={input}
+        maxLength={10}
+      />
+    );
+  }
+
   return (
     <Content padder style={style.content}>
       <Card>
@@ -191,6 +204,7 @@ function NotificationContent() {
                   </Header>
                 )
                 }
+                name="showDropdown"
                 mode="dropdown"
                 iosHeader={t('pages.notificationContent.showPickerPlaceholder')}
                 iosIcon={<Icon name="arrow-down" />}
@@ -232,6 +246,7 @@ function NotificationContent() {
                   </Header>
                 )
                 }
+                name="showDropdown"
                 mode="dropdown"
                 iosHeader={t('pages.notificationContent.showPickerPlaceholder')}
                 iosIcon={<Icon name="arrow-down" />}
@@ -258,6 +273,7 @@ function NotificationContent() {
             <React.Fragment key={Math.random().toString(36).substring(7)}>
               <CardItem>
                 <CheckBox
+                  name="nextToPrepareCheckbox"
                   style={style.checkbox}
                   checked={nextToPrepareChecked}
                   onPress={() => checkboxNextToPrepare()}
@@ -268,6 +284,7 @@ function NotificationContent() {
               </CardItem>
               <CardItem>
                 <CheckBox
+                  name="prepareCheckbox"
                   style={style.checkbox}
                   checked={prepareChecked}
                   onPress={() => checkboxPrepare()}
@@ -278,6 +295,7 @@ function NotificationContent() {
               </CardItem>
               <CardItem>
                 <CheckBox
+                  name="inRingCheckbox"
                   style={style.checkbox}
                   checked={inRingChecked}
                   onPress={() => checkboxInring()}
@@ -289,13 +307,7 @@ function NotificationContent() {
               <CardItem bordered>
                 <Left>
                   <Item regular>
-                    <Input
-                      placeholder={t('pages.notificationContent.ringNumberPlaceholder')}
-                      style={style.input}
-                      onChangeText={value => handleInput(value)}
-                      value={input}
-                      maxLength={10}
-                    />
+                    <InputField />
                   </Item>
                 </Left>
                 <Right>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import * as Sentry from 'sentry-expo';
 import { useTranslation } from 'react-i18next';
 import { Content, Text, Spinner } from 'native-base';
 import { StyleSheet } from 'react-native';
