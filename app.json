@@ -11,26 +11,11 @@
     "version": "0.22.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
     "icon": "./images/icon.png",
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps"
-        }
-      ]
+    "ios": {
+      "bundleIdentifier": "nl.animundo.ios.showringhelper",
+      "buildNumber": "0.22.0",
+      "supportsTablet": true
     },
-    "androidStatusBar": {
-      "barStyle": "light-content",
-      "backgroundColor": "#3e2723"
-    },
-    "splash": {
-      "image": "./images/splashscreen.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "platforms": [
-      "android",
-      "ios"
-    ],
     "android": {
       "package": "nl.animundo.android.showringhelper",
       "googleServicesFile": "./google-services.json",
@@ -53,11 +38,26 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "ios": {
-      "bundleIdentifier": "nl.animundo.ios.showringhelper",
-      "buildNumber": "0.22.0",
-      "supportsTablet": true
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps"
+        }
+      ]
     },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#3e2723"
+    },
+    "splash": {
+      "image": "./images/splashscreen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "platforms": [
+      "android",
+      "ios"
+    ],
     "notification": {
       "icon": "./images/icon_96px_8bit_wit_transp.png",
       "color": "#e56228",
