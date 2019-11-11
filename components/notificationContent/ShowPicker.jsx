@@ -5,7 +5,7 @@ import {
   Left, Right, Body, Header
 } from 'native-base';
 import { Platform } from 'react-native';
-import { useShowContext } from '../context/showContext';
+import { useShowContext } from '../../context/showContext';
 
 function ShowPicker({ show, onChange }) {
   const [t] = useTranslation();

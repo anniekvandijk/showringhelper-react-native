@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Notifications } from 'expo';
 import {
-  Spinner, Content, Text, Card, CardItem, Button, Picker, Title, Icon,
-  Left, Right, Body, Item, Input, Header, CheckBox
+  Spinner, Content, Text, Card, CardItem, Button, Left, Right, Body, Item, CheckBox
 } from 'native-base';
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet } from 'react-native';
 import AlertMessage from '../components/AlertMessage';
 import registerForPushNotificationsAsync from '../utilities/registerForPushNotifications';
 import { useNotificationTokenContext } from '../context/NotificationTokenContext';
 import { useNotificationContext } from '../context/NotificationContext';
 import { useShowContext } from '../context/showContext';
 import { postNotification } from '../firebase/firebaseCalls';
-import ShowPicker from '../components/ShowPicker';
-import NotificationList from '../components/NotificationList';
+import ShowPicker from '../components/notificationContent/ShowPicker';
+import NumberInput from '../components/notificationContent/NumberInput';
+import NotificationList from '../components/notificationContent/NotificationList';
 
 const style = StyleSheet.create({
   content: {
@@ -153,19 +153,6 @@ function NotificationContent() {
     );
   }
 
-  function InputField() {
-    return (
-      <Input
-        name="numberInput"
-        placeholder={t('pages.notificationContent.ringNumberPlaceholder')}
-        style={style.input}
-        onChangeText={value => handleInput(value)}
-        value={input}
-        maxLength={10}
-      />
-    );
-  }
-
   return (
     <Content padder style={style.content}>
       <Card>
@@ -219,14 +206,21 @@ function NotificationContent() {
               <CardItem bordered>
                 <Left>
                   <Item regular>
-                    <InputField />
+                    <NumberInput
+                      value={input}
+                      onChange={handleInput}
+                    />
                   </Item>
                 </Left>
                 <Right>
                   <Button
                     title="Alert"
                     onPress={() => addNotifications()}
-                    disabled={input.length === 0 || !(nextToPrepareChecked || prepareChecked || inRingChecked)}
+                    disabled={
+                      input.length === 0
+                      || !(nextToPrepareChecked
+                      || prepareChecked
+                      || inRingChecked)}
                   >
                     <Text>{t('pages.notificationContent.addButton')}</Text>
                   </Button>

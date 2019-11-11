@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Spinner, Text, Card, CardItem, Button,
+  Text, Card, CardItem, Button,
   Right, Body
 } from 'native-base';
 import { StyleSheet } from 'react-native';
-import { useShowContext } from '../context/showContext';
-import { useNotificationTokenContext } from '../context/NotificationTokenContext';
-import { useNotificationContext } from '../context/NotificationContext';
-import { deleteNotification } from '../firebase/firebaseCalls';
+import { useShowContext } from '../../context/showContext';
+import { useNotificationTokenContext } from '../../context/NotificationTokenContext';
+import { useNotificationContext } from '../../context/NotificationContext';
+import { deleteNotification } from '../../firebase/firebaseCalls';
 
 const style = StyleSheet.create({
   spinnerText: {
