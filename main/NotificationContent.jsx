@@ -5,12 +5,14 @@ import {
   Spinner, Content, Text, Card, CardItem, Button, Picker, Title, Icon,
   Left, Right, Body, Item, Input, Header, CheckBox
 } from 'native-base';
-import { StyleSheet, Platform, Alert } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
+import AlertMessage from '../components/AlertMessage';
 import registerForPushNotificationsAsync from '../utilities/registerForPushNotifications';
 import { useNotificationTokenContext } from '../context/NotificationTokenContext';
 import { useNotificationContext } from '../context/NotificationContext';
 import { useShowContext } from '../context/showContext';
 import { postNotification } from '../firebase/firebaseCalls';
+import ShowPicker from '../components/ShowPicker';
 import NotificationList from '../components/NotificationList';
 
 const style = StyleSheet.create({
@@ -54,11 +56,7 @@ function NotificationContent() {
   }
 
   function handleChangeShow(showItem) {
-    if (showItem !== '-1') {
-      setShow(showItem);
-    } else {
-      setShow(null);
-    }
+    setShow(showItem);
     clear();
   }
 
@@ -68,16 +66,8 @@ function NotificationContent() {
     InRing: 2
   };
 
-  function AlertMessage() {
-    // Works on both iOS and Android
-    Alert.alert(
-      t('pages.notificationContent.alertHeader'),
-      t('pages.notificationContent.alertText'),
-      [
-        { text: 'OK', onPress: () => console.log('OK Pressed') }
-      ],
-      { cancelable: false },
-    );
+  function displayAlertMessage() {
+    AlertMessage(t('pages.notificationContent.alertHeader'), t('pages.notificationContent.alertText'));
   }
 
   async function getToken() {
@@ -90,7 +80,7 @@ function NotificationContent() {
     registerForPushNotificationsAsync()
       .then((granted) => {
         if (granted === false) {
-          AlertMessage();
+          displayAlertMessage();
         } else {
           getToken()
             .then((token) => {
@@ -185,92 +175,14 @@ function NotificationContent() {
           </Left>
         </CardItem>
         <CardItem bordered>
-          {Platform.OS === 'android'
-            ? (
-              <Picker
-                renderHeader={backAction => (
-                  <Header>
-                    <Left>
-                      <Button transparent onPress={backAction}>
-                        <Icon name="arrow-back" />
-                      </Button>
-                    </Left>
-                    <Body style={{ flex: 3 }}>
-                      <Title>
-                        {t('pages.notificationContent.showPickerPlaceholder')}
-                      </Title>
-                    </Body>
-                    <Right />
-                  </Header>
-                )
-                }
-                name="showDropdown"
-                mode="dropdown"
-                iosHeader={t('pages.notificationContent.showPickerPlaceholder')}
-                iosIcon={<Icon name="arrow-down" />}
-                placeholder={t('pages.notificationContent.showPickerPlaceholder')}
-                placeholderStyle={{ color: '#000' }}
-                style={{ width: '85%' }}
-                itemTextStyle={{ color: '#000000' }}
-                selectedValue={show}
-                onValueChange={value => handleChangeShow(value)}
-              >
-                <Picker.Item
-                  label={t('pages.notificationContent.selectShow')}
-                  value="-1"
-                />
-                {shows && shows.map(showItem => (
-                  <Picker.Item
-                    label={showItem.name}
-                    key={Math.random().toString(36).substring(7)}
-                    value={showItem}
-                  />
-                ))}
-              </Picker>
-            )
-            : (
-              <Picker
-                renderHeader={backAction => (
-                  <Header>
-                    <Left>
-                      <Button transparent onPress={backAction}>
-                        <Icon name="arrow-back" />
-                      </Button>
-                    </Left>
-                    <Body style={{ flex: 3 }}>
-                      <Title>
-                        {t('pages.notificationContent.showPickerPlaceholder')}
-                      </Title>
-                    </Body>
-                    <Right />
-                  </Header>
-                )
-                }
-                name="showDropdown"
-                mode="dropdown"
-                iosHeader={t('pages.notificationContent.showPickerPlaceholder')}
-                iosIcon={<Icon name="arrow-down" />}
-                placeholder={t('pages.notificationContent.showPickerPlaceholder')}
-                placeholderStyle={{ color: '#000' }}
-                style={{ width: '85%' }}
-                itemTextStyle={{ color: '#000000' }}
-                selectedValue={show}
-                onValueChange={value => handleChangeShow(value)}
-              >
-                {shows && shows.map(showItem => (
-                  <Picker.Item
-                    label={showItem.name}
-                    key={Math.random().toString(36).substring(7)}
-                    value={showItem}
-                  />
-                ))}
-              </Picker>
-            )
-        }
+          <ShowPicker
+            show={show}
+            onChange={handleChangeShow}
+          />
         </CardItem>
         {show
           && (
-            <React.Fragment key={Math.random().toString(36).substring(7)}>
+            <>
               <CardItem>
                 <CheckBox
                   name="nextToPrepareCheckbox"
@@ -320,7 +232,7 @@ function NotificationContent() {
                   </Button>
                 </Right>
               </CardItem>
-            </React.Fragment>
+            </>
           )
         }
       </Card>
