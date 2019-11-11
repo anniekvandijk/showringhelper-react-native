@@ -7,10 +7,44 @@
     "description": "Showring helper app helps you and your customers to be ready for the showring",
     "slug": "showring-helper",
     "privacy": "unlisted",
-    "sdkVersion": "34.0.0",
-    "version": "0.10.0",
+    "sdkVersion": "35.0.0",
+    "version": "0.22.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
-    "icon": "images/icon.png",
+    "icon": "./images/icon.png",
+    "ios": {
+      "bundleIdentifier": "nl.animundo.ios.showringhelper",
+      "buildNumber": "0.22.0",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "nl.animundo.android.showringhelper",
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 22,
+      "permissions": [
+        "NOTIFICATIONS"
+      ],
+      "icon": "./images/icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./images/icon_transparent.png",
+        "backgroundColor": "#ffffff"
+      },
+      "splash": {
+        "mdpi": "./images/splashscreen.png",
+        "hdpi": "./images/splashscreen.png",
+        "xhdpi": "./images/splashscreen.png",
+        "xxhdpi": "./images/splashscreen.png",
+        "xxxhdpi": "./images/splashscreen.png",
+        "resizeMode": "native",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps"
+        }
+      ]
+    },
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#3e2723"
@@ -21,17 +55,14 @@
       "backgroundColor": "#ffffff"
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ],
-    "android": {
-      "package": "nl.animundo.android.showringhelper",
-      "versionCode": 10,
-      "permissions": [],
-      "icon": "images/icon.png",
-      "adaptiveIcon": {
-        "foregroundImage": "images/icon_transparent.png",
-        "backgroundColor": "#ffffff"
-      }
+    "notification": {
+      "icon": "./images/icon_96px_8bit_wit_transp.png",
+      "color": "#e56228",
+      "iosDisplayInForeground": true,
+      "androidMode": "default"
     },
     "packagerOpts": {
       "sourceExts": [

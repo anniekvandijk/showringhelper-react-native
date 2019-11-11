@@ -4,7 +4,7 @@ import {
   Spinner, Content, Text, Card, CheckBox, CardItem, Button,
   Left, Right, Body
 } from 'native-base';
-import { StyleSheet, AsyncStorage } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
 
@@ -33,7 +33,7 @@ function FilterContent() {
   }, [shows]);
 
   function isFiltered(id) {
-    if (showFilter.indexOf(id) > -1) {
+    if (showFilter && showFilter.indexOf(id) > -1) {
       return true;
     }
     return false;
@@ -41,7 +41,6 @@ function FilterContent() {
 
   function resetFilter() {
     setShowFilter([]);
-    AsyncStorage.setItem('showFilter', JSON.stringify([]));
   }
 
   function handleChange(id, isChecked) {
@@ -52,7 +51,6 @@ function FilterContent() {
       filter = showFilter.filter(x => x !== id);
     }
     setShowFilter(filter);
-    AsyncStorage.setItem('showFilter', JSON.stringify(filter));
   }
 
   if (!showList) {
@@ -76,16 +74,17 @@ function FilterContent() {
             </Left>
             <Right>
               <Button
-                  title="Reset"
-                  onPress={() => resetFilter()}
-                >
+                title="Reset"
+                onPress={() => resetFilter()}
+              >
                 <Text> Reset </Text>
               </Button>
             </Right>
           </CardItem>
           {showList && showList.map(show => (
-            <CardItem bordered key={show.id}>
-              <CheckBox style={style.checkbox}
+            <CardItem bordered key={Math.random().toString(36).substring(7)}>
+              <CheckBox
+                style={style.checkbox}
                 checked={isFiltered(show.id)}
                 onPress={() => handleChange(show.id, !isFiltered(show.id))}
               />

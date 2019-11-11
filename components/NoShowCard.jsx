@@ -7,7 +7,7 @@ function NoShowCard() {
   return (
     <Card>
       <CardItem header bordered>
-        <H1>{t('components.noShowCard.header')}</H1>
+        <Text>{t('components.noShowCard.header')}</Text>
       </CardItem>
       <CardItem bordered>
         <Body>

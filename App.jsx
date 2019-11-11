@@ -1,6 +1,12 @@
+import { hijackEffects } from 'stop-runaway-react-effects';
+import {
+  SENTRY_ORG, SENTRY_PROJECT, SENTRY_AUTH_TOKEN, SENTRY_DSN, ENV
+} from 'react-native-dotenv';
+import * as Sentry from 'sentry-expo';
+import Constants from 'expo-constants';
 import React, { useState } from 'react';
 import './i18n';
-import { AppLoading } from 'expo';
+import { AppLoading, Notifications } from 'expo';
 import { Container, StyleProvider } from 'native-base';
 import { ImageBackground, StyleSheet, Platform, Text } from 'react-native';
 import * as Font from 'expo-font';
@@ -11,7 +17,9 @@ import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
 import { showContext } from './context/showContext';
 import { ShowFilterProvider } from './context/showFilterContext';
-
+import { NotificationProvider } from './context/NotificationContext';
+import { NotificationTokenProvider } from './context/NotificationTokenContext';
+import GlobalErrorBoundary from './utilities/GlobalErrorBoundary';
 
 const style = StyleSheet.create({
   background: {
@@ -21,12 +29,27 @@ const style = StyleSheet.create({
   }
 });
 
+if (ENV !== 'production') {
+  hijackEffects();
+}
+
 function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
 
-  // OnePlus & Oppo fix
-  // https://github.com/facebook/react-native/issues/15114
+  // Sentry logging
+  Sentry.init({
+    organization: SENTRY_ORG,
+    project: SENTRY_PROJECT,
+    authToken: SENTRY_AUTH_TOKEN,
+    dsn: SENTRY_DSN,
+    enableInExpoDevelopment: false,
+    debug: true
+  });
+
+  Sentry.setRelease(Constants.manifest.revisionId);
+
+  // OnePlus & Oppo fix https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {
     const oldRender = Text.render;
     Text.render = function (...args) {
@@ -35,6 +58,12 @@ function App() {
         style: [{fontFamily: 'Roboto'}, origin.props.style]
       });
     };
+    Notifications.createChannelAndroidAsync('showringhelper', {
+      name: 'Showringhelper',
+      sound: true,
+      priority: 'max',
+      vibrate: [0, 250, 250, 250]
+    });
   }
 
   async function loadRoboto() {
@@ -46,7 +75,7 @@ function App() {
   }
 
   function handleLoadingError(error) {
-    console.warn(error);
+    throw new Error(`Loading error: ${error}`);
   }
 
   function handleFinishLoading() {
@@ -67,11 +96,17 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <ShowFilterProvider>
-            <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-              <Main />
-            </ImageBackground>
-          </ShowFilterProvider>
+          <NotificationTokenProvider>
+            <NotificationProvider>
+              <ShowFilterProvider>
+                <ImageBackground source={require('./images/background.jpg')} style={style.background}>
+                  <GlobalErrorBoundary>
+                    <Main />
+                  </GlobalErrorBoundary>
+                </ImageBackground>
+              </ShowFilterProvider>
+            </NotificationProvider>
+          </NotificationTokenProvider>
         </showContext.Provider>
       </Container>
     </StyleProvider>

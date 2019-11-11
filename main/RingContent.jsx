@@ -26,7 +26,7 @@ function RingContent() {
   const [showList, setShowList] = useState(null);
 
   useEffect(() => {
-    const filteredShows = shows && shows.filter(el => showFilter.indexOf(el.id) !== -1);
+    const filteredShows = shows && showFilter && shows.filter(el => showFilter.indexOf(el.id) !== -1);
     if (filteredShows && filteredShows.length > 0) {
       setShowList(filteredShows);
     } else {
