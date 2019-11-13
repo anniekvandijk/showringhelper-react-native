@@ -89,6 +89,7 @@ function NotificationContent() {
                   const not = {
                     ringNumber: input,
                     showId: show.id,
+                    showName: show.name,
                     ring: rings.NextToPrepare,
                     language: i18n.language
                   };
@@ -100,6 +101,7 @@ function NotificationContent() {
                   const not = {
                     ringNumber: input,
                     showId: show.id,
+                    showName: show.name,
                     ring: rings.Prepare,
                     language: i18n.language
                   };
@@ -111,6 +113,7 @@ function NotificationContent() {
                   const not = {
                     ringNumber: input,
                     showId: show.id,
+                    showName: show.name,
                     ring: rings.InRing,
                     language: i18n.language
                   };

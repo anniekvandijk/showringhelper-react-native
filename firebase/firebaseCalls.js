@@ -14,6 +14,7 @@ async function getNotifications(token) {
       snapshot.forEach((doc) => {
         const notification = {};
         notification.showId = doc.data().showId;
+        notification.showName = doc.data().showName;
         notification.ringNumber = doc.data().ringNumber;
         notification.ring = doc.data().ring;
         notification.token = doc.data().token;
@@ -35,6 +36,7 @@ async function postNotification(notification, token) {
     database.collection(dbNotifications).doc(doc).set({
       token,
       showId: notification.showId,
+      showName: notification.showName,
       ringNumber: notification.ringNumber,
       ring: notification.ring,
       language: notification.language
