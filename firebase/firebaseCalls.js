@@ -17,6 +17,7 @@ async function getNotifications(token) {
         notification.showName = doc.data().showName;
         notification.ringNumber = doc.data().ringNumber;
         notification.ring = doc.data().ring;
+        notification.ringName = doc.data().ringName;
         notification.token = doc.data().token;
         notificationList.push(notification);
       });
@@ -39,6 +40,7 @@ async function postNotification(notification, token) {
       showName: notification.showName,
       ringNumber: notification.ringNumber,
       ring: notification.ring,
+      ringName: notification.ringName,
       language: notification.language
     });
     return doc;
