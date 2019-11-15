@@ -82,6 +82,8 @@ function App() {
     setIsReady(true);
   }
 
+  // TODO: https://docs.expo.io/versions/latest/sdk/app-loading/ 
+
   if (!isReady) {
     return (
       <AppLoading
