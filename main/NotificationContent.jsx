@@ -66,6 +66,19 @@ function NotificationContent() {
     InRing: 2
   };
 
+  function ringName(r) {
+    switch (r) {
+      case 0:
+        return t('pages.notificationContent.nextToPrepare');
+      case 1:
+        return t('pages.notificationContent.prepare');
+      case 2:
+        return t('pages.notificationContent.inRing');
+      default:
+        return '';
+    }
+  }
+
   function displayAlertMessage() {
     AlertMessage(t('pages.notificationContent.alertHeader'), t('pages.notificationContent.alertText'));
   }
@@ -89,7 +102,9 @@ function NotificationContent() {
                   const not = {
                     ringNumber: input,
                     showId: show.id,
+                    showName: show.name,
                     ring: rings.NextToPrepare,
+                    ringName: ringName(rings.NextToPrepare),
                     language: i18n.language
                   };
                   postNotification(not, token);
@@ -100,7 +115,9 @@ function NotificationContent() {
                   const not = {
                     ringNumber: input,
                     showId: show.id,
+                    showName: show.name,
                     ring: rings.Prepare,
+                    ringName: ringName(rings.Prepare),
                     language: i18n.language
                   };
                   postNotification(not, token);
@@ -111,7 +128,9 @@ function NotificationContent() {
                   const not = {
                     ringNumber: input,
                     showId: show.id,
+                    showName: show.name,
                     ring: rings.InRing,
+                    ringName: ringName(rings.InRing),
                     language: i18n.language
                   };
                   postNotification(not, token);
