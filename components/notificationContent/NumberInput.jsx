@@ -12,7 +12,7 @@ function NumberInput({ value, onChange }) {
       placeholder={t('pages.notificationContent.ringNumberPlaceholder')}
       onChangeText={text => onChange(text)}
       value={value}
-      maxLength={10}
+      maxLength={5}
     />
   );
 }
