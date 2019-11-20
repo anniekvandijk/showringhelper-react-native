@@ -98,6 +98,7 @@ function NotificationContent() {
           getToken()
             .then((token) => {
               if (token) {
+                const addNot = [];
                 if (nextToPrepareChecked) {
                   const not = {
                     ringNumber: input,
@@ -108,8 +109,7 @@ function NotificationContent() {
                     language: i18n.language
                   };
                   postNotification(not, token);
-                  const notList = [...notifications, not];
-                  setNotifications(notList);
+                  addNot.push(not);
                 }
                 if (prepareChecked) {
                   const not = {
@@ -121,8 +121,7 @@ function NotificationContent() {
                     language: i18n.language
                   };
                   postNotification(not, token);
-                  const notList = [...notifications, not];
-                  setNotifications(notList);
+                  addNot.push(not);
                 }
                 if (inRingChecked) {
                   const not = {
@@ -134,9 +133,9 @@ function NotificationContent() {
                     language: i18n.language
                   };
                   postNotification(not, token);
-                  const notList = [...notifications, not];
-                  setNotifications(notList);
+                  addNot.push(not);
                 }
+                setNotifications([...notifications, ...addNot]);
               }
             })
             .catch(error => console.log(error));
