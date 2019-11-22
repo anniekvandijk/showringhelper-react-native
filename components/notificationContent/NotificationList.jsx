@@ -48,19 +48,6 @@ function NotificationList() {
     return filteredShows[0].name;
   }
 
-  function ringName(r) {
-    switch (r) {
-      case 0:
-        return t('pages.notificationContent.nextToPrepare');
-      case 1:
-        return t('pages.notificationContent.prepare');
-      case 2:
-        return t('pages.notificationContent.inRing');
-      default:
-        return '';
-    }
-  }
-
   function deleteThis(notification) {
     if (notificationToken) {
       deleteNotification(notification);
@@ -93,7 +80,7 @@ function NotificationList() {
             </CardItem>
             <CardItem bordered>
               <Text>
-                {`${ringName(notification.ring)}, ${getShowName(notification)}`}
+                {`${notification.ringName}, ${getShowName(notification)}`}
               </Text>
             </CardItem>
           </React.Fragment>
