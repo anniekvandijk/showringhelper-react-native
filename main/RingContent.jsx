@@ -19,7 +19,7 @@ const style = StyleSheet.create({
   }
 });
 
-function RingContent() {
+function RingContent({ navigation }) {
   const [t] = useTranslation();
   const shows = useShowContext();
   const [showFilter] = useShowFilterContext();
@@ -52,6 +52,7 @@ function RingContent() {
         {showList.length > 0
           ? showList.map(show => (
             <ShowCard
+              navigation={navigation}
               key={show.name + show.date}
               show={show}
             />

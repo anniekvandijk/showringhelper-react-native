@@ -3,6 +3,7 @@
   "header": {
     "title": {
       "rings": "Ringen",
+      "ringNumberDetail": "Details",
       "filter": "Filter",
       "notifications": "Alarm",
       "more": "Meer",
@@ -26,6 +27,10 @@
     }
   },
   "pages": {
+    "ringNumberDetail": {
+      "header": "Startnumber details",
+      "noDetails": "Er zijn geen details bekend voor dit startnummer"
+    },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
       "settingsText": "Instellingen",
