@@ -32,17 +32,22 @@ const style = StyleSheet.create({
   }
 });
 
-function Chips(values) {
+function Chips(values, navigation, showId) {
   if (values.length > 0) {
     return values.map(value => (
-      <Button rounded disabled key={value} style={style.button}>
+      <Button
+        rounded
+        key={value}
+        style={style.button}
+        onPress={() => navigation.navigate('RingNumberDetail', { showId, value })}
+      >
         <Text style={style.buttonText}>{value}</Text>
       </Button>
     ));
   }
 }
 
-function ShowCard({ show }) {
+function ShowCard({ show, navigation }) {
   const [t] = useTranslation();
   return (
     <Card>
@@ -60,7 +65,7 @@ function ShowCard({ show }) {
             show.rings.nextToPrepare.description !== '' && <Text>{show.rings.nextToPrepare.description}</Text>
           }
 
-          <View style={style.buttons}>{Chips(show.rings.nextToPrepare.values)}</View>
+          <View style={style.buttons}>{Chips(show.rings.nextToPrepare.values, navigation, show.id)}</View>
         </Body>
       </CardItem>
       <CardItem bordered>
@@ -73,7 +78,7 @@ function ShowCard({ show }) {
           {
             show.rings.prepare.description !== '' && <Text>{show.rings.prepare.description}</Text>
           }
-          <View style={style.buttons}>{Chips(show.rings.prepare.values)}</View>
+          <View style={style.buttons}>{Chips(show.rings.prepare.values, navigation, show.id)}</View>
         </Body>
       </CardItem>
       <CardItem bordered>
@@ -86,7 +91,7 @@ function ShowCard({ show }) {
           {
             show.rings.inRing.description !== '' && <Text>{show.rings.inRing.description}</Text>
           }
-          <View style={style.buttons}>{Chips(show.rings.inRing.values)}</View>
+          <View style={style.buttons}>{Chips(show.rings.inRing.values, navigation, show.id)}</View>
         </Body>
       </CardItem>
     </Card>

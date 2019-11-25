@@ -3,6 +3,7 @@
   "header": {
     "title": {
       "rings": "Rings",
+      "ringNumberDetail": "Details",
       "filter": "Filter",
       "notifications": "Alerts",
       "more": "More",
@@ -25,6 +26,9 @@
     }
   },
   "pages": {
+    "ringNumberDetail": {
+      "header": "Startnumber details"
+    },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
       "settingsText": "Settings",

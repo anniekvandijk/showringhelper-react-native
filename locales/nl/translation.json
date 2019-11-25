@@ -3,6 +3,7 @@
   "header": {
     "title": {
       "rings": "Ringen",
+      "ringNumberDetail": "Details",
       "filter": "Filter",
       "notifications": "Alarm",
       "more": "Meer",
@@ -26,6 +27,9 @@
     }
   },
   "pages": {
+    "ringNumberDetail": {
+      "header": "Startnumber details"
+    },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
       "settingsText": "Instellingen",
