@@ -27,6 +27,7 @@ function RingNumberDetail(props) {
   const [t, i18n] = useTranslation();
   const value = props.navigation.getParam('value');
   const showId = props.navigation.getParam('showId');
+  const showName = props.navigation.getParam('showName');
   const ringNumbers = useRingNumbersContext();
   if (!ringNumbers) {
     return <NoDetails />;
@@ -58,6 +59,7 @@ function RingNumberDetail(props) {
             <CardItem bordered>
               <Body>
                 <Text style={style.buttonText}>{t('pages.ringNumberDetail.header')}</Text>
+                <Text>{showName}</Text>
               </Body>
               <Right>
                 <Button
@@ -70,7 +72,7 @@ function RingNumberDetail(props) {
                 </Button>
               </Right>
             </CardItem>
-            <CardItem>
+            <CardItem bordered>
               <Left><Text>{t('pages.ringNumberDetail.noDetails')}</Text></Left>
             </CardItem>
           </Card>
@@ -86,6 +88,7 @@ function RingNumberDetail(props) {
           <CardItem bordered>
             <Body>
               <Text style={style.buttonText}>{t('pages.ringNumberDetail.header')}</Text>
+              <Text>{showName}</Text>
             </Body>
             <Right>
               <Button
@@ -100,7 +103,7 @@ function RingNumberDetail(props) {
           </CardItem>
           {arrayOfDetails.map((values) => {
             return (
-              <CardItem key={Math.random().toString(36).substring(7)}>
+              <CardItem bordered key={Math.random().toString(36).substring(7)}>
                 <Left><Text>{language === 'nl' ? values.nl : values.en}</Text></Left>
                 <Body><Text>{values.value}</Text></Body>
               </CardItem>

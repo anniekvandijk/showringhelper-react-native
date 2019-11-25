@@ -32,14 +32,14 @@ const style = StyleSheet.create({
   }
 });
 
-function Chips(values, navigation, showId) {
+function Chips(values, navigation, showId, showName) {
   if (values.length > 0) {
     return values.map(value => (
       <Button
         rounded
         key={value}
         style={style.button}
-        onPress={() => navigation.navigate('RingNumberDetail', { showId, value })}
+        onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
       >
         <Text style={style.buttonText}>{value}</Text>
       </Button>
@@ -65,7 +65,7 @@ function ShowCard({ show, navigation }) {
             show.rings.nextToPrepare.description !== '' && <Text>{show.rings.nextToPrepare.description}</Text>
           }
 
-          <View style={style.buttons}>{Chips(show.rings.nextToPrepare.values, navigation, show.id)}</View>
+          <View style={style.buttons}>{Chips(show.rings.nextToPrepare.values, navigation, show.id, show.name)}</View>
         </Body>
       </CardItem>
       <CardItem bordered>
