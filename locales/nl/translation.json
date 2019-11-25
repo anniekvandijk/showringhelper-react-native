@@ -2,7 +2,8 @@
   "spinner": "Keuringen laden ...",
   "header": {
     "title": {
-      "rings": "Ringen",
+      "rings": "Shows",
+      "ringNumberDetail": "Details",
       "filter": "Filter",
       "notifications": "Alarm",
       "more": "Meer",
@@ -12,12 +13,12 @@
   },
   "components": {
     "noShowCard": {
-      "header": "Geen keuringen",
-      "body": "Er zijn op dit moment geen actieve keuringen. Verwacht je wel een active keuring? Neem dan contact op met je organisatie." 
+      "header": "Geen shows",
+      "body": "Er zijn op dit moment geen actieve shows. Verwacht je wel een active show? Neem dan contact op met je organisatie." 
     },
     "showCard": {
       "nextToPrepare": "Voorbereiden",
-      "prepare": "Klaarstaan",
+      "prepare": "Klaarstaan voor volgende ring",
       "inRing": "In ring"
     },
     "languagePicker": {
@@ -26,6 +27,10 @@
     }
   },
   "pages": {
+    "ringNumberDetail": {
+      "header": "Startnumber details",
+      "noDetails": "Er zijn geen details bekend voor dit startnummer"
+    },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
       "settingsText": "Instellingen",
@@ -33,16 +38,16 @@
       "versionText": "versie"
     },
     "filterContent": {
-      "text": "Filter keuringen. Zonder selectie wordt alles getoond."
+      "text": "Show filter. Maak je geen selectie dan worden alle shows getoond in het overzicht."
     },
     "notificationContent": {
-      "text": "Selecteer keuring, fase en deelnemernummer om meldingen voor in te stellen.",
-      "showPickerPlaceholder": "Selecteer keuring",
+      "text": "Selecteer show, fase en startnummer om meldingen voor in te stellen.",
+      "showPickerPlaceholder": "Selecteer show",
       "selectShow": "Selecteer keuring ...",
       "nextToPrepare": "Voorbereiden",
-      "prepare": "Klaarstaan",
+      "prepare": "Klaarstaan voor volgende ring",
       "inRing": "In ring",
-      "ringNumberPlaceholder": "Nummer",
+      "ringNumberPlaceholder": "Startnummer",
       "addButton": " Toevoegen ",
       "notificationsHeader": "Meldingen",
       "noNotifications": "Geen meldingen aangemaakt",

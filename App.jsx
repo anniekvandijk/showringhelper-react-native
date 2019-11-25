@@ -15,7 +15,9 @@ import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 import Main from './main/Main';
 import FirebaseShowsListner from './firebase/firebaseShowsListner';
+import FirebaseRingNumbersListner from './firebase/firebaseRingNumbersListner';
 import { showContext } from './context/showContext';
+import { ringNumbersContext } from './context/ringNumbersContext';
 import { ShowFilterProvider } from './context/showFilterContext';
 import { NotificationProvider } from './context/NotificationContext';
 import { NotificationTokenProvider } from './context/NotificationTokenContext';
@@ -36,6 +38,7 @@ if (ENV !== 'production') {
 function App() {
   const [isReady, setIsReady] = useState(false);
   const shows = FirebaseShowsListner();
+  const ringNumbers = FirebaseRingNumbersListner();
 
   // Sentry logging
   Sentry.init({
@@ -98,17 +101,19 @@ function App() {
     <StyleProvider style={getTheme(platform)}>
       <Container>
         <showContext.Provider value={{ shows }}>
-          <NotificationTokenProvider>
-            <NotificationProvider>
-              <ShowFilterProvider>
-                <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-                  <GlobalErrorBoundary>
-                    <Main />
-                  </GlobalErrorBoundary>
-                </ImageBackground>
-              </ShowFilterProvider>
-            </NotificationProvider>
-          </NotificationTokenProvider>
+          <ringNumbersContext.Provider value={{ ringNumbers }}>
+            <NotificationTokenProvider>
+              <NotificationProvider>
+                <ShowFilterProvider>
+                  <ImageBackground source={require('./images/background.jpg')} style={style.background}>
+                    <GlobalErrorBoundary>
+                      <Main />
+                    </GlobalErrorBoundary>
+                  </ImageBackground>
+                </ShowFilterProvider>
+              </NotificationProvider>
+            </NotificationTokenProvider>
+          </ringNumbersContext.Provider>
         </showContext.Provider>
       </Container>
     </StyleProvider>

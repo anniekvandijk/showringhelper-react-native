@@ -2,7 +2,8 @@
   "spinner": "Loading shows ...",
   "header": {
     "title": {
-      "rings": "Rings",
+      "rings": "Shows",
+      "ringNumberDetail": "Details",
       "filter": "Filter",
       "notifications": "Alerts",
       "more": "More",
@@ -17,7 +18,7 @@
     },
     "showCard": {
       "nextToPrepare": "Next to prepare",
-      "prepare": "Prepare",
+      "prepare": "Prepare for next ring",
       "inRing": "In ring"
     },
     "languagePicker": {
@@ -25,6 +26,10 @@
     }
   },
   "pages": {
+    "ringNumberDetail": {
+      "header": "Startnumber details",
+      "noDetails": "There are no details for this startnumber"
+    },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
       "settingsText": "Settings",
@@ -32,16 +37,16 @@
       "versionText": "version"
     },
     "filterContent": {
-      "text": "Filter shows. without selection all rings are shown."
+      "text": "Show filter. If you don't make a selection, al shows are shown in the overview."
     },
     "notificationContent": {
-      "text": "Select show, phase and participantnumber to set alerts.",
+      "text": "Select show, phase and startnumber to set alerts.",
       "showPickerPlaceholder": "Select show",
       "selectShow": "Select show ...",
       "nextToPrepare": "Next to prepare",
-      "prepare": "Prepare",
+      "prepare": "Prepare for next ring",
       "inRing": "In ring",
-      "ringNumberPlaceholder": "Number",
+      "ringNumberPlaceholder": "Startnumber",
       "addButton": " Add ",
       "notificationsHeader": "Alerts",
       "noNotifications": "No alerts set",
