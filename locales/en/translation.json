@@ -27,7 +27,8 @@
   },
   "pages": {
     "ringNumberDetail": {
-      "header": "Startnumber details"
+      "header": "Startnumber details",
+      "noDetails": "There are no details for this startnumber"
     },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",

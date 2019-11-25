@@ -28,7 +28,8 @@
   },
   "pages": {
     "ringNumberDetail": {
-      "header": "Startnumber details"
+      "header": "Startnumber details",
+      "noDetails": "Er zijn geen details bekend voor dit startnummer"
     },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",

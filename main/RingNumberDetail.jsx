@@ -28,12 +28,56 @@ function RingNumberDetail(props) {
   const value = props.navigation.getParam('value');
   const showId = props.navigation.getParam('showId');
   const ringNumbers = useRingNumbersContext();
-  const showNumbers = ringNumbers.filter(x => x.showId === showId);
+  if (!ringNumbers) {
+    return <NoDetails />;
+  }
+  const showNumbers = ringNumbers && ringNumbers.filter(x => x.showId === showId);
+  if (showNumbers.length === 0) {
+    return <NoDetails />;
+  }
   const arrayOfNumbers = showNumbers && showNumbers[0].ringnumbers;
+  if (showNumbers.length === 0) {
+    return <NoDetails />;
+  }
   const detailValues = arrayOfNumbers && arrayOfNumbers.filter(x => x.number === value);
+  if (detailValues.length === 0) {
+    return <NoDetails />;
+  }
   const arrayOfDetails = detailValues && detailValues[0].values;
+  if (arrayOfDetails.length === 0) {
+    return <NoDetails />;
+  }
   const language = i18n.language;
 
+
+  function NoDetails() {
+    return (
+      <>
+        <Content padder style={style.content}>
+          <Card>
+            <CardItem bordered>
+              <Body>
+                <Text style={style.buttonText}>{t('pages.ringNumberDetail.header')}</Text>
+              </Body>
+              <Right>
+                <Button
+                  rounded
+                  disabled
+                  key={value}
+                  style={style.button}
+                >
+                  <Text style={style.buttonText}>{value}</Text>
+                </Button>
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Left><Text>{t('pages.ringNumberDetail.noDetails')}</Text></Left>
+            </CardItem>
+          </Card>
+        </Content>
+      </>
+    );
+  }
 
   return (
     <>
