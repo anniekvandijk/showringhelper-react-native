@@ -37,6 +37,7 @@ const style = StyleSheet.create({
 
 function Chip({value, showId, showName, onPress}) {
   const [favorites] = useFavoritesContext();
+  console.log(favorites);
   const fav = { showId, showName, value };
   const [favorite, setFavorite] = useState(false);
 
