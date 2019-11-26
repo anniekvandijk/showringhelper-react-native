@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Text, Card, CardItem, Body, H1, H2, H3, Button, View } from 'native-base';
 import { StyleSheet } from 'react-native';
+import { useFavoritesContext } from '../context/favoritesContext';
 
 const style = StyleSheet.create({
   header: {
@@ -33,6 +34,7 @@ const style = StyleSheet.create({
 });
 
 function Chips(values, navigation, showId, showName) {
+  const [favorites] = useFavoritesContext();
   if (values.length > 0) {
     return values.map(value => (
       <Button

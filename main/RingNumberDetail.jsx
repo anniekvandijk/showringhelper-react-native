@@ -5,6 +5,7 @@ import {
   Content, Text, Card, CardItem, Body, Left, Right, Button
 } from 'native-base';
 import { useRingNumbersContext } from '../context/ringNumbersContext';
+import { useFavoritesContext } from '../context/favoritesContext';
 
 const style = StyleSheet.create({
   content: {
@@ -25,6 +26,7 @@ const style = StyleSheet.create({
 
 function RingNumberDetail(props) {
   const [t, i18n] = useTranslation();
+  const [favorites, setFavorites] = useFavoritesContext();
   const value = props.navigation.getParam('value');
   const showId = props.navigation.getParam('showId');
   const showName = props.navigation.getParam('showName');
