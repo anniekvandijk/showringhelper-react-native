@@ -29,7 +29,9 @@
   "pages": {
     "ringNumberDetail": {
       "header": "Startnumber details",
-      "noDetails": "Er zijn geen details bekend voor dit startnummer"
+      "noDetails": "Er zijn geen details bekend voor dit startnummer",
+      "addToFavorites": "Aan favorieten toevoegen",
+      "deleteFromFavorites": "Verwijderen uit favorieten"
     },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",

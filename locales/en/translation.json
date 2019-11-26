@@ -28,7 +28,9 @@
   "pages": {
     "ringNumberDetail": {
       "header": "Startnumber details",
-      "noDetails": "There are no details for this startnumber"
+      "noDetails": "There are no details for this startnumber",
+      "addToFavorites": "Add to favorites",
+      "deleteFromFavorites": "Delete from favorites"
     },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",

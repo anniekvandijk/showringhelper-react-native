@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import {
-  Content, Text, Card, CardItem, Body, Left, Right, Button
+  Content, Text, Card, CardItem, Body, Left, Right, Button, Icon
 } from 'native-base';
 import { useRingNumbersContext } from '../context/ringNumbersContext';
 import { useFavoritesContext } from '../context/favoritesContext';
+import FavoriteIcon from '../components/FavoriteIcon';
+
 
 const style = StyleSheet.create({
   content: {
@@ -24,13 +26,15 @@ const style = StyleSheet.create({
   }
 });
 
-function RingNumberDetail(props) {
+function RingNumberDetail({ navigation }) {
   const [t, i18n] = useTranslation();
   const [favorites, setFavorites] = useFavoritesContext();
-  const value = props.navigation.getParam('value');
-  const showId = props.navigation.getParam('showId');
-  const showName = props.navigation.getParam('showName');
+  const [favorite, setFavorite] = useState(false);
+  const value = navigation.getParam('value');
+  const showId = navigation.getParam('showId');
+  const showName = navigation.getParam('showName');
   const ringNumbers = useRingNumbersContext();
+
   if (!ringNumbers) {
     return <NoDetails />;
   }
@@ -52,6 +56,15 @@ function RingNumberDetail(props) {
   }
   const language = i18n.language;
 
+  function favoriteToggle() {
+    if (favorite) {
+      setFavorites(favorites.filter(x => x.showId !== showId && x.value !== value));
+      setFavorite(false);
+    } else {
+      setFavorites([...favorites, { showId, showName, value }]);
+      setFavorite(true);
+    }
+  }
 
   function NoDetails() {
     return (
@@ -100,17 +113,24 @@ function RingNumberDetail(props) {
                 style={style.button}
               >
                 <Text style={style.buttonText}>{value}</Text>
+                {favorite && <FavoriteIcon />}
               </Button>
-            </Right>            
+            </Right>
           </CardItem>
-          {arrayOfDetails.map((values) => {
-            return (
-              <CardItem bordered key={Math.random().toString(36).substring(7)}>
-                <Left><Text>{language === 'nl' ? values.nl : values.en}</Text></Left>
-                <Body><Text>{values.value}</Text></Body>
-              </CardItem>
-            );
-          })
+          <CardItem>
+            <Button onPress={favoriteToggle}>
+              <Text style={style.buttonText}>
+                {favorites ? t('pages.ringNumberDetail.deleteFromFavorites') : t('pages.ringNumberDetail.addToFavorites')}
+              </Text>
+              <Text style={style.buttonText}>Add to favorites</Text>
+            </Button>
+          </CardItem>
+          {arrayOfDetails.map(values => (
+            <CardItem bordered key={Math.random().toString(36).substring(7)}>
+              <Left><Text>{language === 'nl' ? values.nl : values.en}</Text></Left>
+              <Body><Text>{values.value}</Text></Body>
+            </CardItem>
+          ))
         }
         </Card>
       </Content>
