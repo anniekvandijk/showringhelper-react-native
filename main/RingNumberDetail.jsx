@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import {
@@ -29,11 +29,16 @@ const style = StyleSheet.create({
 function RingNumberDetail({ navigation }) {
   const [t, i18n] = useTranslation();
   const [favorites, setFavorites] = useFavoritesContext();
-  const [favorite, setFavorite] = useState(false);
   const value = navigation.getParam('value');
   const showId = navigation.getParam('showId');
   const showName = navigation.getParam('showName');
   const ringNumbers = useRingNumbersContext();
+  const fav = { showId, showName, value };
+  const [favorite, setFavorite] = useState(favorites.length > 0 &&
+    favorites.indexOf(fav) > -1);
+
+  console.log(favorites);
+  console.log(favorite);
 
   if (!ringNumbers) {
     return <NoDetails />;
@@ -120,9 +125,8 @@ function RingNumberDetail({ navigation }) {
           <CardItem>
             <Button onPress={favoriteToggle}>
               <Text style={style.buttonText}>
-                {favorites ? t('pages.ringNumberDetail.deleteFromFavorites') : t('pages.ringNumberDetail.addToFavorites')}
+                {favorite ? t('pages.ringNumberDetail.deleteFromFavorites') : t('pages.ringNumberDetail.addToFavorites')}
               </Text>
-              <Text style={style.buttonText}>Add to favorites</Text>
             </Button>
           </CardItem>
           {arrayOfDetails.map(values => (

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Text, Card, CardItem, Body, H1, H2, H3, Button, View } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useFavoritesContext } from '../context/favoritesContext';
+import FavoriteIcon from './FavoriteIcon';
+
 
 const style = StyleSheet.create({
   header: {
@@ -33,18 +35,37 @@ const style = StyleSheet.create({
   }
 });
 
-function Chips(values, navigation, showId, showName) {
+function Chip({value, showId, showName, onPress}) {
   const [favorites] = useFavoritesContext();
+  const fav = { showId, showName, value };
+  const [favorite, setFavorite] = useState(false);
+
+  useEffect(() => {
+    setFavorite(favorites.length > 0 && favorites.indexOf(fav) > -1);
+  }, [favorites]);
+
+  return (
+    <Button
+      rounded
+      style={style.button}
+      onPress={onPress}
+    >
+      <Text style={style.buttonText}>{value}</Text>
+      {favorite && <FavoriteIcon />}
+    </Button>
+  );
+}
+
+function Chips(values, navigation, showId, showName) {
   if (values.length > 0) {
     return values.map(value => (
-      <Button
-        rounded
-        key={value}
-        style={style.button}
+      <Chip
+        key={showId + value}
+        value={value}
+        showId={showId}
+        showName={showName}
         onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
-      >
-        <Text style={style.buttonText}>{value}</Text>
-      </Button>
+      />
     ));
   }
 }
@@ -80,7 +101,7 @@ function ShowCard({ show, navigation }) {
           {
             show.rings.prepare.description !== '' && <Text>{show.rings.prepare.description}</Text>
           }
-          <View style={style.buttons}>{Chips(show.rings.prepare.values, navigation, show.id)}</View>
+          <View style={style.buttons}>{Chips(show.rings.prepare.values, navigation, show.id, show.name)}</View>
         </Body>
       </CardItem>
       <CardItem bordered>
@@ -93,7 +114,7 @@ function ShowCard({ show, navigation }) {
           {
             show.rings.inRing.description !== '' && <Text>{show.rings.inRing.description}</Text>
           }
-          <View style={style.buttons}>{Chips(show.rings.inRing.values, navigation, show.id)}</View>
+          <View style={style.buttons}>{Chips(show.rings.inRing.values, navigation, show.id, show.name)}</View>
         </Body>
       </CardItem>
     </Card>
