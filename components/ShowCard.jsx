@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Text, Card, CardItem, Body, H1, H2, H3, Button, View } from 'native-base';
 import { StyleSheet } from 'react-native';
-import { useFavoritesContext } from '../context/favoritesContext';
 import NumberChip from './NumberChip';
-import FavoriteIcon from './FavoriteIcon';
-
 
 const style = StyleSheet.create({
   header: {
@@ -38,16 +35,17 @@ const style = StyleSheet.create({
 
 function Chips(values, navigation, showId, showName) {
   if (values.length > 0) {
-    return values.map(value => (
-      <NumberChip
-        key={showId + value}
-        disabled={false}
-        value={value}
-        showId={showId}
-        showName={showName}
-        onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
-      />
-    ));
+    return values.map((value) => {
+      const startNumber = { showId, showName, value };
+      return (
+        <NumberChip
+          key={showId + value}
+          disabled={false}
+          startNumber={startNumber}
+          onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
+        />
+      );
+    });
   }
 }
 

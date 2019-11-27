@@ -20,15 +20,13 @@ const style = StyleSheet.create({
   }
 });
 
-function NumberChip({value, showId, showName, disabled, onPress}) {
+function NumberChip({startNumber, disabled, onPress}) {
   const [favorites] = useFavoritesContext();
-  console.log(favorites);
-  const fav = { showId, showName, value };
-  const [favorite, setFavorite] = useState(false);
-
-  useEffect(() => {
-    setFavorite(favorites.length > 0 && favorites.indexOf(fav) > -1);
-  }, [favorites]);
+  const isFavorite = favorites
+    && favorites.length > 0
+    && favorites.filter(
+      x => x.value === startNumber.value && x.showId === startNumber.showId
+    ).length > 0;
 
   if (disabled) {
     return (
@@ -37,8 +35,8 @@ function NumberChip({value, showId, showName, disabled, onPress}) {
         disabled
         style={style.button}
       >
-        <Text style={style.buttonText}>{value}</Text>
-        {favorite && <FavoriteIcon />}
+        <Text style={style.buttonText}>{startNumber.value}</Text>
+        {isFavorite && <FavoriteIcon />}
       </Button>
     );
   }
@@ -49,18 +47,20 @@ function NumberChip({value, showId, showName, disabled, onPress}) {
       style={style.button}
       onPress={onPress}
     >
-      <Text style={style.buttonText}>{value}</Text>
-      {favorite && <FavoriteIcon />}
+      <Text style={style.buttonText}>{startNumber.value}</Text>
+      {isFavorite && <FavoriteIcon />}
     </Button>
   );
 }
 
 NumberChip.propTypes = {
-  value: PropTypes.string.isRequired,
-  showId: PropTypes.string.isRequired,
-  showName: PropTypes.string.isRequired,
+  startNumber: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
-  onPress: PropTypes.function  
+  onPress: PropTypes.func
+};
+
+NumberChip.defaultProps = {
+  onPress: {}
 };
 
 export default NumberChip;

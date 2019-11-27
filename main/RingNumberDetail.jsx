@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import {
@@ -7,6 +7,7 @@ import {
 import { useRingNumbersContext } from '../context/ringNumbersContext';
 import { useFavoritesContext } from '../context/favoritesContext';
 import NumberChip from '../components/NumberChip';
+import startNumberDetails from '../utilities/startNumberDetails';
 
 const style = StyleSheet.create({
   content: {
@@ -32,71 +33,43 @@ function RingNumberDetail({ navigation }) {
   const showId = navigation.getParam('showId');
   const showName = navigation.getParam('showName');
   const ringNumbers = useRingNumbersContext();
-  const fav = { showId, showName, value };
-  const [favorite, setFavorite] = useState(favorites.length > 0 &&
-    favorites.indexOf(fav) > -1);
-
-  console.log(favorites);
-  console.log(favorite);
-
-  if (!ringNumbers) {
-    return <NoDetails />;
-  }
-  const showNumbers = ringNumbers && ringNumbers.filter(x => x.showId === showId);
-  if (showNumbers.length === 0) {
-    return <NoDetails />;
-  }
-  const arrayOfNumbers = showNumbers && showNumbers[0].ringnumbers;
-  if (showNumbers.length === 0) {
-    return <NoDetails />;
-  }
-  const detailValues = arrayOfNumbers && arrayOfNumbers.filter(x => x.number === value);
-  if (detailValues.length === 0) {
-    return <NoDetails />;
-  }
-  const arrayOfDetails = detailValues && detailValues[0].values;
-  if (arrayOfDetails.length === 0) {
-    return <NoDetails />;
-  }
+  const startNumber = { showId, showName, value };
+  const startNumberDetailList = startNumberDetails(ringNumbers, startNumber);
   const language = i18n.language;
 
+  const isFavorite = favorites
+    && favorites.length > 0
+    && favorites.filter(
+      x => x.value === startNumber.value && x.showId === startNumber.showId
+    ).length > 0;
+
   function favoriteToggle() {
-    if (favorite) {
-      setFavorites(favorites.filter(x => x.showId !== showId && x.value !== value));
-      setFavorite(false);
+    if (isFavorite) {
+      const fav = favorites.filter(x => (x.value === startNumber.value && x.showId === startNumber.showId));
+      if (fav.length > 0) {
+        const rest = favorites.filter(x => x !== fav[0]);
+        setFavorites(rest);
+      }
     } else {
-      setFavorites([...favorites, { showId, showName, value }]);
-      setFavorite(true);
+      setFavorites([...favorites, startNumber]);
     }
   }
 
-  function NoDetails() {
+  function Details() {
+    if (startNumberDetailList) {
+      return (
+        startNumberDetailList.map(values => (
+          <CardItem bordered key={Math.random().toString(36).substring(7)}>
+            <Left><Text>{language === 'nl' ? values.nl : values.en}</Text></Left>
+            <Body><Text>{values.value}</Text></Body>
+          </CardItem>
+        ))
+      );
+    }
     return (
-      <>
-        <Content padder style={style.content}>
-          <Card>
-            <CardItem bordered>
-              <Body>
-                <Text style={style.buttonText}>{t('pages.ringNumberDetail.header')}</Text>
-                <Text>{showName}</Text>
-              </Body>
-              <Right>
-                <NumberChip
-                  key={showId + value}
-                  disabled={false}
-                  value={value}
-                  showId={showId}
-                  showName={showName}
-                  onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
-                />
-              </Right>
-            </CardItem>
-            <CardItem bordered>
-              <Left><Text>{t('pages.ringNumberDetail.noDetails')}</Text></Left>
-            </CardItem>
-          </Card>
-        </Content>
-      </>
+      <CardItem bordered>
+        <Left><Text>{t('pages.ringNumberDetail.noDetails')}</Text></Left>
+      </CardItem>
     );
   }
 
@@ -113,9 +86,7 @@ function RingNumberDetail({ navigation }) {
               <NumberChip
                 key={showId + value}
                 disabled={false}
-                value={value}
-                showId={showId}
-                showName={showName}
+                startNumber={startNumber}
                 onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
               />
             </Right>
@@ -123,17 +94,11 @@ function RingNumberDetail({ navigation }) {
           <CardItem>
             <Button onPress={favoriteToggle}>
               <Text style={style.buttonText}>
-                {favorite ? t('pages.ringNumberDetail.deleteFromFavorites') : t('pages.ringNumberDetail.addToFavorites')}
+                {isFavorite ? t('pages.ringNumberDetail.deleteFromFavorites') : t('pages.ringNumberDetail.addToFavorites')}
               </Text>
             </Button>
           </CardItem>
-          {arrayOfDetails.map(values => (
-            <CardItem bordered key={Math.random().toString(36).substring(7)}>
-              <Left><Text>{language === 'nl' ? values.nl : values.en}</Text></Left>
-              <Body><Text>{values.value}</Text></Body>
-            </CardItem>
-          ))
-        }
+          <Details />
         </Card>
       </Content>
     </>
