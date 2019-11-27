@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { Text, Card, CardItem, Body, H1, H2, H3, Button, View, Right, Icon } from 'native-base';
+import { Text, Card, CardItem, Body, H1, H2, H3, Button, View, Left, Right, Icon } from 'native-base';
 import { StyleSheet } from 'react-native';
 import NumberChip from './NumberChip';
 
@@ -10,7 +10,8 @@ const style = StyleSheet.create({
     backgroundColor: '#197b30'
   },
   headerTitle: {
-    color: '#ffffff'
+    color: '#ffffff',
+    fontWeight: 'bold'
   },
   subHeader: {
     fontWeight: 'bold'
@@ -54,9 +55,12 @@ function ShowCard({ show, navigation }) {
   return (
     <Card>
       <CardItem header bordered style={style.header}>
-        <H2 style={style.headerTitle}>{show.name}</H2>
+        <Left>
+          <Text style={style.headerTitle}>{show.name}</Text>
+        </Left>
         <Right>
           <Button
+            small
             title="Show detail"
             onPress={() => navigation.navigate('ShowDetail', { showId: show.id })}
           >

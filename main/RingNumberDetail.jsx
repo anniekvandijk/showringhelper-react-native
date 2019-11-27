@@ -13,16 +13,15 @@ const style = StyleSheet.create({
   content: {
     height: '100%'
   },
+  bold: {
+    fontWeight: 'bold'
+  },
   button: {
     backgroundColor: '#e56228',
     marginTop: 5,
     marginRight: 5,
     paddingLeft: 5,
     paddingRight: 5
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold'
   }
 });
 
@@ -79,7 +78,7 @@ function RingNumberDetail({ navigation }) {
         <Card>
           <CardItem bordered>
             <Body>
-              <Text style={style.buttonText}>{t('pages.ringNumberDetail.header')}</Text>
+              <Text style={style.bold}>{t('pages.ringNumberDetail.header')}</Text>
               <Text>{showName}</Text>
             </Body>
             <Right>
@@ -93,7 +92,7 @@ function RingNumberDetail({ navigation }) {
           </CardItem>
           <CardItem>
             <Button onPress={favoriteToggle}>
-              <Text style={style.buttonText}>
+              <Text>
                 {isFavorite ? t('pages.ringNumberDetail.deleteFromFavorites') : t('pages.ringNumberDetail.addToFavorites')}
               </Text>
             </Button>

@@ -39,6 +39,7 @@ function MoreContent({ navigation }) {
             </Left>
             <Right>
               <Button
+                small
                 title="Go to Settings"
                 onPress={() => navigation.navigate('SettingsDetail')}
               >
@@ -52,6 +53,7 @@ function MoreContent({ navigation }) {
             </Left>
             <Right>
               <Button
+                small
                 title="Go to Privicy policy"
                 onPress={() => navigation.navigate('PrivacyPolicyDetail')}
               >

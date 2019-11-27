@@ -28,10 +28,13 @@
   },
   "pages": {
     "ringNumberDetail": {
-      "header": "Startnumber details",
+      "header": "Startnumber",
       "noDetails": "There are no details for this startnumber",
       "addToFavorites": "Add to favorites",
       "deleteFromFavorites": "Delete from favorites"
+    },
+    "showDetail": {
+      "ringNumbersHeader": "Startnumbers"
     },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",

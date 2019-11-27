@@ -29,10 +29,13 @@
   },
   "pages": {
     "ringNumberDetail": {
-      "header": "Startnumber details",
+      "header": "Startnummer",
       "noDetails": "Er zijn geen details bekend voor dit startnummer",
       "addToFavorites": "Aan favorieten toevoegen",
       "deleteFromFavorites": "Verwijderen uit favorieten"
+    },
+    "showDetail": {
+      "ringNumbersHeader": "Startnummers"
     },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
