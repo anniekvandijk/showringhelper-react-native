@@ -108,7 +108,15 @@ const FavoritesNavigator = createStackNavigator(
       navigationOptions: {
         header: <NavHeader title="header.title.favorites" />
       }
-
+    },
+    RingNumberDetail: {
+      screen: RingNumberDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.ringNumberDetail" showBack navigation={navigation} />
+        };
+        return options;
+      }
     }
   },
   {
@@ -128,6 +136,15 @@ const NotificationNavigator = createStackNavigator(
       screen: NotificationContent,
       navigationOptions: {
         header: <NavHeader title="header.title.notifications" />
+      }
+    },
+    RingNumberDetail: {
+      screen: RingNumberDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.ringNumberDetail" showBack navigation={navigation} />
+        };
+        return options;
       }
     }
   },

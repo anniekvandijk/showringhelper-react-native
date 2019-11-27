@@ -1,11 +1,18 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {
   Text, Card, CardItem, Button, Left,
-  Right, Body
+  Right, Body, Content
 } from 'native-base';
 import { useFavoritesContext } from '../context/favoritesContext';
 import NumberChip from '../components/NumberChip';
+
+const style = StyleSheet.create({
+  content: {
+    height: '100%'
+  }
+});
 
 function FavoritesContent({ navigation }) {
   const [t] = useTranslation();
@@ -16,6 +23,7 @@ function FavoritesContent({ navigation }) {
   }
 
     return (
+      <Content padder style={style.content}>
       <Card>
         {favorites.map(fav => (
           <React.Fragment key={Math.random().toString(36).substring(7)}>
@@ -44,6 +52,7 @@ function FavoritesContent({ navigation }) {
           </React.Fragment>
         ))}
       </Card>
+      </Content>
     );
   }
 
