@@ -22,10 +22,6 @@ import RingNumberDetail from './RingNumberDetail';
 import ShowDetail from './ShowDetail';
 
 const style = StyleSheet.create({
-  button:{
-    margin:0,
-    padding:0
-  },
   buttonDisabled: {
     backgroundColor: 'transparent',
     color: '#D1D1D1'
@@ -128,27 +124,6 @@ const RingNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'RingContent',
-    transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
-  }
-);
-
-const FilterNavigator = createStackNavigator(
-  {
-    FilterContent: {
-      screen: FilterContent,
-      navigationOptions: {
-        header: <NavHeader title="header.title.filter" />
-      }
-
-    }
-  },
-  {
-    initialRouteName: 'FilterContent',
     transparentCard: true,
     transitionConfig: () => ({
       containerStyle: {
@@ -275,7 +250,6 @@ function notificationsForExistingShows(shows, notifications) {
 const Main = createBottomTabNavigator(
   {
     RingContent: { screen: RingNavigator },
-    FilterContent: { screen: FilterNavigator },
     FavoritesContent: { screen: FavoritesNavigator },
     NotificationContent: { screen: NotificationNavigator },
     MoreContent: { screen: MoreNavigator }
@@ -309,9 +283,8 @@ const Main = createBottomTabNavigator(
               onPress={() => navigate(navigation, 'FavoritesContent', 1)}
             >
               {favorites && favorites.length > 0
-                ? <Icon style={{ color: '#ffeb00' }} name="star" />
+                ? <Icon style={{ color: '#fad201' }} name="star" />
                 : <Icon name="star" style={style.buttonDisabled} />
-
               }
               <Text
                 style={(favorites && favorites.length === 0) ? style.buttonDisabled : style.buttonEnabled}
