@@ -22,6 +22,10 @@ import RingNumberDetail from './RingNumberDetail';
 import ShowDetail from './ShowDetail';
 
 const style = StyleSheet.create({
+  button:{
+    margin:0,
+    padding:0
+  },
   buttonDisabled: {
     backgroundColor: 'transparent',
     color: '#D1D1D1'
@@ -34,8 +38,7 @@ const style = StyleSheet.create({
     color: '#D1D1D1'
   },
   filterButtonEnabled: {
-    backgroundColor: 'transparent',
-    // default styling
+    backgroundColor: 'transparent'
   }
 });
 
@@ -88,8 +91,11 @@ const RingNavigator = createStackNavigator(
   {
     RingContent: {
       screen: RingContent,
-      navigationOptions: {
-        header: <ShowsHeader title="header.title.rings" />
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <ShowsHeader title="header.title.rings" navigation={navigation} />
+        };
+        return options;
       }
     },
     FilterContent: {
@@ -280,16 +286,13 @@ const Main = createBottomTabNavigator(
       const [t] = useTranslation();
       const [notifications] = useNotificationContext();
       const shows = useShowContext();
-      const [showFilter] = useShowFilterContext();
       const [favorites] = useFavoritesContext();
-      const filteredShows = shows && showFilter && shows.filter(el => showFilter.indexOf(el.id) !== -1);
 
       return (
         <Footer>
           <FooterTab>
             <Button
               vertical
-              style={style.button}
               active={navigation.state.index === 0}
               onPress={() => navigate(navigation, 'RingContent', 0)}
             >
@@ -300,27 +303,10 @@ const Main = createBottomTabNavigator(
             </Button>
             <Button
               vertical
-              disabled={shows && shows.length === 0}
-              style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled}
-              active={navigation.state.index === 1}
-              onPress={() => navigate(navigation, 'FilterContent', 1)}
-            >
-              {filteredShows && filteredShows.length > 0
-                ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="filter-list" />
-                : <Icon type="MaterialIcons" name="filter-list" style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled} />
-              }
-              <Text
-                style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled}
-              >
-                {t('header.title.filter')}
-              </Text>
-            </Button>
-            <Button
-              vertical
               disabled={favorites && favorites.length === 0}
               style={(favorites && favorites.length === 0) ? style.buttonDisabled : style.buttonEnabled}
-              active={navigation.state.index === 2}
-              onPress={() => navigate(navigation, 'FavoritesContent', 2)}
+              active={navigation.state.index === 1}
+              onPress={() => navigate(navigation, 'FavoritesContent', 1)}
             >
               {favorites && favorites.length > 0
                 ? <Icon style={{ color: '#ffeb00' }} name="star" />
@@ -337,8 +323,8 @@ const Main = createBottomTabNavigator(
               vertical
               disabled={shows && shows.length === 0}
               style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled}
-              active={navigation.state.index === 3}
-              onPress={() => navigate(navigation, 'NotificationContent', 3)}
+              active={navigation.state.index === 2}
+              onPress={() => navigate(navigation, 'NotificationContent', 2)}
             >
               {notificationsForExistingShows(shows, notifications)
                 ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="notifications" />
@@ -352,11 +338,13 @@ const Main = createBottomTabNavigator(
             </Button>
             <Button
               vertical
-              style={style.button}
-              active={navigation.state.index === 4}
-              onPress={() => navigate(navigation, 'MoreContent', 4)}
+              active={navigation.state.index === 3}
+              onPress={() => navigate(navigation, 'MoreContent', 3)}
             >
-              <Icon type="MaterialIcons" name="more-horiz" />
+              <Icon
+                type="MaterialIcons"
+                name="more-horiz"
+              />
               <Text>
                 {t('header.title.more')}
               </Text>
