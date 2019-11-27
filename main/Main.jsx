@@ -8,9 +8,11 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
+import { useFavoritesContext } from '../context/favoritesContext';
 import { useNotificationContext } from '../context/NotificationContext';
 import Header from './Header';
 import RingContent from './RingContent';
+import FavoritesContent from './FavoritesContent';
 import FilterContent from './FilterContent';
 import NotificationContent from './NotificationContent';
 import MoreContent from './MoreContent';
@@ -90,6 +92,27 @@ const FilterNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'FilterContent',
+    transparentCard: true,
+    transitionConfig: () => ({
+      containerStyle: {
+        backgroundColor: 'transparent'
+      }
+    })
+  }
+);
+
+const FavoritesNavigator = createStackNavigator(
+  {
+    FavoritesContent: {
+      screen: FavoritesContent,
+      navigationOptions: {
+        header: <NavHeader title="header.title.favorites" />
+      }
+
+    }
+  },
+  {
+    initialRouteName: 'FavoritesContent',
     transparentCard: true,
     transitionConfig: () => ({
       containerStyle: {
@@ -179,6 +202,7 @@ const Main = createBottomTabNavigator(
   {
     RingContent: { screen: RingNavigator },
     FilterContent: { screen: FilterNavigator },
+    FavoritesContent: { screen: FavoritesNavigator },
     NotificationContent: { screen: NotificationNavigator },
     MoreContent: { screen: MoreNavigator }
   },
@@ -189,6 +213,7 @@ const Main = createBottomTabNavigator(
       const [notifications] = useNotificationContext();
       const shows = useShowContext();
       const [showFilter] = useShowFilterContext();
+      const [favorites] = useFavoritesContext();
       const filteredShows = shows && showFilter && shows.filter(el => showFilter.indexOf(el.id) !== -1);
 
       return (
@@ -224,10 +249,28 @@ const Main = createBottomTabNavigator(
             </Button>
             <Button
               vertical
+              disabled={favorites && favorites.length === 0}
+              style={(favorites && favorites.length === 0) ? style.buttonDisabled : style.buttonEnabled}
+              active={navigation.state.index === 2}
+              onPress={() => navigate(navigation, 'FavoritesContent', 2)}
+            >
+              {favorites && favorites.length > 0
+                ? <Icon style={{ color: '#ffeb00' }} name="star" />
+                : <Icon name="star" style={style.buttonDisabled} />
+
+              }
+              <Text
+                style={(favorites && favorites.length === 0) ? style.buttonDisabled : style.buttonEnabled}
+              >
+                {t('header.title.favorites')}
+              </Text>
+            </Button>
+            <Button
+              vertical
               disabled={shows && shows.length === 0}
               style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled}
-              active={navigation.state.index === 2}
-              onPress={() => navigate(navigation, 'NotificationContent', 2)}
+              active={navigation.state.index === 3}
+              onPress={() => navigate(navigation, 'NotificationContent', 3)}
             >
               {notificationsForExistingShows(shows, notifications)
                 ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="notifications" />
@@ -242,8 +285,8 @@ const Main = createBottomTabNavigator(
             <Button
               vertical
               style={style.button}
-              active={navigation.state.index === 3}
-              onPress={() => navigate(navigation, 'MoreContent', 3)}
+              active={navigation.state.index === 4}
+              onPress={() => navigate(navigation, 'MoreContent', 4)}
             >
               <Icon type="MaterialIcons" name="more-horiz" />
               <Text>
