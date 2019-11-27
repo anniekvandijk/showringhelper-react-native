@@ -4,7 +4,7 @@ import {
   Header, Left, Right, Body, Title, Button, Icon
 } from 'native-base';
 
-function AppHeader({ title, showBack, navigation }) {
+function AppHeader({ title, showBack, navigation, children }) {
   return (
     <Header>
       <Left>
@@ -24,7 +24,7 @@ function AppHeader({ title, showBack, navigation }) {
       <Body>
         <Title>{title}</Title>
       </Body>
-      <Right />
+      <Right>{children}</Right>
     </Header>
   );
 }

@@ -28,6 +28,14 @@ const style = StyleSheet.create({
   },
   buttonEnabled: {
     // default styling
+  },
+  filterButtonDisabled: {
+    backgroundColor: 'transparent',
+    color: '#D1D1D1'
+  },
+  filterButtonEnabled: {
+    backgroundColor: 'transparent',
+    // default styling
   }
 });
 
@@ -42,12 +50,55 @@ function NavHeader({ navigation, title, showBack }) {
   );
 }
 
+function ShowsHeader({ navigation, title, showBack }) {
+  const [t] = useTranslation();
+  return (
+    <Header
+      title={t(title)}
+      showBack={showBack}
+      navigation={navigation}
+    >
+      <FilterButton navigation={navigation} />
+    </Header>
+  );
+}
+
+function FilterButton({ navigation }) {
+  const [t] = useTranslation();
+  const shows = useShowContext();
+  const [showFilter] = useShowFilterContext();
+  const filteredShows = shows && showFilter && shows.filter(el => showFilter.indexOf(el.id) !== -1);
+
+  return (
+    <Button
+      vertical
+      disabled={shows && shows.length === 0}
+      style={(shows && shows.length === 0) ? style.filterButtonDisabled : style.filterButtonEnabled}
+      onPress={() => navigation.navigate('FilterContent')}
+    >
+      {filteredShows && filteredShows.length > 0
+        ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="filter-list" />
+        : <Icon type="MaterialIcons" name="filter-list" style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled} />
+      }
+    </Button>
+  );
+}
+
 const RingNavigator = createStackNavigator(
   {
     RingContent: {
       screen: RingContent,
       navigationOptions: {
-        header: <NavHeader title="header.title.rings" />
+        header: <ShowsHeader title="header.title.rings" />
+      }
+    },
+    FilterContent: {
+      screen: FilterContent,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.filter" showBack navigation={navigation} />
+        };
+        return options;
       }
     },
     RingNumberDetail: {
