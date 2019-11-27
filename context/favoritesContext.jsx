@@ -27,8 +27,6 @@ const FavoritesProvider = ({ children }) => {
     if (favorites) {
       AsyncStorage.setItem('favorites', JSON.stringify(favorites));
     }
-    console.log('favorites set');
-    console.log(favorites);
   }, [favorites]);
 
   return (

@@ -17,6 +17,7 @@ import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
 import SettingsDetail from './SettingsDetail';
 import RingNumberDetail from './RingNumberDetail';
+import ShowDetail from './ShowDetail';
 
 const style = StyleSheet.create({
   buttonDisabled: {
@@ -52,6 +53,15 @@ const RingNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => {
         const options = {
           header: <NavHeader title="header.title.ringNumberDetail" showBack navigation={navigation} />
+        };
+        return options;
+      }
+    },
+    ShowDetail: {
+      screen: ShowDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.showDetail" showBack navigation={navigation} />
         };
         return options;
       }
