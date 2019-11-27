@@ -84,9 +84,8 @@ function RingNumberDetail({ navigation }) {
             <Right>
               <NumberChip
                 key={showId + value}
-                disabled={false}
+                disabled
                 startNumber={startNumber}
-                onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
               />
             </Right>
           </CardItem>

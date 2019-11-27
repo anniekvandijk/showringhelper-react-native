@@ -4,24 +4,10 @@ import {
   Text, Card, CardItem, Button, Left,
   Right, Body
 } from 'native-base';
-import { StyleSheet } from 'react-native';
 import { useFavoritesContext } from '../context/favoritesContext';
+import NumberChip from '../components/NumberChip';
 
-const style = StyleSheet.create({
-  button: {
-    backgroundColor: '#e56228',
-    marginTop: 5,
-    marginRight: 5,
-    paddingLeft: 5,
-    paddingRight: 5
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold'
-  }
-});
-
-function FavoritesContent() {
+function FavoritesContent({ navigation }) {
   const [t] = useTranslation();
   const [favorites, setFavorites] = useFavoritesContext();
 
@@ -31,16 +17,15 @@ function FavoritesContent() {
 
     return (
       <Card>
-        <CardItem header bordered>
-          <Text>{t('pages.favoritesContent.favoritesHeader')}</Text>
-        </CardItem>
         {favorites.map(fav => (
           <React.Fragment key={Math.random().toString(36).substring(7)}>
             <CardItem>
               <Body>
-                <Button rounded disabled style={style.button}>
-                  <Text style={style.buttonText}>{fav.value}</Text>
-                </Button>
+                <NumberChip
+                  disabled={false}
+                  startNumber={{ value: fav.value, showId: fav.showId, showName: fav.showName }}
+                  onPress={() => navigation.navigate('RingNumberDetail', { showId: fav.showId, value: fav.value, showName: fav.showName })}
+                />
               </Body>
               <Right>
                 <Button

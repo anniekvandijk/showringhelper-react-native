@@ -47,6 +47,9 @@
     "filterContent": {
       "text": "Show filter. Maak je geen selectie dan worden alle shows getoond in het overzicht."
     },
+    "favoritesContent": {
+      "deleteButton": " Verwijder "
+    },
     "notificationContent": {
       "text": "Selecteer show, fase en startnummer om meldingen voor in te stellen.",
       "showPickerPlaceholder": "Selecteer show",

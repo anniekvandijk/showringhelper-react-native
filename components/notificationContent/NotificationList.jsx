@@ -9,6 +9,8 @@ import { useShowContext } from '../../context/showContext';
 import { useNotificationTokenContext } from '../../context/NotificationTokenContext';
 import { useNotificationContext } from '../../context/NotificationContext';
 import { deleteNotification } from '../../firebase/firebaseCalls';
+import NumberChip from '../NumberChip';
+
 
 const style = StyleSheet.create({
   spinnerText: {
@@ -32,21 +34,10 @@ const style = StyleSheet.create({
   }
 });
 
-function NotificationList() {
+function NotificationList({ navigation }) {
   const [notificationToken] = useNotificationTokenContext();
   const [t] = useTranslation();
-  const shows = useShowContext();
   const [notifications, setNotifications] = useNotificationContext();
-
-  function getShowName(notification) {
-    const filteredShows = notifications && shows && shows.filter(x => x.id === notification.showId);
-    if (filteredShows.length === 0) {
-      deleteNotification(notification);
-      setNotifications(notifications.filter(x => x !== notification));
-      return '';
-    }
-    return filteredShows[0].name;
-  }
 
   function deleteThis(notification) {
     if (notificationToken) {
@@ -65,9 +56,11 @@ function NotificationList() {
           <React.Fragment key={Math.random().toString(36).substring(7)}>
             <CardItem>
               <Body>
-                <Button rounded disabled style={style.button}>
-                  <Text style={style.buttonText}>{notification.ringNumber}</Text>
-                </Button>
+                <NumberChip
+                  disabled={false}
+                  onPress={() => navigation.navigate('RingNumberDetail', { showId: notification.showId, value: notification.ringNumber, showName: notification.showName })}
+                  startNumber={{ value: notification.ringNumber, showId: notification.showId, showName: notification.showName }}
+                />
               </Body>
               <Right>
                 <Button
@@ -80,7 +73,7 @@ function NotificationList() {
             </CardItem>
             <CardItem bordered>
               <Text>
-                {`${notification.ringName}, ${getShowName(notification)}`}
+                {`${notification.ringName}, ${notification.showName}`}
               </Text>
             </CardItem>
           </React.Fragment>

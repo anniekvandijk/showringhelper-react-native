@@ -60,7 +60,7 @@ NumberChip.propTypes = {
 };
 
 NumberChip.defaultProps = {
-  onPress: {}
+  onPress: () => {}
 };
 
 export default NumberChip;

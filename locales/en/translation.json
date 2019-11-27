@@ -46,6 +46,9 @@
     "filterContent": {
       "text": "Show filter. If you don't make a selection, al shows are shown in the overview."
     },
+    "favoritesContent": {
+      "deleteButton": " Delete "
+    },
     "notificationContent": {
       "text": "Select show, phase and startnumber to set alerts.",
       "showPickerPlaceholder": "Select show",
