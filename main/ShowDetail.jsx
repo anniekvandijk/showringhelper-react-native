@@ -5,6 +5,7 @@ import {
   Content, Text, Card, CardItem, Body, Left, Right, Button, View
 } from 'native-base';
 import { useShowContext } from '../context/showContext';
+import { useRingNumbersContext } from '../context/ringNumbersContext';
 import NumberChip from '../components/NumberChip';
 
 const style = StyleSheet.create({
@@ -34,26 +35,26 @@ function ShowDetail({ navigation }) {
   const transferedShowId = navigation.getParam('showId');
   const shows = useShowContext();
   const show = shows && shows.filter(x => x.id === transferedShowId)[0];
+  const ringNumbers = useRingNumbersContext();
+
+  const showRingNumbers = ringNumbers && show && ringNumbers.filter(x => x.showId === show.id);
 
   function Chips() {
-    const startNumbers = [];
-    startNumbers.push(...show.rings.nextToPrepare.values);
-    startNumbers.push(...show.rings.prepare.values);
-    startNumbers.push(...show.rings.inRing.values);
-
-    if (startNumbers.length > 0) {
-      return startNumbers.map((value) => {
+    if (showRingNumbers.length > 0) {
+      const numberslist = showRingNumbers[0].ringnumbers;
+      numberslist.sort((a, b) => parseFloat(a.number) - parseFloat(b.number));
+      return numberslist.map((value) => {
         const startNumber = {
           showId: show.id,
           showName: show.name,
-          value
+          value: value.number
         };
         return (
           <NumberChip
-            key={show.id + value}
+            key={Math.random().toString(36).substring(2, 15)}
             disabled={false}
             startNumber={startNumber}
-            onPress={() => navigation.navigate('RingNumberDetail', { showId:show.id, value, showName:show.name })}
+            onPress={() => navigation.navigate('RingNumberDetail', { showId: show.id, value: value.number, showName: show.name })}
           />
         );
       });
