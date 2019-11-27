@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import {
-  Content, Text, Card, CardItem, Body, Left, Right, Button, Icon
+  Content, Text, Card, CardItem, Body, Left, Right, Button
 } from 'native-base';
 import { useRingNumbersContext } from '../context/ringNumbersContext';
 import { useFavoritesContext } from '../context/favoritesContext';
-import FavoriteIcon from '../components/FavoriteIcon';
-
+import NumberChip from '../components/NumberChip';
 
 const style = StyleSheet.create({
   content: {
@@ -82,14 +81,14 @@ function RingNumberDetail({ navigation }) {
                 <Text>{showName}</Text>
               </Body>
               <Right>
-                <Button
-                  rounded
-                  disabled
-                  key={value}
-                  style={style.button}
-                >
-                  <Text style={style.buttonText}>{value}</Text>
-                </Button>
+                <NumberChip
+                  key={showId + value}
+                  disabled={false}
+                  value={value}
+                  showId={showId}
+                  showName={showName}
+                  onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
+                />
               </Right>
             </CardItem>
             <CardItem bordered>
@@ -111,15 +110,14 @@ function RingNumberDetail({ navigation }) {
               <Text>{showName}</Text>
             </Body>
             <Right>
-              <Button
-                rounded
-                disabled
-                key={value}
-                style={style.button}
-              >
-                <Text style={style.buttonText}>{value}</Text>
-                {favorite && <FavoriteIcon />}
-              </Button>
+              <NumberChip
+                key={showId + value}
+                disabled={false}
+                value={value}
+                showId={showId}
+                showName={showName}
+                onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
+              />
             </Right>
           </CardItem>
           <CardItem>

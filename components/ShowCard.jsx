@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Text, Card, CardItem, Body, H1, H2, H3, Button, View } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useFavoritesContext } from '../context/favoritesContext';
+import NumberChip from './NumberChip';
 import FavoriteIcon from './FavoriteIcon';
 
 
@@ -35,33 +36,12 @@ const style = StyleSheet.create({
   }
 });
 
-function Chip({value, showId, showName, onPress}) {
-  const [favorites] = useFavoritesContext();
-  console.log(favorites);
-  const fav = { showId, showName, value };
-  const [favorite, setFavorite] = useState(false);
-
-  useEffect(() => {
-    setFavorite(favorites.length > 0 && favorites.indexOf(fav) > -1);
-  }, [favorites]);
-
-  return (
-    <Button
-      rounded
-      style={style.button}
-      onPress={onPress}
-    >
-      <Text style={style.buttonText}>{value}</Text>
-      {favorite && <FavoriteIcon />}
-    </Button>
-  );
-}
-
 function Chips(values, navigation, showId, showName) {
   if (values.length > 0) {
     return values.map(value => (
-      <Chip
+      <NumberChip
         key={showId + value}
+        disabled={false}
         value={value}
         showId={showId}
         showName={showName}
