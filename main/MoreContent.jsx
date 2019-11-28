@@ -30,7 +30,7 @@ function MoreContent({ navigation }) {
           </CardItem>
           <CardItem bordered>
             <Body>
-              <Text>Showring helper {t('pages.moreContent.versionText')} 1.1.0 ©Animundo 2019</Text>
+              <Text>Showring helper {t('pages.moreContent.versionText')} 1.2.0 ©Animundo 2019</Text>
             </Body>
           </CardItem>
           <CardItem bordered>
