@@ -22,6 +22,9 @@ builds are signed by Expo. Signing key in file showring-helper.jks which is gitI
 Expo website: https://expo.io/@anniekvandijk/showring-helper  
 Builds for Stores can also be found there
 
+## Expo-cli
+Update expo in cmd with admin npm install -g expo-cli
+
 ## Firebase
 The app is connecting to firebase FireStore project Showring helper. 
 Firebase config is in the .env file (also gitIgnored)

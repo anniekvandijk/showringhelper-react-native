@@ -40,7 +40,7 @@ const style = StyleSheet.create({
   }
 });
 
-function NotificationContent() {
+function NotificationContent({ navigation }) {
   const [t, i18n] = useTranslation();
   const shows = useShowContext();
   const [notificationToken, setNotificationToken] = useNotificationTokenContext();
@@ -248,7 +248,7 @@ function NotificationContent() {
           )
         }
       </Card>
-      <NotificationList />
+      <NotificationList navigation={navigation} />
     </Content>
   );
 }
