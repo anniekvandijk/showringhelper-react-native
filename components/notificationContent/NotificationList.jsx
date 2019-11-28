@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Text, Card, CardItem, Button,
+  Text, Card, CardItem, Button, Left,
   Right, Body
 } from 'native-base';
 import { StyleSheet } from 'react-native';
@@ -55,13 +55,13 @@ function NotificationList({ navigation }) {
         {notifications.map(notification => (
           <React.Fragment key={Math.random().toString(36).substring(7)}>
             <CardItem>
-              <Body>
+              <Left>
                 <NumberChip
                   disabled={false}
                   onPress={() => navigation.navigate('RingNumberDetail', { showId: notification.showId, value: notification.ringNumber, showName: notification.showName })}
                   startNumber={{ value: notification.ringNumber, showId: notification.showId, showName: notification.showName }}
                 />
-              </Body>
+              </Left>
               <Right>
                 <Button
                   title="Delete alert"

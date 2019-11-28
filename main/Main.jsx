@@ -277,20 +277,14 @@ const Main = createBottomTabNavigator(
             </Button>
             <Button
               vertical
-              disabled={favorites && favorites.length === 0}
-              style={(favorites && favorites.length === 0) ? style.buttonDisabled : style.buttonEnabled}
               active={navigation.state.index === 1}
               onPress={() => navigate(navigation, 'FavoritesContent', 1)}
             >
               {favorites && favorites.length > 0
                 ? <Icon style={{ color: '#fad201' }} name="star" />
-                : <Icon name="star" style={style.buttonDisabled} />
+                : <Icon name="star" />
               }
-              <Text
-                style={(favorites && favorites.length === 0) ? style.buttonDisabled : style.buttonEnabled}
-              >
-                {t('header.title.favorites')}
-              </Text>
+              <Text>{t('header.title.favorites')}</Text>
             </Button>
             <Button
               vertical

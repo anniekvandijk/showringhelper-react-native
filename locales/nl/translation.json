@@ -48,7 +48,8 @@
       "text": "Show filter. Maak je geen selectie dan worden alle shows getoond in het overzicht."
     },
     "favoritesContent": {
-      "deleteButton": " Verwijder "
+      "deleteButton": " Verwijder ",
+      "noFavorites": "Je hebt nog geen favorieten. Voeg een favoriet startnummer toe via de shows pagina"
     },
     "notificationContent": {
       "text": "Selecteer show, fase en startnummer om meldingen voor in te stellen.",

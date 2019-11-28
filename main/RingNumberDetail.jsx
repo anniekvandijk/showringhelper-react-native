@@ -77,17 +77,16 @@ function RingNumberDetail({ navigation }) {
       <Content padder style={style.content}>
         <Card>
           <CardItem bordered>
-            <Body>
-              <Text style={style.bold}>{t('pages.ringNumberDetail.header')}</Text>
-              <Text>{showName}</Text>
-            </Body>
-            <Right>
+            <Left>
               <NumberChip
                 key={showId + value}
                 disabled
                 startNumber={startNumber}
               />
-            </Right>
+            </Left>
+            <Body>
+              <Text style={style.bold}>{showName}</Text>
+            </Body>
           </CardItem>
           <CardItem>
             <Button onPress={favoriteToggle}>

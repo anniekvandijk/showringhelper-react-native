@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, Button } from 'native-base';
+import { Text, Button, Badge } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useFavoritesContext } from '../context/favoritesContext';
-import FavoriteIcon from './FavoriteIcon';
+import FavoriteBadge from './FavoriteBadge';
 
 
 const style = StyleSheet.create({
@@ -30,26 +30,30 @@ function NumberChip({startNumber, disabled, onPress}) {
 
   if (disabled) {
     return (
-      <Button
-        rounded
-        disabled
-        style={style.button}
-      >
-        <Text style={style.buttonText}>{startNumber.value}</Text>
-        {isFavorite && <FavoriteIcon />}
-      </Button>
+      <>
+        <Button
+          rounded
+          disabled
+          style={style.button}
+        >
+          <Text style={style.buttonText}>{startNumber.value}</Text>
+        </Button>
+        {isFavorite && <FavoriteBadge />}
+      </>
     );
   }
 
   return (
-    <Button
-      rounded
-      style={style.button}
-      onPress={onPress}
-    >
-      <Text style={style.buttonText}>{startNumber.value}</Text>
-      {isFavorite && <FavoriteIcon />}
-    </Button>
+    <>
+      <Button
+        rounded
+        style={style.button}
+        onPress={onPress}
+      >
+        <Text style={style.buttonText}>{startNumber.value}</Text>
+      </Button>
+      {isFavorite && <FavoriteBadge />}
+    </>
   );
 }
 

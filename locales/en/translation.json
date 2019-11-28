@@ -47,7 +47,8 @@
       "text": "Show filter. If you don't make a selection, al shows are shown in the overview."
     },
     "favoritesContent": {
-      "deleteButton": " Delete "
+      "deleteButton": " Delete ",
+      "noFavorites": "You do not have any favorites yet. Add a favorite ringnumber on the show page"
     },
     "notificationContent": {
       "text": "Select show, phase and startnumber to set alerts.",
