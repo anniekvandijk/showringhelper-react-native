@@ -26,7 +26,7 @@ function FavoritesContent({ navigation }) {
     return (
       <Content padder style={style.content}>
         <Card>
-          {favorites.map(fav => (
+          {favorites && favorites.map(fav => (
             <React.Fragment key={Math.random().toString(36).substring(7)}>
               <CardItem>
                 <Left>
