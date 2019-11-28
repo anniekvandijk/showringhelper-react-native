@@ -8,15 +8,18 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';
 import { useShowFilterContext } from '../context/showFilterContext';
+import { useFavoritesContext } from '../context/favoritesContext';
 import { useNotificationContext } from '../context/NotificationContext';
 import Header from './Header';
 import RingContent from './RingContent';
+import FavoritesContent from './FavoritesContent';
 import FilterContent from './FilterContent';
 import NotificationContent from './NotificationContent';
 import MoreContent from './MoreContent';
 import PrivacyPolicyDetail from './PrivacyPolicyDetail';
 import SettingsDetail from './SettingsDetail';
 import RingNumberDetail from './RingNumberDetail';
+import ShowDetail from './ShowDetail';
 
 const style = StyleSheet.create({
   buttonDisabled: {
@@ -25,6 +28,13 @@ const style = StyleSheet.create({
   },
   buttonEnabled: {
     // default styling
+  },
+  filterButtonDisabled: {
+    backgroundColor: 'transparent',
+    color: '#D1D1D1'
+  },
+  filterButtonEnabled: {
+    backgroundColor: 'transparent'
   }
 });
 
@@ -39,12 +49,58 @@ function NavHeader({ navigation, title, showBack }) {
   );
 }
 
+function ShowsHeader({ navigation, title, showBack }) {
+  const [t] = useTranslation();
+  return (
+    <Header
+      title={t(title)}
+      showBack={showBack}
+      navigation={navigation}
+    >
+      <FilterButton navigation={navigation} />
+    </Header>
+  );
+}
+
+function FilterButton({ navigation }) {
+  const [t] = useTranslation();
+  const shows = useShowContext();
+  const [showFilter] = useShowFilterContext();
+  const filteredShows = shows && showFilter && shows.filter(el => showFilter.indexOf(el.id) !== -1);
+
+  return (
+    <Button
+      vertical
+      disabled={shows && shows.length === 0}
+      style={(shows && shows.length === 0) ? style.filterButtonDisabled : style.filterButtonEnabled}
+      onPress={() => navigation.navigate('FilterContent')}
+    >
+      {filteredShows && filteredShows.length > 0
+        ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="filter-list" />
+        : <Icon type="MaterialIcons" name="filter-list" style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled} />
+      }
+    </Button>
+  );
+}
+
 const RingNavigator = createStackNavigator(
   {
     RingContent: {
       screen: RingContent,
-      navigationOptions: {
-        header: <NavHeader title="header.title.rings" />
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <ShowsHeader title="header.title.rings" navigation={navigation} />
+        };
+        return options;
+      }
+    },
+    FilterContent: {
+      screen: FilterContent,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.filter" showBack navigation={navigation} />
+        };
+        return options;
       }
     },
     RingNumberDetail: {
@@ -52,6 +108,15 @@ const RingNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => {
         const options = {
           header: <NavHeader title="header.title.ringNumberDetail" showBack navigation={navigation} />
+        };
+        return options;
+      }
+    },
+    ShowDetail: {
+      screen: ShowDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.showDetail" showBack navigation={navigation} />
         };
         return options;
       }
@@ -68,18 +133,26 @@ const RingNavigator = createStackNavigator(
   }
 );
 
-const FilterNavigator = createStackNavigator(
+const FavoritesNavigator = createStackNavigator(
   {
-    FilterContent: {
-      screen: FilterContent,
+    FavoritesContent: {
+      screen: FavoritesContent,
       navigationOptions: {
-        header: <NavHeader title="header.title.filter" />
+        header: <NavHeader title="header.title.favorites" />
       }
-
+    },
+    RingNumberDetail: {
+      screen: RingNumberDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.ringNumberDetail" showBack navigation={navigation} />
+        };
+        return options;
+      }
     }
   },
   {
-    initialRouteName: 'FilterContent',
+    initialRouteName: 'FavoritesContent',
     transparentCard: true,
     transitionConfig: () => ({
       containerStyle: {
@@ -95,6 +168,15 @@ const NotificationNavigator = createStackNavigator(
       screen: NotificationContent,
       navigationOptions: {
         header: <NavHeader title="header.title.notifications" />
+      }
+    },
+    RingNumberDetail: {
+      screen: RingNumberDetail,
+      navigationOptions: ({ navigation }) => {
+        const options = {
+          header: <NavHeader title="header.title.ringNumberDetail" showBack navigation={navigation} />
+        };
+        return options;
       }
     }
   },
@@ -168,7 +250,7 @@ function notificationsForExistingShows(shows, notifications) {
 const Main = createBottomTabNavigator(
   {
     RingContent: { screen: RingNavigator },
-    FilterContent: { screen: FilterNavigator },
+    FavoritesContent: { screen: FavoritesNavigator },
     NotificationContent: { screen: NotificationNavigator },
     MoreContent: { screen: MoreNavigator }
   },
@@ -178,15 +260,13 @@ const Main = createBottomTabNavigator(
       const [t] = useTranslation();
       const [notifications] = useNotificationContext();
       const shows = useShowContext();
-      const [showFilter] = useShowFilterContext();
-      const filteredShows = shows && showFilter && shows.filter(el => showFilter.indexOf(el.id) !== -1);
+      const [favorites] = useFavoritesContext();
 
       return (
         <Footer>
           <FooterTab>
             <Button
               vertical
-              style={style.button}
               active={navigation.state.index === 0}
               onPress={() => navigate(navigation, 'RingContent', 0)}
             >
@@ -197,20 +277,14 @@ const Main = createBottomTabNavigator(
             </Button>
             <Button
               vertical
-              disabled={shows && shows.length === 0}
-              style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled}
               active={navigation.state.index === 1}
-              onPress={() => navigate(navigation, 'FilterContent', 1)}
+              onPress={() => navigate(navigation, 'FavoritesContent', 1)}
             >
-              {filteredShows && filteredShows.length > 0
-                ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="filter-list" />
-                : <Icon type="MaterialIcons" name="filter-list" style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled} />
+              {favorites && favorites.length > 0
+                ? <Icon style={{ color: '#fad201' }} name="star" />
+                : <Icon name="star" />
               }
-              <Text
-                style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled}
-              >
-                {t('header.title.filter')}
-              </Text>
+              <Text>{t('header.title.favorites')}</Text>
             </Button>
             <Button
               vertical
@@ -231,11 +305,13 @@ const Main = createBottomTabNavigator(
             </Button>
             <Button
               vertical
-              style={style.button}
               active={navigation.state.index === 3}
               onPress={() => navigate(navigation, 'MoreContent', 3)}
             >
-              <Icon type="MaterialIcons" name="more-horiz" />
+              <Icon
+                type="MaterialIcons"
+                name="more-horiz"
+              />
               <Text>
                 {t('header.title.more')}
               </Text>

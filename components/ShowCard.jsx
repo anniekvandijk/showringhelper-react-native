@@ -1,15 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { Text, Card, CardItem, Body, H1, H2, H3, Button, View } from 'native-base';
+import { Text, Card, CardItem, Body, H1, H2, H3, Button, View, Left, Right, Icon } from 'native-base';
 import { StyleSheet } from 'react-native';
+import NumberChip from './NumberChip';
 
 const style = StyleSheet.create({
   header: {
     backgroundColor: '#197b30'
   },
   headerTitle: {
-    color: '#ffffff'
+    color: '#ffffff',
+    fontWeight: 'bold'
   },
   subHeader: {
     fontWeight: 'bold'
@@ -34,16 +36,17 @@ const style = StyleSheet.create({
 
 function Chips(values, navigation, showId, showName) {
   if (values.length > 0) {
-    return values.map(value => (
-      <Button
-        rounded
-        key={value}
-        style={style.button}
-        onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
-      >
-        <Text style={style.buttonText}>{value}</Text>
-      </Button>
-    ));
+    return values.map((value) => {
+      const startNumber = { showId, showName, value };
+      return (
+        <NumberChip
+          key={showId + value}
+          disabled={false}
+          startNumber={startNumber}
+          onPress={() => navigation.navigate('RingNumberDetail', { showId, value, showName })}
+        />
+      );
+    });
   }
 }
 
@@ -52,7 +55,18 @@ function ShowCard({ show, navigation }) {
   return (
     <Card>
       <CardItem header bordered style={style.header}>
-        <H2 style={style.headerTitle}>{show.name}</H2>
+        <Left>
+          <Text style={style.headerTitle}>{show.name}</Text>
+        </Left>
+        <Right>
+          <Button
+            small
+            title="Show detail"
+            onPress={() => navigation.navigate('ShowDetail', { showId: show.id })}
+          >
+            <Icon name="arrow-forward" />
+          </Button>
+        </Right>
       </CardItem>
       <CardItem bordered>
         <Body>
@@ -78,7 +92,7 @@ function ShowCard({ show, navigation }) {
           {
             show.rings.prepare.description !== '' && <Text>{show.rings.prepare.description}</Text>
           }
-          <View style={style.buttons}>{Chips(show.rings.prepare.values, navigation, show.id)}</View>
+          <View style={style.buttons}>{Chips(show.rings.prepare.values, navigation, show.id, show.name)}</View>
         </Body>
       </CardItem>
       <CardItem bordered>
@@ -91,7 +105,7 @@ function ShowCard({ show, navigation }) {
           {
             show.rings.inRing.description !== '' && <Text>{show.rings.inRing.description}</Text>
           }
-          <View style={style.buttons}>{Chips(show.rings.inRing.values, navigation, show.id)}</View>
+          <View style={style.buttons}>{Chips(show.rings.inRing.values, navigation, show.id, show.name)}</View>
         </Body>
       </CardItem>
     </Card>

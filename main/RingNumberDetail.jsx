@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import {
   Content, Text, Card, CardItem, Body, Left, Right, Button
 } from 'native-base';
 import { useRingNumbersContext } from '../context/ringNumbersContext';
+import { useFavoritesContext } from '../context/favoritesContext';
+import NumberChip from '../components/NumberChip';
+import startNumberDetails from '../utilities/startNumberDetails';
 
 const style = StyleSheet.create({
   content: {
     height: '100%'
+  },
+  bold: {
+    fontWeight: 'bold'
   },
   button: {
     backgroundColor: '#e56228',
@@ -16,68 +22,53 @@ const style = StyleSheet.create({
     marginRight: 5,
     paddingLeft: 5,
     paddingRight: 5
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold'
   }
 });
 
-function RingNumberDetail(props) {
+function RingNumberDetail({ navigation }) {
   const [t, i18n] = useTranslation();
-  const value = props.navigation.getParam('value');
-  const showId = props.navigation.getParam('showId');
-  const showName = props.navigation.getParam('showName');
+  const [favorites, setFavorites] = useFavoritesContext();
+  const value = navigation.getParam('value');
+  const showId = navigation.getParam('showId');
+  const showName = navigation.getParam('showName');
   const ringNumbers = useRingNumbersContext();
-  if (!ringNumbers) {
-    return <NoDetails />;
-  }
-  const showNumbers = ringNumbers && ringNumbers.filter(x => x.showId === showId);
-  if (showNumbers.length === 0) {
-    return <NoDetails />;
-  }
-  const arrayOfNumbers = showNumbers && showNumbers[0].ringnumbers;
-  if (showNumbers.length === 0) {
-    return <NoDetails />;
-  }
-  const detailValues = arrayOfNumbers && arrayOfNumbers.filter(x => x.number === value);
-  if (detailValues.length === 0) {
-    return <NoDetails />;
-  }
-  const arrayOfDetails = detailValues && detailValues[0].values;
-  if (arrayOfDetails.length === 0) {
-    return <NoDetails />;
-  }
+  const startNumber = { showId, showName, value };
+  const startNumberDetailList = startNumberDetails(ringNumbers, startNumber);
   const language = i18n.language;
 
+  const isFavorite = favorites
+    && favorites.length > 0
+    && favorites.filter(
+      x => x.value === startNumber.value && x.showId === startNumber.showId
+    ).length > 0;
 
-  function NoDetails() {
+  function favoriteToggle() {
+    if (isFavorite) {
+      const fav = favorites.filter(x => (x.value === startNumber.value && x.showId === startNumber.showId));
+      if (fav.length > 0) {
+        const rest = favorites.filter(x => x !== fav[0]);
+        setFavorites(rest);
+      }
+    } else {
+      setFavorites([...favorites, startNumber]);
+    }
+  }
+
+  function Details() {
+    if (startNumberDetailList) {
+      return (
+        startNumberDetailList.map(values => (
+          <CardItem bordered key={Math.random().toString(36).substring(7)}>
+            <Left><Text>{language === 'nl' ? values.nl : values.en}</Text></Left>
+            <Body><Text>{values.value}</Text></Body>
+          </CardItem>
+        ))
+      );
+    }
     return (
-      <>
-        <Content padder style={style.content}>
-          <Card>
-            <CardItem bordered>
-              <Body>
-                <Text style={style.buttonText}>{t('pages.ringNumberDetail.header')}</Text>
-                <Text>{showName}</Text>
-              </Body>
-              <Right>
-                <Button
-                  rounded
-                  disabled
-                  key={value}
-                  style={style.button}
-                >
-                  <Text style={style.buttonText}>{value}</Text>
-                </Button>
-              </Right>
-            </CardItem>
-            <CardItem bordered>
-              <Left><Text>{t('pages.ringNumberDetail.noDetails')}</Text></Left>
-            </CardItem>
-          </Card>
-        </Content>
-      </>
+      <CardItem bordered>
+        <Left><Text>{t('pages.ringNumberDetail.noDetails')}</Text></Left>
+      </CardItem>
     );
   }
 
@@ -86,30 +77,25 @@ function RingNumberDetail(props) {
       <Content padder style={style.content}>
         <Card>
           <CardItem bordered>
-            <Body>
-              <Text style={style.buttonText}>{t('pages.ringNumberDetail.header')}</Text>
-              <Text>{showName}</Text>
-            </Body>
-            <Right>
-              <Button
-                rounded
+            <Left>
+              <NumberChip
+                key={showId + value}
                 disabled
-                key={value}
-                style={style.button}
-              >
-                <Text style={style.buttonText}>{value}</Text>
-              </Button>
-            </Right>            
+                startNumber={startNumber}
+              />
+            </Left>
+            <Body>
+              <Text style={style.bold}>{showName}</Text>
+            </Body>
           </CardItem>
-          {arrayOfDetails.map((values) => {
-            return (
-              <CardItem bordered key={Math.random().toString(36).substring(7)}>
-                <Left><Text>{language === 'nl' ? values.nl : values.en}</Text></Left>
-                <Body><Text>{values.value}</Text></Body>
-              </CardItem>
-            );
-          })
-        }
+          <CardItem>
+            <Button onPress={favoriteToggle}>
+              <Text>
+                {isFavorite ? t('pages.ringNumberDetail.deleteFromFavorites') : t('pages.ringNumberDetail.addToFavorites')}
+              </Text>
+            </Button>
+          </CardItem>
+          <Details />
         </Card>
       </Content>
     </>

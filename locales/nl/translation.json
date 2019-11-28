@@ -4,7 +4,9 @@
     "title": {
       "rings": "Shows",
       "ringNumberDetail": "Details",
+      "showDetail": "Show details",      
       "filter": "Filter",
+      "favorites": "Favoriet",
       "notifications": "Alarm",
       "more": "Meer",
       "privacyPolicy": "Privacy Policy",
@@ -28,8 +30,13 @@
   },
   "pages": {
     "ringNumberDetail": {
-      "header": "Startnumber details",
-      "noDetails": "Er zijn geen details bekend voor dit startnummer"
+      "header": "Startnummer",
+      "noDetails": "Er zijn geen details bekend voor dit startnummer",
+      "addToFavorites": "Aan favorieten toevoegen",
+      "deleteFromFavorites": "Verwijderen uit favorieten"
+    },
+    "showDetail": {
+      "ringNumbersHeader": "Startnummers"
     },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
@@ -39,6 +46,10 @@
     },
     "filterContent": {
       "text": "Show filter. Maak je geen selectie dan worden alle shows getoond in het overzicht."
+    },
+    "favoritesContent": {
+      "deleteButton": " Verwijder ",
+      "noFavorites": "Je hebt nog geen favorieten. Voeg een favoriet startnummer toe via de shows pagina"
     },
     "notificationContent": {
       "text": "Selecteer show, fase en startnummer om meldingen voor in te stellen.",

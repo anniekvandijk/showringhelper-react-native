@@ -21,6 +21,7 @@ import { ringNumbersContext } from './context/ringNumbersContext';
 import { ShowFilterProvider } from './context/showFilterContext';
 import { NotificationProvider } from './context/NotificationContext';
 import { NotificationTokenProvider } from './context/NotificationTokenContext';
+import { FavoritesProvider } from './context/favoritesContext';
 import GlobalErrorBoundary from './utilities/GlobalErrorBoundary';
 
 const style = StyleSheet.create({
@@ -105,11 +106,13 @@ function App() {
             <NotificationTokenProvider>
               <NotificationProvider>
                 <ShowFilterProvider>
-                  <ImageBackground source={require('./images/background.jpg')} style={style.background}>
-                    <GlobalErrorBoundary>
-                      <Main />
-                    </GlobalErrorBoundary>
-                  </ImageBackground>
+                  <FavoritesProvider>
+                    <ImageBackground source={require('./images/background.jpg')} style={style.background}>
+                      <GlobalErrorBoundary>
+                        <Main />
+                      </GlobalErrorBoundary>
+                    </ImageBackground>
+                  </FavoritesProvider>
                 </ShowFilterProvider>
               </NotificationProvider>
             </NotificationTokenProvider>

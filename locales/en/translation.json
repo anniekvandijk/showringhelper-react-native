@@ -4,7 +4,9 @@
     "title": {
       "rings": "Shows",
       "ringNumberDetail": "Details",
+      "showDetail": "Show detail",
       "filter": "Filter",
+      "favorites": "Favorites",
       "notifications": "Alerts",
       "more": "More",
       "privacyPolicy": "Privacy Policy",
@@ -27,8 +29,13 @@
   },
   "pages": {
     "ringNumberDetail": {
-      "header": "Startnumber details",
-      "noDetails": "There are no details for this startnumber"
+      "header": "Startnumber",
+      "noDetails": "There are no details for this startnumber",
+      "addToFavorites": "Add to favorites",
+      "deleteFromFavorites": "Delete from favorites"
+    },
+    "showDetail": {
+      "ringNumbersHeader": "Startnumbers"
     },
     "moreContent": {
       "privacyPolicyText": "Privacy Policy",
@@ -38,6 +45,10 @@
     },
     "filterContent": {
       "text": "Show filter. If you don't make a selection, al shows are shown in the overview."
+    },
+    "favoritesContent": {
+      "deleteButton": " Delete ",
+      "noFavorites": "You do not have any favorites yet. Add a favorite ringnumber on the show page"
     },
     "notificationContent": {
       "text": "Select show, phase and startnumber to set alerts.",
