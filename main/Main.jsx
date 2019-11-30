@@ -31,10 +31,12 @@ const style = StyleSheet.create({
   },
   filterButtonDisabled: {
     backgroundColor: 'transparent',
-    color: '#D1D1D1'
+    color: '#D1D1D1',
+    elevation: 0
   },
   filterButtonEnabled: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    elevation: 0
   }
 });
 

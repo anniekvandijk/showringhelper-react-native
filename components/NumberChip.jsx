@@ -12,7 +12,9 @@ const style = StyleSheet.create({
     marginTop: 5,
     marginRight: 5,
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
+    position: 'relative',
+    zIndex: -1
   },
   buttonText: {
     fontSize: 18,

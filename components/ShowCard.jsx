@@ -22,11 +22,7 @@ const style = StyleSheet.create({
     flexDirection: 'row'
   },
   button: {
-    backgroundColor: '#e56228',
-    marginTop: 5,
-    marginRight: 5,
-    paddingLeft: 5,
-    paddingRight: 5
+    elevation: 0
   },
   buttonText: {
     fontSize: 18,
@@ -60,6 +56,7 @@ function ShowCard({ show, navigation }) {
         </Left>
         <Right>
           <Button
+            style={style.button}
             small
             title="Show detail"
             onPress={() => navigation.navigate('ShowDetail', { showId: show.id })}

@@ -3,22 +3,21 @@ import { Icon, Badge, Text, Button } from 'native-base';
 import { Platform, StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
-  icon: {
-    color: '#fad201',
-    backgroundColor: '#ffffff',
-    marginLeft: 0,
-    marginRight: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
-    fontSize: 20
-  },
   button: {
-    //backgroundColor: '#197b30',
-    backgroundColor: '#ffffff',
-    borderColor: '#ffffff',
-    position: 'relative',
-    margin: 0,
-    paddingLeft: -30,
+    minWidth: 15,
+    minHeight: 15,
+    width: 15,
+    height: 15,
+    borderRadius: 50,
+    borderColor: '#e56228',
+    backgroundColor: '#fad201',
+    borderWidth: 1,
+    padding: 5,
+    marginLeft: -20,
+    marginRight: 5,
+    marginBottom: 25,
+    zIndex: 1,
+    elevation: 10
   },
   iconIos: {
     color: '#fad201',
@@ -39,18 +38,8 @@ function FavoriteBadge() {
   if (Platform.OS === 'android') {
     return (
       <Button
-        rounded
-        small
-        bordered
-        transparent
         style={style.button}
       >
-        <Text>
-          <Icon
-            style={style.icon}
-            name="star"
-          />
-        </Text>
       </Button>
     );
   }
