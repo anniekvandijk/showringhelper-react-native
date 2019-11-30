@@ -1,29 +1,34 @@
 import React from 'react';
-import { Icon, Badge, Text } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { Icon, Badge, Text, Button } from 'native-base';
+import { Platform, StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
-  icon: {
-    color: '#fad201',
-    marginLeft: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
-    fontSize: 20
-  },
-  badge: {
-    //backgroundColor: '#197b30',
-    backgroundColor: 'transparent',
-    position: 'relative',
-    marginLeft: -35,
-    padding: 0
+  button: {
+    minWidth: 15,
+    minHeight: 15,
+    width: 15,
+    height: 15,
+    borderRadius: 50,
+    borderColor: '#e56228',
+    backgroundColor: '#fad201',
+    borderWidth: 1,
+    padding: 5,
+    marginLeft: -20,
+    marginRight: 5,
+    marginBottom: 30,
+    zIndex: 1,
+    elevation: 10
   }
 });
 
-
 function FavoriteBadge() {
   return (
-    <Badge style={style.badge}><Text><Icon style={style.icon} name="star" /></Text></Badge>
+    <Button 
+      style={style.button}
+    >
+    </Button>
   );
 }
+
 
 export default FavoriteBadge;
