@@ -27,7 +27,8 @@ const style = StyleSheet.create({
     color: '#D1D1D1'
   },
   buttonEnabled: {
-    // default styling
+    // default styling  
+    
   },
   filterButtonDisabled: {
     backgroundColor: 'transparent',
