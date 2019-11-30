@@ -296,7 +296,7 @@ const Main = createBottomTabNavigator(
               onPress={() => navigate(navigation, 'NotificationContent', 2)}
             >
               {notificationsForExistingShows(shows, notifications)
-                ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="notifications" />
+                ? <Icon style={{ color: '#197b30' }} type="MaterialIcons" name="notifications" />
                 : <Icon type="MaterialIcons" name="notifications" style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled} />
               }
               <Text

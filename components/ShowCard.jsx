@@ -48,6 +48,7 @@ function Chips(values, navigation, showId, showName) {
 
 function ShowCard({ show, navigation }) {
   const [t] = useTranslation();
+
   return (
     <Card>
       <CardItem header bordered style={style.header}>
