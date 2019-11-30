@@ -22,7 +22,16 @@ const style = StyleSheet.create({
 
 function FavoriteBadge() {
   return (
-    <Badge style={style.badge}><Text><Icon style={style.icon} name="star" /></Text></Badge>
+    <Badge
+      style={style.badge}
+    >
+      <Text>
+        <Icon
+          style={style.icon}
+          name="star"
+        />
+      </Text>
+    </Badge>
   );
 }
 
