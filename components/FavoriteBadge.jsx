@@ -15,45 +15,18 @@ const style = StyleSheet.create({
     padding: 5,
     marginLeft: -20,
     marginRight: 5,
-    marginBottom: 25,
+    marginBottom: 30,
     zIndex: 1,
     elevation: 10
-  },
-  iconIos: {
-    color: '#fad201',
-    marginLeft: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
-    fontSize: 20
-  },
-  badgeIos: {
-    backgroundColor: 'transparent',
-    position: 'relative',
-    marginLeft: -35,
-    padding: 0
   }
 });
 
 function FavoriteBadge() {
-  if (Platform.OS === 'android') {
-    return (
-      <Button
-        style={style.button}
-      >
-      </Button>
-    );
-  }
   return (
-    <Badge
-      style={style.badgeIos}
+    <Button 
+      style={style.button}
     >
-      <Text>
-        <Icon
-          style={style.iconIos}
-          name="star"
-        />
-      </Text>
-    </Badge>
+    </Button>
   );
 }
 
