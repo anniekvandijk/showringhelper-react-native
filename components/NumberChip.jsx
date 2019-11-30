@@ -3,17 +3,29 @@ import PropTypes from 'prop-types';
 import { Text, Button, Badge } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useFavoritesContext } from '../context/favoritesContext';
+import { useNotificationContext } from '../context/NotificationContext';
 import FavoriteBadge from './FavoriteBadge';
 
 
 const style = StyleSheet.create({
   button: {
+    backgroundColor: '#197b30',
+    marginTop: 5,
+    marginRight: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    position: 'relative',
+    zIndex: -1
+  },
+  notButton: {
     backgroundColor: '#e56228',
     marginTop: 5,
     marginRight: 5,
     paddingLeft: 5,
-    paddingRight: 5
-  },
+    paddingRight: 5,
+    position: 'relative',
+    zIndex: -1
+  },  
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold'
@@ -22,6 +34,16 @@ const style = StyleSheet.create({
 
 function NumberChip({startNumber, disabled, onPress}) {
   const [favorites] = useFavoritesContext();
+  const [notifications] = useNotificationContext();
+
+  const isNotification = notifications
+    && notifications.length > 0
+    && notifications.filter(
+      x => x.ringNumber === startNumber.value && x.showId === startNumber.showId
+    ).length > 0;
+
+  console.log(isNotification);
+
   const isFavorite = favorites
     && favorites.length > 0
     && favorites.filter(
@@ -34,7 +56,7 @@ function NumberChip({startNumber, disabled, onPress}) {
         <Button
           rounded
           disabled
-          style={style.button}
+          style={isNotification ? style.button : style.notButton}
         >
           <Text style={style.buttonText}>{startNumber.value}</Text>
         </Button>
@@ -47,7 +69,7 @@ function NumberChip({startNumber, disabled, onPress}) {
     <>
       <Button
         rounded
-        style={style.button}
+        style={isNotification ? style.button : style.notButton}
         onPress={onPress}
       >
         <Text style={style.buttonText}>{startNumber.value}</Text>
