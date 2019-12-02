@@ -23,8 +23,8 @@ async function getNotifications(token) {
       });
       return notificationList;
     })
-    .catch((err) => {
-      console.log('Error getting documents', err);
+    .catch((error) => {
+      throw new Error(`Firebase error: Error getting notifications: ${error}`);
     });
 }
 
@@ -45,8 +45,7 @@ async function postNotification(notification, token) {
     });
     return doc;
   } catch (e) {
-    console.log(e);
-    return null;
+    throw new Error(`Firebase error: Error posting notifications: ${error}`);
   }
 }
 
@@ -57,8 +56,7 @@ const deleteNotification = (notification) => {
     database.collection(dbNotifications).doc(doc).delete();
     return doc;
   } catch (e) {
-    console.log(e);
-    return null;
+    throw new Error(`Firebase error: Error deleting notifications: ${error}`);
   }
 };
 

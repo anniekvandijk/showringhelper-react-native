@@ -1,5 +1,5 @@
 {
-  "spinner": "Keuringen laden ...",
+  "spinner": "Shows laden ...",
   "header": {
     "title": {
       "rings": "Shows",
@@ -16,7 +16,7 @@
   "components": {
     "noShowCard": {
       "header": "Geen shows",
-      "body": "Er zijn op dit moment geen actieve shows. Verwacht je wel een active show? Neem dan contact op met je organisatie." 
+      "body": "Er zijn op dit moment geen actieve shows. Verwacht je wel een show? Neem dan contact op met je organisatie." 
     },
     "showCard": {
       "nextToPrepare": "Voorbereiden",
@@ -52,9 +52,9 @@
       "noFavorites": "Je hebt nog geen favorieten. Voeg een favoriet startnummer toe via de shows pagina"
     },
     "notificationContent": {
-      "text": "Selecteer show, fase en startnummer om meldingen voor in te stellen.",
+      "text": "Selecteer show, fase en startnummer. Je krijgt een notificatie zodra dit startnummer in deze fase verschijnt.",
       "showPickerPlaceholder": "Selecteer show",
-      "selectShow": "Selecteer keuring ...",
+      "selectShow": "Selecteer show ...",
       "nextToPrepare": "Voorbereiden",
       "prepare": "Klaarstaan voor volgende ring",
       "inRing": "In ring",

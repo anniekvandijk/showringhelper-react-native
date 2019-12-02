@@ -21,7 +21,9 @@ const NotificationProvider = ({ children }) => {
           setNotifications(result);
         }
       })
-      .catch((error) => { console.log(error); });
+      .catch((error) => { 
+        throw new Error(`Firebase error: Error in notificationsprovider: ${error}`);
+      });
   }
 
   useEffect(() => {

@@ -19,7 +19,7 @@ const ShowFilterProvider = ({ children }) => {
         setShowFilter(result ? JSON.parse(result) : []);
       })
       .catch((error) => {
-        console.log(error);
+        throw new Error(`Error getting showFilter: ${error}`);
       });
   }, []);
 

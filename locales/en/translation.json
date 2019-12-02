@@ -2,7 +2,7 @@
   "spinner": "Loading shows ...",
   "header": {
     "title": {
-      "rings": "Shows",
+      "rings": "Show",
       "ringNumberDetail": "Details",
       "showDetail": "Show detail",
       "filter": "Filter",
@@ -16,7 +16,7 @@
   "components": {
     "noShowCard": {
       "header": "No available shows",
-      "body": "There are no active shows. If you did expect an active show, please contact your show management." 
+      "body": "There are no active shows. If you did expect an show, please contact your show management." 
     },
     "showCard": {
       "nextToPrepare": "Next to prepare",
@@ -51,7 +51,7 @@
       "noFavorites": "You do not have any favorites yet. Add a favorite ringnumber on the show page"
     },
     "notificationContent": {
-      "text": "Select show, phase and startnumber to set alerts.",
+      "text": "Select show, phase and startnumber. A notification wiil be sent as soon as the startnumber appears in that phase",
       "showPickerPlaceholder": "Select show",
       "selectShow": "Select show ...",
       "nextToPrepare": "Next to prepare",
