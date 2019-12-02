@@ -37,6 +37,9 @@ const style = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold'
+  },
+  oneShow: {
+    fontWeight: 'bold'
   }
 });
 
@@ -58,6 +61,13 @@ function NotificationContent({ navigation }) {
   function handleChangeShow(showItem) {
     setShow(showItem);
     clear();
+  }
+
+  function OneShow() {
+    setShow(shows[0]);
+    return (
+      <Text style={style.oneShow}>{shows[0].name}</Text>
+    );
   }
 
   const rings = {
@@ -138,7 +148,9 @@ function NotificationContent({ navigation }) {
                 setNotifications([...notifications, ...addNot]);
               }
             })
-            .catch(error => console.log(error));
+            .catch((error) => {
+              throw new Error(`Error in setting notifications: ${error}`);
+            });
         }
       });
     clear();
@@ -180,10 +192,17 @@ function NotificationContent({ navigation }) {
           </Left>
         </CardItem>
         <CardItem bordered>
-          <ShowPicker
-            show={show}
-            onChange={handleChangeShow}
-          />
+          {(shows && shows.length === 1)
+            ? (
+              <OneShow />
+            )
+            : (
+              <ShowPicker
+                show={show}
+                onChange={handleChangeShow}
+              />
+            )
+          }
         </CardItem>
         {show
           && (

@@ -3,7 +3,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { createAppContainer, StackActions } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, StackViewStyleInterpolator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';
@@ -26,16 +26,14 @@ const style = StyleSheet.create({
     backgroundColor: 'transparent',
     color: '#D1D1D1'
   },
-  buttonEnabled: {
-    // default styling  
-    
-  },
-  filterButtonDisabled: {
+  filterIconActive: {
     backgroundColor: 'transparent',
-    color: '#D1D1D1',
-    elevation: 0
+    color: '#2acd50'
   },
-  filterButtonEnabled: {
+  filterIcon: {
+    backgroundColor: 'transparent'
+  },
+  filterButton: {
     backgroundColor: 'transparent',
     elevation: 0
   }
@@ -54,13 +52,14 @@ function NavHeader({ navigation, title, showBack }) {
 
 function ShowsHeader({ navigation, title, showBack }) {
   const [t] = useTranslation();
+  const shows = useShowContext();
   return (
     <Header
       title={t(title)}
       showBack={showBack}
       navigation={navigation}
     >
-      <FilterButton navigation={navigation} />
+      {shows && shows.length > 1 && <FilterButton navigation={navigation} />}
     </Header>
   );
 }
@@ -74,16 +73,34 @@ function FilterButton({ navigation }) {
   return (
     <Button
       vertical
-      disabled={shows && shows.length === 0}
-      style={(shows && shows.length === 0) ? style.filterButtonDisabled : style.filterButtonEnabled}
+      style={style.filterButton}
       onPress={() => navigation.navigate('FilterContent')}
     >
       {filteredShows && filteredShows.length > 0
-        ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="filter-list" />
-        : <Icon type="MaterialIcons" name="filter-list" style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled} />
+        ? <Icon style={style.filterIconActive} type="MaterialIcons" name="filter-list" />
+        : <Icon type="MaterialIcons" name="filter-list" style={style.filterIcon} />
       }
     </Button>
   );
+}
+
+function transConfig() {
+  return ({
+    containerStyle: {
+      backgroundColor: 'transparent'
+    },
+    screenInterpolator: ({ layout, position, scene }) => {
+      const { initWidth } = layout;
+      const { index } = scene;
+      const translateX = position.interpolate({
+        inputRange:  [index - 1, index, index + 1],
+        outputRange: [initWidth, 0, -initWidth]
+      });
+      return {
+        transform: [{ translateX }]
+      };
+    }
+  });
 }
 
 const RingNavigator = createStackNavigator(
@@ -128,11 +145,7 @@ const RingNavigator = createStackNavigator(
   {
     initialRouteName: 'RingContent',
     transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
+    transitionConfig: () => transConfig()
   }
 );
 
@@ -157,11 +170,7 @@ const FavoritesNavigator = createStackNavigator(
   {
     initialRouteName: 'FavoritesContent',
     transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
+    transitionConfig: () => transConfig()
   }
 );
 
@@ -186,11 +195,7 @@ const NotificationNavigator = createStackNavigator(
   {
     initialRouteName: 'NotificationContent',
     transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
+    transitionConfig: () => transConfig()
   }
 );
 
@@ -224,11 +229,7 @@ const MoreNavigator = createStackNavigator(
   {
     initialRouteName: 'MoreContent',
     transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
+    transitionConfig: () => transConfig()
   }
 );
 
@@ -297,7 +298,7 @@ const Main = createBottomTabNavigator(
               onPress={() => navigate(navigation, 'NotificationContent', 2)}
             >
               {notificationsForExistingShows(shows, notifications)
-                ? <Icon style={{ color: '#197b30' }} type="MaterialIcons" name="notifications" />
+                ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="notifications" />
                 : <Icon type="MaterialIcons" name="notifications" style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled} />
               }
               <Text

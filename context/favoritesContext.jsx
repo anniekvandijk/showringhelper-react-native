@@ -19,7 +19,7 @@ const FavoritesProvider = ({ children }) => {
         setFavorites(result ? JSON.parse(result) : []);
       })
       .catch((error) => {
-        console.log(error);
+        throw new Error(`Error getting favorites: ${error}`);
       });
   }, []);
 
