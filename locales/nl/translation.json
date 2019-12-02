@@ -2,9 +2,9 @@
   "spinner": "Keuringen laden ...",
   "header": {
     "title": {
-      "rings": "Keuring",
+      "rings": "Shows",
       "ringNumberDetail": "Details",
-      "showDetail": "Keuring details",      
+      "showDetail": "Show details",      
       "filter": "Filter",
       "favorites": "Favoriet",
       "notifications": "Alarm",
@@ -16,7 +16,7 @@
   "components": {
     "noShowCard": {
       "header": "Geen keuringen",
-      "body": "Er zijn op dit moment geen actieve keuringen. Verwacht je wel een keuring? Neem dan contact op met je organisatie." 
+      "body": "Er zijn op dit moment geen actieve shows. Verwacht je wel een show? Neem dan contact op met je organisatie." 
     },
     "showCard": {
       "nextToPrepare": "Voorbereiden",
@@ -45,16 +45,16 @@
       "versionText": "versie"
     },
     "filterContent": {
-      "text": "Keuring filter. Maak je geen selectie dan worden alle keuringen getoond in het overzicht."
+      "text": "Show filter. Maak je geen selectie dan worden alle shows getoond in het overzicht."
     },
     "favoritesContent": {
       "deleteButton": " Verwijder ",
       "noFavorites": "Je hebt nog geen favorieten. Voeg een favoriet startnummer toe via de shows pagina"
     },
     "notificationContent": {
-      "text": "Selecteer keuring, fase en startnummer. Je krijgt een notificatie zodra dit startnummer in deze fase verschijnt.",
-      "showPickerPlaceholder": "Selecteer keuring",
-      "selectShow": "Selecteer keuring ...",
+      "text": "Selecteer show, fase en startnummer. Je krijgt een notificatie zodra dit startnummer in deze fase verschijnt.",
+      "showPickerPlaceholder": "Selecteer show",
+      "selectShow": "Selecteer show ...",
       "nextToPrepare": "Voorbereiden",
       "prepare": "Klaarstaan voor volgende ring",
       "inRing": "In ring",
