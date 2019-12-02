@@ -89,20 +89,16 @@ function transConfig() {
     containerStyle: {
       backgroundColor: 'transparent'
     },
-    screenInterpolator: (sceneProps) => {
-      const { scene } = sceneProps;
-      const { route } = scene;
-      const params = route.params || {};
-      const transition = params.transition || 'default';
-      const newScene = sceneProps;
-      if (newScene.layout.initWidth > 1000) {
-        (newScene.layout.initWidth = sceneProps.layout.initWidth);
-      } else {
-        (newScene.layout.initWidth = sceneProps.layout.initWidth * 1.9);
-      }
+    screenInterpolator: ({ layout, position, scene }) => {
+      const { initWidth } = layout;
+      const { index } = scene;
+      const translateX = position.interpolate({
+        inputRange:  [index - 1, index, index + 1],
+        outputRange: [initWidth, 0, -initWidth]
+      });
       return {
-        default: StackViewStyleInterpolator.forHorizontal(newScene)
-      }[transition];
+        transform: [{ translateX }]
+      };
     }
   });
 }
