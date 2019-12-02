@@ -3,7 +3,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { createAppContainer, StackActions } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, StackViewStyleInterpolator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';
@@ -27,8 +27,7 @@ const style = StyleSheet.create({
     color: '#D1D1D1'
   },
   buttonEnabled: {
-    // default styling  
-    
+    // default styling 
   },
   filterButtonDisabled: {
     backgroundColor: 'transparent',
@@ -86,6 +85,29 @@ function FilterButton({ navigation }) {
   );
 }
 
+function transConfig() {
+  return ({
+    containerStyle: {
+      backgroundColor: 'transparent'
+    },
+    screenInterpolator: (sceneProps) => {
+      const { scene } = sceneProps;
+      const { route } = scene;
+      const params = route.params || {};
+      const transition = params.transition || 'default';
+      const newScene = sceneProps;
+      if (newScene.layout.initWidth > 1000) {
+        (newScene.layout.initWidth = sceneProps.layout.initWidth);
+      } else {
+        (newScene.layout.initWidth = sceneProps.layout.initWidth * 1.9);
+      }
+      return {
+        default: StackViewStyleInterpolator.forHorizontal(newScene)
+      }[transition];
+    }
+  });
+}
+
 const RingNavigator = createStackNavigator(
   {
     RingContent: {
@@ -128,11 +150,7 @@ const RingNavigator = createStackNavigator(
   {
     initialRouteName: 'RingContent',
     transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
+    transitionConfig: () => transConfig()
   }
 );
 
@@ -157,11 +175,7 @@ const FavoritesNavigator = createStackNavigator(
   {
     initialRouteName: 'FavoritesContent',
     transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
+    transitionConfig: () => transConfig()
   }
 );
 
@@ -186,11 +200,7 @@ const NotificationNavigator = createStackNavigator(
   {
     initialRouteName: 'NotificationContent',
     transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
+    transitionConfig: () => transConfig()
   }
 );
 
@@ -224,11 +234,7 @@ const MoreNavigator = createStackNavigator(
   {
     initialRouteName: 'MoreContent',
     transparentCard: true,
-    transitionConfig: () => ({
-      containerStyle: {
-        backgroundColor: 'transparent'
-      }
-    })
+    transitionConfig: () => transConfig()
   }
 );
 
