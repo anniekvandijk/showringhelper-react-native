@@ -1,5 +1,5 @@
 {
-  "spinner": "Keuringen laden ...",
+  "spinner": "Shows laden ...",
   "header": {
     "title": {
       "rings": "Shows",
@@ -15,7 +15,7 @@
   },
   "components": {
     "noShowCard": {
-      "header": "Geen keuringen",
+      "header": "Geen shows",
       "body": "Er zijn op dit moment geen actieve shows. Verwacht je wel een show? Neem dan contact op met je organisatie." 
     },
     "showCard": {
