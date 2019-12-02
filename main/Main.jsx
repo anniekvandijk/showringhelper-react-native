@@ -26,15 +26,14 @@ const style = StyleSheet.create({
     backgroundColor: 'transparent',
     color: '#D1D1D1'
   },
-  buttonEnabled: {
-    // default styling 
-  },
-  filterButtonDisabled: {
+  filterIconActive: {
     backgroundColor: 'transparent',
-    color: '#D1D1D1',
-    elevation: 0
+    color: '#2acd50'
   },
-  filterButtonEnabled: {
+  filterIcon: {
+    backgroundColor: 'transparent'
+  },
+  filterButton: {
     backgroundColor: 'transparent',
     elevation: 0
   }
@@ -53,13 +52,14 @@ function NavHeader({ navigation, title, showBack }) {
 
 function ShowsHeader({ navigation, title, showBack }) {
   const [t] = useTranslation();
+  const shows = useShowContext();
   return (
     <Header
       title={t(title)}
       showBack={showBack}
       navigation={navigation}
     >
-      <FilterButton navigation={navigation} />
+      {shows && shows.length > 1 && <FilterButton navigation={navigation} />}
     </Header>
   );
 }
@@ -73,13 +73,12 @@ function FilterButton({ navigation }) {
   return (
     <Button
       vertical
-      disabled={shows && shows.length === 0}
-      style={(shows && shows.length === 0) ? style.filterButtonDisabled : style.filterButtonEnabled}
+      style={style.filterButton}
       onPress={() => navigation.navigate('FilterContent')}
     >
       {filteredShows && filteredShows.length > 0
-        ? <Icon style={{ color: '#2acd50' }} type="MaterialIcons" name="filter-list" />
-        : <Icon type="MaterialIcons" name="filter-list" style={(shows && shows.length === 0) ? style.buttonDisabled : style.buttonEnabled} />
+        ? <Icon style={style.filterIconActive} type="MaterialIcons" name="filter-list" />
+        : <Icon type="MaterialIcons" name="filter-list" style={style.filterIcon} />
       }
     </Button>
   );
