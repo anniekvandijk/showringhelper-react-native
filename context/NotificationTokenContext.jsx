@@ -19,7 +19,7 @@ const NotificationTokenProvider = ({ children }) => {
         setNotificationToken(result ? JSON.parse(result) : null);
       })
       .catch((error) => {
-        console.log(error);
+        throw new Error(`Error getting notifications: ${error}`);
       });
   }, []);
 

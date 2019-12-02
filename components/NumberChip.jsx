@@ -42,8 +42,6 @@ function NumberChip({startNumber, disabled, onPress}) {
       x => x.ringNumber === startNumber.value && x.showId === startNumber.showId
     ).length > 0;
 
-  console.log(isNotification);
-
   const isFavorite = favorites
     && favorites.length > 0
     && favorites.filter(

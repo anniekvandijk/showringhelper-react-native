@@ -138,7 +138,9 @@ function NotificationContent({ navigation }) {
                 setNotifications([...notifications, ...addNot]);
               }
             })
-            .catch(error => console.log(error));
+            .catch((error) => {
+              throw new Error(`Error in setting notifications: ${error}`);
+            });
         }
       });
     clear();
