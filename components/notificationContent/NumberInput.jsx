@@ -13,6 +13,7 @@ function NumberInput({ value, onChange }) {
       onChangeText={text => onChange(text)}
       value={value}
       maxLength={5}
+      keyboardType="number-pad"
     />
   );
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Notifications } from 'expo';
 import {
-  Spinner, Content, Text, Card, CardItem, Button, Left, Right, Body, Item, CheckBox
+  Spinner, Content, Text, Card, CardItem, Button, Left, Right, Body, Item, CheckBox, List, ListItem
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import AlertMessage from '../components/AlertMessage';
@@ -23,6 +23,9 @@ const style = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     alignSelf: 'center'
+  },
+  listItem: {
+    width: '100%'
   },
   checkbox: {
     marginRight: 40
@@ -208,37 +211,50 @@ function NotificationContent({ navigation }) {
           && (
             <>
               <CardItem>
-                <CheckBox
-                  name="nextToPrepareCheckbox"
-                  style={style.checkbox}
-                  checked={nextToPrepareChecked}
-                  onPress={() => checkboxNextToPrepare()}
-                />
-                <Body>
-                  <Text>{t('pages.notificationContent.nextToPrepare')}</Text>
-                </Body>
-              </CardItem>
-              <CardItem>
-                <CheckBox
-                  name="prepareCheckbox"
-                  style={style.checkbox}
-                  checked={prepareChecked}
-                  onPress={() => checkboxPrepare()}
-                />
-                <Body>
-                  <Text>{t('pages.notificationContent.prepare')}</Text>
-                </Body>
-              </CardItem>
-              <CardItem>
-                <CheckBox
-                  name="inRingCheckbox"
-                  style={style.checkbox}
-                  checked={inRingChecked}
-                  onPress={() => checkboxInring()}
-                />
-                <Body>
-                  <Text>{t('pages.notificationContent.inRing')}</Text>
-                </Body>
+                <List>
+                  <ListItem
+                    style={style.listItem}
+                    noIndent
+                    noBorder
+                    onPress={() => checkboxNextToPrepare()}
+                  >
+                    <CheckBox
+                      name="nextToPrepareCheckbox"
+                      style={style.checkbox}
+                      checked={nextToPrepareChecked}
+                      onPress={() => checkboxNextToPrepare()}                      
+                    />
+                    <Text>{t('pages.notificationContent.nextToPrepare')}</Text>
+                  </ListItem>
+                  <ListItem
+                    style={style.listItem}
+                    noIndent
+                    noBorder
+                    onPress={() => checkboxPrepare()}
+                  >
+                    <CheckBox
+                      name="prepareCheckbox"
+                      style={style.checkbox}
+                      checked={prepareChecked}
+                      onPress={() => checkboxPrepare()}
+                    />
+                    <Text>{t('pages.notificationContent.prepare')}</Text>
+                  </ListItem>
+                  <ListItem
+                    style={style.listItem}
+                    noIndent
+                    noBorder
+                    onPress={() => checkboxInring()}
+                  >
+                    <CheckBox
+                      name="inRingCheckbox"
+                      style={style.checkbox}
+                      checked={inRingChecked}
+                      onPress={() => checkboxInring()}
+                    />
+                    <Text>{t('pages.notificationContent.inRing')}</Text>
+                  </ListItem>
+                </List>
               </CardItem>
               <CardItem bordered>
                 <Left>
