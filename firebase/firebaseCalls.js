@@ -49,8 +49,8 @@ async function postNotification(notification, token) {
   }
 }
 
-const deleteNotification = (notification) => {
-  const doc = `${notification.showId}-${notification.ringNumber}-${notification.ring}-${notification.token}`;
+const deleteNotification = (notification, notificationToken) => {
+  const doc = `${notification.showId}-${notification.ringNumber}-${notification.ring}-${notificationToken}`;
   try {
     if (!notification) throw new Error('notification is blank');
     database.collection(dbNotifications).doc(doc).delete();
