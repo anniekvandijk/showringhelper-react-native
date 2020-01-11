@@ -41,7 +41,7 @@ function NotificationList({ navigation }) {
 
   function deleteThis(notification) {
     if (notificationToken) {
-      deleteNotification(notification);
+      deleteNotification(notification, notificationToken);
       setNotifications(notifications.filter(x => x !== notification));
     }
   }
