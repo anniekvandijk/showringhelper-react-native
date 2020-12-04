@@ -35,7 +35,8 @@
         "xxxhdpi": "./images/splashscreen.png",
         "resizeMode": "native",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "useNextNotificationsApi": true
     },
     "hooks": {
       "postPublish": [

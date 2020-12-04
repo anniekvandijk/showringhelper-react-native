@@ -3,10 +3,10 @@ import {
   SENTRY_ORG, SENTRY_PROJECT, SENTRY_AUTH_TOKEN, SENTRY_DSN, ENV
 } from 'react-native-dotenv';
 import * as Sentry from 'sentry-expo';
-import Constants from 'expo-constants';
 import React, { useState } from 'react';
 import './i18n';
-import { AppLoading, Notifications } from 'expo';
+import { AppLoading } from 'expo';
+import * as Notifications from 'expo-notifications';
 import { Container, StyleProvider } from 'native-base';
 import { ImageBackground, StyleSheet, Platform, Text } from 'react-native';
 import * as Font from 'expo-font';
@@ -51,8 +51,6 @@ function App() {
     debug: true
   });
 
-  Sentry.setRelease(Constants.manifest.revisionId);
-
   // OnePlus & Oppo fix https://github.com/facebook/react-native/issues/15114
   if (Platform.OS === 'android') {
     const oldRender = Text.render;
@@ -62,10 +60,14 @@ function App() {
         style: [{fontFamily: 'Roboto'}, origin.props.style]
       });
     };
-    Notifications.createChannelAndroidAsync('showringhelper', {
+  }
+
+  // Create Android Channel
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('showringhelper', {
       name: 'Showringhelper',
       sound: true,
-      priority: 'max',
+      priority: Notifications.AndroidImportance.MAX,
       vibrate: [0, 250, 250, 250]
     });
   }

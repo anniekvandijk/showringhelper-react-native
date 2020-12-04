@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Notifications } from 'expo';
+import * as Notifications from 'expo-notifications';
 import {
   Spinner, Content, Text, Card, CardItem, Button, Left, Right, Body, Item, CheckBox, List, ListItem
 } from 'native-base';
@@ -97,7 +97,8 @@ function NotificationContent({ navigation }) {
   }
 
   async function getToken() {
-    const token = await Notifications.getExpoPushTokenAsync();
+    const tokenObject = await Notifications.getExpoPushTokenAsync();
+    const token = tokenObject.data;
     setNotificationToken(token);
     return token;
   }
