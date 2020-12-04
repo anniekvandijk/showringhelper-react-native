@@ -1,7 +1,7 @@
 import { hijackEffects } from 'stop-runaway-react-effects';
 import {
   SENTRY_ORG, SENTRY_PROJECT, SENTRY_AUTH_TOKEN, SENTRY_DSN, ENV
-} from 'react-native-dotenv';
+} from '@env';
 import * as Sentry from 'sentry-expo';
 import React, { useState } from 'react';
 import './i18n';

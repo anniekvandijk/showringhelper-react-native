@@ -1,4 +1,4 @@
-import { FIREBASE_DB_NOTIFICATIONS } from 'react-native-dotenv';
+import { FIREBASE_DB_NOTIFICATIONS } from '@env';
 import { database } from './firebase';
 
 const dbNotifications = FIREBASE_DB_NOTIFICATIONS;

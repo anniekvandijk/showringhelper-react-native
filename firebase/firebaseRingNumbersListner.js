@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FIREBASE_DB_RINGNUMBERS } from 'react-native-dotenv';
+import { FIREBASE_DB_RINGNUMBERS } from '@env';
 import { database } from './firebase';
 
 function FirebaseRingNumbersListner() {
