@@ -64,10 +64,17 @@ function App() {
 
   // Create Android Channel
   if (Platform.OS === 'android') {
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false
+      })
+    });
     Notifications.setNotificationChannelAsync('showringhelper', {
       name: 'Showringhelper',
-      sound: true,
-      priority: Notifications.AndroidImportance.MAX,
+      sound: 'default',
+      importance: Notifications.AndroidImportance.MAX,
       vibrate: [0, 250, 250, 250]
     });
   }

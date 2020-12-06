@@ -5,6 +5,9 @@ This is a React Native app build with Expo and conecting to Firebase. This app i
 Owner of this project and owner of the the Expo-cli, Store accounts and Firebase project is Anniek van Dijk (anniek@animundo.nl) 
 
 ## Expo
+Due to bug in babel combined with .env files. Clear cache first before publishing/building.
+expo r -c (expo start --clear), so you need to start app before cleaning cache
+
 Run with Expo local:  
 expo start
 
@@ -25,9 +28,13 @@ Builds for Stores can also be found there
 ## Expo-cli
 Update expo in cmd with admin npm install -g expo-cli
 
-## Firebase
-The app is connecting to firebase FireStore project Showring helper. 
+## Firebase FireStore
+The app is connecting to fiarebase FireStore project Showring helper. 
 Firebase config is in the .env file (also gitIgnored)
+
+## Firebase Functions
+For sending push notifications the app connects to a firebase function.  
+Auth is in the gooogle-services.json which is gitignored.  
 
 ## Deploying Android app
 Download build
