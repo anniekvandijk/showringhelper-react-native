@@ -3,7 +3,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { createAppContainer, StackActions } from 'react-navigation';
-import { createStackNavigator, StackViewStyleInterpolator } from 'react-navigation-stack';
+import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Button, Text, Icon, Footer, FooterTab } from 'native-base';
 import { useShowContext } from '../context/showContext';

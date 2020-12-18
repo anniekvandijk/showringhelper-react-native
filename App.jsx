@@ -5,7 +5,7 @@ import {
 import * as Sentry from 'sentry-expo';
 import React, { useState } from 'react';
 import './i18n';
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import * as Notifications from 'expo-notifications';
 import { Container, StyleProvider } from 'native-base';
 import { ImageBackground, StyleSheet, Platform, Text } from 'react-native';
@@ -47,6 +47,7 @@ function App() {
     project: SENTRY_PROJECT,
     authToken: SENTRY_AUTH_TOKEN,
     dsn: SENTRY_DSN,
+    enableNative: false,
     enableInExpoDevelopment: false,
     debug: true
   });
@@ -94,8 +95,6 @@ function App() {
   function handleFinishLoading() {
     setIsReady(true);
   }
-
-  // TODO: https://docs.expo.io/versions/latest/sdk/app-loading/ 
 
   if (!isReady) {
     return (
