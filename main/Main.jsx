@@ -242,7 +242,9 @@ function navigate(navigation, screen, index) {
 
 function notificationsForExistingShows(shows, notifications) {
   if (notifications && notifications.length > 0 && shows) {
-    const filteredNotifications = shows.filter(elem => notifications.find(({ showId }) => elem.id === showId));
+    const filteredNotifications = shows.filter(
+      elem => notifications.find(({ showId }) => elem.id === showId)
+    );
     if (filteredNotifications && filteredNotifications.length > 0) {
       return true;
     }
